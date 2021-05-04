@@ -1,0 +1,168 @@
+body{
+    font-family: "Noto Sans KR",sans-serif;
+}
+
+/*리뷰 체크 컨테이너*/
+.review_container{
+    background-color: #fff;
+}
+.review_check_container{
+    width:800px;
+    height:600px;
+    border: 1px solid #f91b4e;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin:-301px 0 0 -401px;
+    background-color: #fff;
+}
+/*  end 리뷰 체크 컨테이너*/
+
+
+
+.review_check_container>div{
+
+    color: #fff;
+}
+
+/*    리뷰 상단 문구*/
+.review_check_container .title_text{
+    width:800px;
+    height:100px;
+    background-color: #f91b4e;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 100px;
+    position: fixed;
+}
+/*    end 리뷰 상단 문구*/
+
+/*    중복 선택 가능합니다.*/
+.review_check_container .title_text p{
+    font-size: 15px;
+    line-height: 20px;
+    position: absolute;
+    bottom:20px;
+    right:100px;
+    font-weight: 200;
+}
+/*    end 중복 선택 가능합니다.*/
+
+/*    리뷰 체크 박스들*/
+.review_check_container .review_check_box{
+    width:500px;
+    height:300px;
+    top:175px;
+    left:150px;
+    position:absolute;
+
+}
+/*    end 리뷰 체크 박스들*/
+
+
+/*    체크 박스 스타일*/
+.review_check span{
+
+    display: inline-block;
+    width:158px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    /*height크기의 절반 이상이면 됨*/
+    border-radius:40px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+
+
+
+}
+
+
+
+/*input을 숨김*/
+.review_check input[type=checkbox]{
+    display: none;
+}
+
+.review_check input:checked+span{
+    color: #f91b4e;
+    border: 1px solid #f91b4e;
+}
+/*    end 체크 박스 스타일*/
+
+
+/*체크 박스들 하나마다 위치 설정 해주기*/
+.review_check_box label{
+    position:absolute;
+}
+.review_check_box label:nth-child(1){
+    top:0px;
+    left:0px;
+}
+
+.review_check_box label:nth-child(2){
+    top:110px;
+    left:0px;
+}
+
+.review_check_box label:nth-child(3){
+    top:220px;
+    left:0px;
+}
+
+.review_check_box label:nth-child(4){
+    top:0px;
+    left:340px;
+}
+
+.review_check_box label:nth-child(5){
+    top:110px;
+    left:340px;
+}
+/*end 체크 박스들 하나마다 위치 설정 해주기*/
+
+
+
+
+/*!*    확인 버튼과 닫기 버튼 박스*!*/
+.button_box {
+    width:800px;
+    height:600px;
+}
+
+/*    end 확인 버튼과 닫기 버튼 박스*/
+
+/*    확인 버튼, 닫기 버튼*/
+.button_box button{
+    border: none;
+    color: #fff;
+    background-color: #f91b4e;
+    position:absolute;
+}
+/*    end 확인 버튼, 닫기 버튼*/
+
+/*    확인 버튼*/
+.ok_btn{
+    width:100px;
+    height:40px;
+    left:350px;
+    bottom:20px;
+    font-family:"Noto Sans KR", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+
+}
+/*    end 확인버튼*/
+
+/*    취소 버튼*/
+.close_btn{
+    width:40px;
+    height:40px;
+    right:0px;
+    font-size: 20px;
+
+}
+/*    end 취소 버튼*/

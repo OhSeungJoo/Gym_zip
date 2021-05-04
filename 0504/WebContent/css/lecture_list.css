@@ -1,0 +1,210 @@
+
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+
+        .lecture_box{
+            width:800px;
+            margin:auto;
+        }
+        /*end lectureBox*/
+
+        .lecture_box>ul{
+            width:800px;
+        }
+        /*end lectureList*/
+
+        .lecture_box ul .lecture_list{
+            height:180px;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+        }
+        /*end 강의 목록 리스트*/
+
+        .lecture_box ul .lecture_list>div{
+            position: absolute;
+        }
+
+        /*강의 이미지*/
+        .lecture_img{
+            width: 210px;
+            height:140px;
+            background-color: black;
+            top:20px;
+            left:20px;
+        }
+        /* end 강의 이미지   */
+
+        /*미수강*/
+        .no_lesson{
+            top:70px;
+            left:700px;
+            width:100px;
+            height:50px;
+            color:#fff;
+            position:absolute;
+            background-color: #f91b4e;
+            font-size: 25px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 50px;
+        }
+        /*end 미수강*/
+
+
+        /*강의 이름*/
+        .lecture_name{
+            top:30px;
+            left:270px;
+            font-size: 25px;
+            font-weight: 600;
+        }
+        /*end 강의 이름*/
+
+        /*코치 정보*/
+        .coach_inform{
+            top:80px;
+            left:270px;
+        }
+        /*end 코치 정보*/
+
+
+        .coach_inform>div{
+            display: inline-block;
+
+        }
+
+        /*코치 이름*/
+        .coach_inform .coach_name{
+            font-size: 18px;
+        }
+        /*end 코치 이름*/
+
+
+        /*칼로리 정보*/
+        .kcal_inform{
+            top:110px;
+            left:270px;
+        }
+        /*end 칼로리 정보*/
+
+
+        /*운동 수 정보*/
+        .exercise_num_inform{
+            top:130px;
+            left: 270px;
+        }
+        /*end 운동 수 정보*/
+
+        /*운동 수 와 칼로리 정보 내부 div*/
+        .exercise_num_inform>div, .kcal_inform>div{
+            display: inline-block;
+        }
+        /*end 운동수와 칼로리 정보 인라인 만들기*/
+
+        /*잔여 기간 및 리뷰*/
+        .date_and_review{
+            top:70px;
+            left:700px;
+        }
+        /* end 잔여기간 및 리뷰 */
+
+        .date_and_review>div{
+            text-align: center;
+        }
+
+
+        .date_and_review .rest_day.rest_data{
+            color: #f91b4e;
+
+            font-size: 28px;
+            font-weight: 500;
+
+        }
+
+        .bottom_btn{
+            width:100px;
+        }
+
+        .bottom_btn>button{
+            width: 90px;
+            position: absolute;
+            margin-left: -45px;
+            border: 1px solid #f91b4e;
+            border-radius: 50px;
+            color: #f91b4e;
+            background-color: #fff;
+            margin-top: 10px;
+            font-family: "Noto Sans KR", sans-serif;
+            padding: 5px;
+        }
+
+        .take_lecture_btn{
+      	    width: 90px;
+            border: 1px solid #f91b4e;
+            border-radius: 50px;
+            color: #f91b4e;
+            background-color: #fff;
+            font-family: "Noto Sans KR", sans-serif;
+            padding: 5px;
+        }
+
+        .update_review_btn{
+        }
+
+    /*    리뷰 쓰기 팝업 ==================================================================*/
+
+    /*    팝업 배경*/
+    .popup{
+        position: absolute;
+        top:0px;
+        width:100%;
+        height:100%;
+        background-color: rgba(0,0,0,0.7);
+        display: none;
+    }
+    /*end 팝업 배경*/
+
+    /*팝업이 열렸을 때*/
+    .popup.on{
+ 	    position: fixed;
+        top:0px;
+        left:0px;
+        width:100%;
+        height:100%;
+        background-color: rgba(0,0,0,0.7);
+        display: block;
+    }
+    /*end 팝업이 열렸을 때 */
+
+    /*    리뷰 컨테이너*/
+    .popup .review_container{
+        position:fixed;
+        width:800px;
+        height:600px;
+        background-color: #fff;
+        top:50%;
+        left:50%;
+        margin:-300px 0 0 -400px;
+    }
+    /*리뷰 컨테이너*/
+
+        .button_box i{
+            display: none;
+        }
+    #showMorePage{
+      	width:800px;
+      	height:40px;
+      	line-height:40px;
+      	background-color:#999999;
+      	color:#fff;
+      	position:relative;
+      	text-align:center;
+      	margin:auto;
+      	transition: .2s ease;
+      }
+    #showMorePage:hover{
+      	background-color: rgb(249, 27, 78);
+      	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      }

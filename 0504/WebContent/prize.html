@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<!--20201221 오승주 작성
+수상, 경력, 자격에 관한 페이지를 작성하였다.
+추후에 크기를 보기위해 지정하였던 배경색들을 모두 제거해야한다. -->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>수상 및 경력</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+
+    <style>
+
+        body{
+            font-family: "Noto Sans KR",sans-serif;
+        }
+
+
+        /*수상, 경력, 자격을 감싸는 div*/
+        #content{
+            width:800px;
+            margin:auto;
+
+            padding: 40px 40px 100px 40px;
+
+
+        }
+        /*#content end*/
+
+        /*모든 h4요소*/
+        h4{
+            font-size: 25px;
+            font-weight: 600;
+
+            float: left;
+            width:50px;
+            height:50px;
+            margin-left: 75px;
+
+            line-height: 50px;
+
+            color: #f91b4e;
+        }
+        /* h4 end*/
+
+        /* 수상, 경력, 자격 뒤에 있는 선*/
+        .line{
+            width : 600px;
+            height:4px;
+
+            background-color: #f91b4e;
+
+            float: left;
+            margin-top: 23px;
+        }
+        /* .line end*/
+
+        .line_div{
+            height:50px;
+            /*background-color: green;*/
+        }
+
+        /*모든 추가하기 버튼*/
+        .plus_area>button{
+            background-color: #fff;
+            /*position: relative;*/
+            left:50%;
+
+            width:90px;
+            height:30px;
+
+            margin-left : 355px;
+            margin-top:10px;
+
+            border: 1px solid #f91b4e;
+            color: #f91b4e;
+
+            border-radius: 35px;
+
+            font-family: "Noto Sans KR",sans-serif;
+            font-weight: 400;
+
+        }
+        /*#content>div>button (모든 추가하기 버튼) end*/
+
+        /*모든 추가하기 버튼 hover와 클릭했을 때 */
+        #content .plus_area>button:hover, #content .plus_area>button:active{
+            color:#fff;
+            background-color: #f91b4e;
+        }
+
+
+        /*테스트 !!!!!!!!!!!!!!*/
+
+
+        /*============================================================================*/
+        /*추가 입력 스타일*/
+
+        /*수상과 자격을 추가하는 입력 폼*/
+        #content #prize #plusPrize, #content #qualification #plusQualification{
+            width:600px;
+            height:60px;
+            background-color: #fff;
+
+            /*bottom:0px;*/
+            margin-left: 100px;
+
+
+            /*일단은 안보이게*/
+            display: none;
+
+        }
+        /*#content #prize #plusPrize, #content #qualification #plusQualification (수상과 자격을 추가하는 입력폼) end*/
+
+        /*경력을 추가하는 입력폼*/
+        #content #career .plus_area #plusCareer{
+            width:258px;
+            height:218px;
+            background-color: #fff;
+
+            position: absolute;
+
+
+            left:50%;
+
+            margin-top:-140px;
+            margin-left: -150px;
+
+            border: 1px solid #f91b4e;
+
+            padding: 20px;
+            /*일단은 안보이게*/
+            display: none;
+        }
+         /*경력 추가 입력폼 end*/
+         /*===============================================================================*/
+
+         /* 경력과 자격에 대해 위 마진 값*/
+        #career,#qualification{
+            margin-top: 10px;
+        }
+        /*#career, #qualification (경력, 자격 div) end*/
+
+
+        /*수상과 자격의 추가하는 부분에 관한 스타일 */
+        #prize .plus_area, #qualification .plus_area{
+            height:100px;
+
+
+        }
+        /* #prize .plus_area, #qualification .plus_area end (수상과자격 추가부분)*/
+
+
+        /*수상과 자격의 input 요소에 관한 스타일*/
+        #prize .plus_area input, #qualification .plus_area input{
+            width: 500px;
+            border: none;
+            border-bottom: 3px solid #f91b4e;
+            margin-left: 20px;
+            margin-top:20px;
+        }
+        /* #prize .plus_area input, #qualification .plus_area input end (수상과 자격의 input 요소)*/
+
+
+        /*수상과 자격 등록 버튼*/
+        #prize .plus_area form button, #qualification .plus_area  form button{
+            width:48px;
+            height:30px;
+            border: 1px solid #f91b4e;
+            background-color: #fff;
+            color:#f91b4e;
+            margin-left: 10px;
+            margin-top:20px;
+        }
+        /*end #prize .plus area form button, #qualification .plus_area form button (수상과 자격 등록 버튼)*/
+
+
+        /*리스트 스타일 정의*/
+        ul{
+            padding-left: 100px;
+        }
+        li{
+            margin-top:5px;
+        }
+        /* end ul, li  리스트 스타일 정의 */
+
+
+        /*경력 추가 팝업 닫힘 */
+        .plus_area #plusCareer i{
+            position:absolute;
+            right:0px;
+            font-size: 25px;
+            color: #f91b4e;
+            margin-top: -20px;
+        }
+        /*end .plus_area #plusCareer i (경력 추가 팝업 닫힘)*/
+
+
+        /*경력 추가 팝업 업체명*/
+        .plus_area #plusCareer #companyName{
+            width:250px;
+            margin:15px 0 20px 0;
+            border: none;
+            border-bottom: 3px solid #f91b4e;
+
+        }
+        /*end .plus_area #plusCareer #companyName (경력 추가 팝업 업체명)*/
+
+
+        /*경력 시작일과 종료일 날짜 입력*/
+        #firstDate select, #lastDate select{
+
+            width:50px;
+            border:1px solid #f91b4e;
+        }
+        /*end #firstDate input, #lastDate input(경력 시작일과 종료일 날짜 입력)*/
+
+        /*부터, 까지 문구*/
+        #firstDate p, #lastDate p{
+            float: right;
+            font-weight: 500;
+            color: #f91b4e;
+        }
+        /*end #firstDate , #lastDate p (부터, 까지 문구)*/
+
+
+        /*경력 시작일 div*/
+        #firstDate{
+            margin-top: 5px;
+        }
+       /*end #firstDate (경력 시작일 div)*/
+
+       /* 경력 종료일 div*/
+       #lastDate{
+            margin-top: 30px;
+        }
+        /*end #lastDate (경력 종료일 div)*/
+
+
+
+        /*!*경력 시작일과 종료일 유효성 검사 문구*!*/
+        /*#firstDate .caution,#lastDate .caution{*/
+        /*    font-size: 10px;*/
+        /*    float:left;*/
+        /*    color: #f00;*/
+        /*}*/
+        /*!*end #firstDate .caution, #lastDate .caution (경력 시작일과 종료일 유효성 검사문구)*!*/
+
+
+        /*경력 "등록 완료!" 버튼*/
+        #career #careerInputBtn{
+            clear: both;
+            width:298px;
+            height:30px;
+            background-color: #f91b4e;
+            color: #fff;
+            border: 1px solid #f91b4e;
+            font-family: "Noto Sans KR";
+            font-weight: 400;
+            left: 0px;
+            bottom:0px;
+            position: absolute;
+
+        }
+        /*end #career #careerInputBtn (경력 "등록 완료!" 버튼)*/
+
+
+    /*    자격증 자동 완성 */
+        #autocompleteArea{
+            width:480px;
+
+
+            margin-left: 20px;
+            display: none;
+        }
+    /*    end 자격증 자동완성*/
+    </style>
+</head>
+<body>
+<!--수상 및 경력, 자격 사항등 전체를 감싸는 div-->
+<div id="content">
+    <!------------- 수상--------------------------->
+    <div id="prize">
+        <div class="line_div">
+        <h4>수상</h4>
+        <div class="line"></div>
+        </div>
+        <ul>
+
+        <!--추가하기를 통해 누르면 li 요소가 append 된다. -->
+        </ul>
+
+        <!--수상을 추가하는 div -->
+        <div class="plus_area">
+            <button id="plusPrizeBtn">추가하기</button>
+            <!--수상을 추가하는 입력 폼-->
+            <form id="plusPrize">
+
+                <input placeholder="대회명과 순위를 기재해주세요" name="prize" type="text">
+                <button id="prizeInputBtn" type="button">등록</button>
+            </form>
+        </div>
+        <!-- 수상을 추가하는 div end -->
+
+    </div>
+    <!--prize end -->
+
+
+    <!---------------경력-------------------------------->
+    <div id="career">
+        <div class="line_div">
+        <h4>경력</h4>
+        <div class="line"></div>
+        </div>
+        <ul>
+
+
+            <!--추가하기를 통해 누르면 li 요소가 append 된다. -->
+        </ul>
+
+        <!-- 경력을 추가하는 div-->
+        <div class="plus_area">
+            <button id="plusCareerBtn">추가하기</button>
+            <!--경력을 추가하는 입력 폼-->
+            <form id="plusCareer">
+
+                <!--창 닫힘 표시-->
+                <div><i class="fas fa-times"></i></div>
+                <!---------------->
+
+                <div>
+                    <input name="companyName" id="companyName" placeholder="업체 명과 직위를 입력해주세요.">
+                </div>
+
+                <p>근무기간</p>
+
+
+                <!--근무 시작일 -->
+                <div id="firstDate">
+
+                    <select name="firstDateYear" id="firstDateYear"></select>년
+                    <select name="firstDateMonth" id="firstDateMonth"></select>월
+                    <select name="firstDateDay" id="firstDateDay"></select>일
+
+                    <p>부터</p>
+                </div>
+<!--                    <p class="caution">제대로된 숫자를 입력해주세요.</p>-->
+
+                <!-- firstDate div end (근무 시작일) -->
+
+                <!--근무 종료일 -->
+                <div id="lastDate">
+                    <select name="lastDateYear" id="lastDateYear"></select>년
+                    <select name="lastDateMonth" id="lastDateMonth"></select>월
+                    <select name="lastDateDay" id="lastDateDay"></select>일
+
+                    <p>까지</p>
+
+<!--                    <p class="caution">제대로된 숫자를 입력해주세요.</p>-->
+                </div>
+                <!-- lastDate div end (근무 종료일) -->
+
+
+                <button id="careerInputBtn" type="button">등록완료!</button>
+
+
+            </form>
+        </div>
+        <!-- 경력을 추가하는 div end-->
+    </div>
+    <!--career end-->
+
+
+    <!--------------자격-------------------------------->
+    <div id="qualification">
+        <div class="line_div">
+        <h4>자격</h4>
+        <div class="line"></div>
+        </div>
+        <ul>
+
+            <!--추가하기를 통해 누르면 li 요소가 append 된다. -->
+        </ul>
+
+        <!-- 자격을 추가하는 div-->
+        <div class="plus_area">
+            <button id="plusQualificationBtn">추가하기</button>
+            <!--자격을 추가하는 입력 폼-->
+            <form id="plusQualification">
+
+                <input id="Inputqualification" placeholder="자격증 명을 기재해주세요" name="qualification" type="text">
+                <button id="qualifiInputBtn" type="button">등록</button>
+                <div id="autocompleteArea">과연 어디에 나타날까요</div>
+            </form>
+
+        </div>
+        <!-- 자격을 추가하는 div end-->
+
+    </div>
+    <!--자격 end qualification div end-->
+
+</div>
+<!--content end-->
+
+<!--제이쿼리 라이브러리를 임포트-->
+<script src="js/jquery.js"></script>
+<script src="js/moment-with-locales.js"></script>
+<script>
+
+
+    let prizeObj =new Object(); // 수상 객체
+
+    $("ul i").css("color","#e0e0e0");
+
+    // 수상 부문 ajax 등록
+        $.ajax({
+            url:"data/prize.json",
+            error:function () {
+                alert("다시하세요");
+            },
+            success:function (json) {
+                   $.each(json,function () {
+                       const $delete=$("<i>").addClass("fas").addClass("fa-times");
+                       // x 표시를 포함한 수상 리스트
+                       const $prizeList=$("<li>").text(this.text).append($delete);
+
+                       $("#prize ul").append($prizeList);
+
+                       // x표시 색깔 연하게 하기
+                       $("ul i").css("color","#e0e0e0");
+
+
+                   });
+            }
+
+        })
+    // end 수상 부문 ajax 등록
+
+    // 자격 부문 ajax 등록
+    $.ajax({
+       url:"data/qualify.json",
+       error:function () {
+           alert("서비스오류");
+       },
+       success:function (json) {
+           $.each(json,function () {
+
+               const $delete=$("<i>").addClass("fas").addClass("fa-times");
+               // x 표시를 포함한 수상 리스트
+               const $qualificationList=$("<li>").text(this.title).append($delete);
+
+               $("#qualification ul").append($qualificationList);
+
+               // x표시 색깔 연하게 하기
+               $("ul i").css("color","#e0e0e0");
+
+           });
+       }
+
+    });
+
+    // 경력 부문 ajax 등록
+    $.ajax({
+        url:"data/career.json",
+        error:function () {
+            alert("서비스오류");
+        },
+        success:function (json) {
+
+            $.each(json,function () {
+
+                let firstDateT=moment(this.firstDate,'YYYY-MM-DD');
+                let lastDateT=moment(this.lastDate,'YYYY-MM-DD');
+                let period=moment.duration(lastDateT.diff(firstDateT)).asMonths();
+                let periodYear=Math.floor(period/12); // 일한 년수 달수의 12를 나눈것의 몫
+                let periodMonth=Math.floor(period%12); // 일한 달수 달 수의 12를 나눈것의 나머지
+
+                const $delete=$("<i>").addClass("fas").addClass("fa-times");
+                // 회사이름 하고 일한 년수, 일한 달수 해서 붙여서 ul에 넣기
+                //=============================================================
+                let $careerList=$("<li>").text(this.companyName+"  "+periodYear+"년 "+periodMonth+"개월").append($delete);
+
+
+                $("#career ul").append($careerList);
+
+                // x표시 색깔 연하게 하기
+                $("ul i").css("color","#e0e0e0");
+
+
+
+            });
+
+
+
+        }
+    });
+
+
+
+    // 자격증 들 불러오기
+
+    // 검색될 결과들
+    let searchResults=[];
+
+
+
+    $.ajax({
+        url:"data/qualifications.json",
+        error:function () {
+            alert("error!")
+        },
+        success:function (json) {
+            $.each(json,function () {
+
+
+
+                searchResults.push(this.title);
+
+
+            });
+        }
+
+    });
+
+
+
+    // end 자격증 들 불러오기
+
+
+
+    // 수상 부분 에서 추가하기 버튼을 누르면 입력 폼 생성-->
+    $("#plusPrizeBtn").on("click",function (e) {
+
+        $("#plusPrize").css("display","block");
+
+
+        // 여기서 인풋 주면 그 자동완성 뜨게 하기
+
+
+    });
+    // end #plusPrizeBtn
+
+    // 자격부분에서 추가하기 버튼을 누르면 자격증 입력 폼 생성-->
+    $("#plusQualificationBtn").on("click",function (e)
+    {
+        $("#plusQualification").css("display","block");
+
+    });
+    // end #plusQulificationBtn
+
+
+    // 경력 추가
+    $("#plusCareerBtn").on("click",function (e) {
+        $("#plusCareer").css("display","block");
+
+
+
+    });
+    // end #plusCareerBtn
+
+
+    //==============================================================================
+    // 등록 버튼들, 입력 폼들을 사라지게 하고 입력된 요소들을 li로 생성하여 ul에 부착
+
+    // 수상 등록 버튼
+    $("#prizeInputBtn").on("click",function (e) {
+
+        // 수상 부분의 input 요소에 입력한 값을 가져오기
+        const prizeName=$("#plusPrize input").val();
+
+        const $delete=$("<i>").addClass("fas").addClass("fa-times");
+        // x 표시를 포함한 수상 리스트
+        const $prizeList=$("<li>").text(prizeName+" ").append($delete);
+
+        $("#prize ul").append($prizeList);
+
+        // x표시 색깔 연하게 하기
+        $("ul i").css("color","#e0e0e0");
+
+        // input 내용 초기화
+        $("#prize input").val("");
+
+        // 닫힘
+        $("#plusPrize").css("display","none");
+
+       e.preventDefault();
+    });
+    // end #prizeInputBtn 수상 등록 버튼
+
+    // 경력 등록 버튼
+    $(".plus_area #careerInputBtn").on("click",function (e) {
+
+
+        // 회사명
+        const companyName=$("#career #companyName").val();
+
+
+        // 날짜 입력 받아서 계산후 올리기
+        // 근무 시작일
+        const firstDateYear=$("#career #firstDateYear").val();
+        const firstDateMonth=$("#career #firstDateMonth").val();
+        const firstDateDay=$("#career #firstDateDay").val();
+
+
+        // moment diff 이용하기
+        // date 객체로 변환
+        const firstDate=moment(firstDateYear+"-"+firstDateMonth+"-"+firstDateDay,'YYYY-MM-DD');
+
+
+        // 근무 종료일
+        const lastDateYear=$("#career #lastDateYear").val();
+        const lastDateMonth=$("#career #lastDateMonth").val();
+        const lastDateDay=$("#career #lastDateDay").val();
+
+        const lastDate=moment(lastDateYear+"-"+lastDateMonth+"-"+lastDateDay,'YYYY-MM-DD');
+
+        const period=moment.duration(lastDate.diff(firstDate)).asMonths();
+        let periodYear=Math.floor(period/12); // 일한 년수 달수의 12를 나눈것의 몫
+        let periodMonth=Math.floor(period%12); // 일한 달수 달 수의 12를 나눈것의 나머지
+
+
+
+        // 닫힘 표시
+        const $delete=$("<i>").addClass("fas").addClass("fa-times");
+        // 회사이름 하고 일한 년수, 일한 달수 해서 붙여서 ul에 넣기
+        //=============================================================
+        const $careerList=$("<li>").text(companyName+"  "+periodYear+"년 "+periodMonth+"개월").append($delete);
+
+        $("#career ul").append($careerList);
+
+        // x표시 색깔 연하게 하기
+        $("ul i").css("color","#e0e0e0");
+
+        // input 내용 초기화
+        $("#companyName input").val("");
+
+
+
+
+        //===========================================================
+        // 닫힘
+        $("#plusCareer").css("display","none");
+
+       e.preventDefault();
+    });
+    // end #careerInputBtn 경력 등록 버튼
+
+    // 자격 등록 버튼
+    $("#qualifiInputBtn").on("click",function (e) {
+
+        // 자격 부분의 input 요소에 입력한 값을 가져오기
+        const qualificationName=$("#plusQualification input").val();
+
+        const $delete=$("<i>").addClass("fas").addClass("fa-times");
+        // x 표시를 포함한 수상 리스트
+        const $qualificationList=$("<li>").text(qualificationName+" ").append($delete);
+
+        $("#qualification ul").append($qualificationList);
+
+        // x표시 색깔 연하게 하기
+        $("ul i").css("color","#e0e0e0");
+
+        // 닫힘
+        $("#plusQualification").css("display","none");
+
+        e.preventDefault();
+    });
+    // end #qualifiInputBtn 자격 등록 버튼
+
+
+
+    //==============================================================================
+
+    // 경력의 x 부분
+    // 누르면 입력 폼이 닫힌다.
+    $("#plusCareer i").on("click",function (e) {
+
+        // 닫힘
+        $("#plusCareer").css("display","none");
+
+        e.preventDefault();
+    });
+    // end #plusCareer
+
+    // 리스트의 x 표시를 누르면 목록에서 삭제 되도록 한다.
+    $("#content ul ").on("click",'.fa-times',function (e) {
+        $(this).parent().remove();
+    });
+
+
+    let $firstDateYear=$("#firstDateYear"); // 시작 년
+    let $firstDateMonth=$("#firstDateMonth"); // 시작 달
+    let $firstDateDay=$("#firstDateDay"); // 시작 일
+
+    let $lastDateYear=$("#lastDateYear"); // 종료 년
+    let $lastDateMonth=$("#lastDateMonth"); // 종료 달
+    let $lastDateDay=$("#lastDateDay"); // 종료 일
+
+
+    // 년 월일을 생성하는 함수 선언
+    function createYearMonth($year,$month,$date){
+
+
+        // 올해를 얻어옴(현재) 이렇게 하면 현재 시간이 얻어진다.
+        const now=moment();
+        //const nowYear
+
+
+        // 유저가 선택한 년도
+        const year=$year.val();
+        // 유저가 선택한 월
+        const month=$month.val();
+
+
+        // 일단 비워주고
+        $year.empty();
+        $month.empty();
+
+
+        // 월을 생성
+        for(let i=1;i<13;i++){
+            // 옵션 객체 생성하고 텍스트 설정 후 month에 붙임
+            $("<option>").text(i).appendTo($month);
+        }// for end
+
+        // 년을 생성
+        for(let i=now.year();i>=now.year()-120;i--){
+            // 옵션 객체 생성하고 텍스트 설정후 year에 붙임
+            $("<option>").text(i).appendTo($year);
+        }//for end
+
+
+        // 년과 월을 만들었으니 이제 날짜를 만들 차례
+        createDate($year,$month,$date);
+
+
+    }//createYearMonth() end
+
+
+
+
+    // 날짜를 생성하는 함수  // 유저가 선택한 년도와 월을 가지고 해당하는 날짜를 생성하는 함수
+    function createDate($year,$month,$date){
+
+        // 유저가 선택한 년도
+        const year=$year.val();
+        // 유저가 선택한 월
+        const month=$month.val();
+
+
+
+
+
+        // 달마다 다른 날짜 출력 위함
+        const lastDate=moment([year,month-1]).daysInMonth();
+        //alert(lastDate);
+
+
+
+        // 기존의 요소들 지움
+        $date.empty();
+
+
+
+        for(let i=1;i<=lastDate;i++){
+
+            // 옵션 요소를 생성하고 i가 1부터 lastDate 일때 까지 만들어서 date에 붙임
+            $("<option>").text(i).appendTo($date);
+
+        }// for end
+
+    }//createDate() end
+
+
+
+
+
+
+    // 년을 바꿀 때마다 date 새로 생성(시작일)
+    $firstDateYear.change(createDate($firstDateYear,$firstDateMonth,$firstDateDay));
+    // 달을 바꿀떄마다 date새로 생성(시작일)
+    $firstDateMonth.on("change",createDate($firstDateYear,$firstDateMonth,$firstDateDay));
+
+
+
+    // 년을 바꿀 때마다 date 새로 생성(종료일)
+    $lastDateYear.change(createDate($lastDateYear,$lastDateMonth,$lastDateDay));
+    // 달을 바꿀떄마다 date새로 생성(종료일)
+    $lastDateMonth.on("change",createDate($lastDateYear,$lastDateMonth,$lastDateDay));
+
+
+
+    // 한번만 호출
+    createYearMonth($firstDateYear,$firstDateMonth,$firstDateDay);
+    createYearMonth($lastDateYear,$lastDateMonth,$lastDateDay);
+
+
+
+
+
+
+
+
+    // 자격증 자동 완성 부분
+
+    window.onload = function(){
+        // $("#searchKeyword")
+        var searchKeyword = document.getElementById("Inputqualification");
+        var autocomplete = document.getElementById("autocompleteArea");
+        var keyword = "";
+
+        searchKeyword.onkeydown = function(e) {
+            searchKeyword.onkeyup(e);
+        };
+
+        // $("#searchKeyword").keyup(function(){...});
+        searchKeyword.onkeyup = function(e){
+
+
+            //  if ( e.char ) {
+            // IE 전용
+            keyword = searchKeyword.value;
+            // }
+
+            // if ( $("#searchKeyword").val() == "" ) {...}
+            if ( keyword == "" ) {
+                // $("#autocomplete").hide();
+                autocomplete.style.display = "none";
+            }
+            else {
+                // $("#autocomplete").show();
+                autocomplete.style.display = "block";
+                fillSearchResult(autocomplete);
+            }
+
+        };
+
+
+
+    };
+
+    function fillSearchResult( autocomplete ) {
+
+        autocomplete.innerHTML = "";
+
+        //  var searchResults = ["테스트" , "테스트2", "테스트3"];
+
+        for (var i=0; i < searchResults.length; i++) {
+            autocomplete.innerHTML += "<div onclick='selectData(this);'>" + searchResults[i] + "</div>";
+        }
+
+    }
+    function selectData(that) {
+        var searchKeyword = document.getElementById("Inputqualification");
+        searchKeyword.value = that.innerText;
+
+        var autocomplete = document.getElementById("autocompleteArea");
+        autocomplete.style.display="none";
+    }
+
+
+    // end 자격증 자동 완성 부분
+
+</script>
+</body>
+</html>

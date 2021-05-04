@@ -1,0 +1,107 @@
+#lectureGenderRatio{
+    width: 290px;
+    height: 120px;
+    margin: auto;
+    margin-top: 5px;
+    /*background-color: #424242;*/
+}
+#chartHeader{
+    width: 100%;
+    height: 20%;
+}
+#boyRatio,#girlRatio{
+    width: 15%;
+    height: 100%;
+    font-size: 14px;
+    text-align: center;
+    /*background-color: brown;*/
+}
+#chartTitle{
+    width:70%;
+    height: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    /*background-color: #00969b;*/
+}
+#chartBody{
+    width: 100%;
+    height: 40%;
+}
+#boyEmotion,#girlEmotion{
+    width: 15%;
+    height: 100%;
+    text-align: center;
+    /*background-color: skyblue;*/
+    font-weight:bold;
+    font-size: 40px;
+}
+#boyEmotion{
+    color:blue;
+
+}
+#girlEmotion{
+    color:#F91B4E;
+}
+#chartMainPart{
+    width: 70%;
+    height: 100%;
+    background-color: #F91B4E;
+}
+#boyPart{
+    width: 75%;
+    height: 100%;
+    background-color: blue;
+}
+#girlPart{
+    width: 25%;
+    height: 100%;
+    /*background-color: #F91B4E;*/
+}
+#chartData{
+    width: 100%;
+    height: 20%;
+    /*background-color: #00969b;*/
+}
+/*#chartData div{*/
+/*    background-color: aquamarine;*/
+/*}*/
+#boyRatioData{
+    width: 15%;
+    height: 100%;
+    text-align: left;
+}
+#chartData .empty_place{
+    width: 70%;
+    height: 100%;
+    background-color: transparent;
+
+}
+#girlRatioData{
+    width: 15%;
+    height: 100%;
+    text-align: right;
+}
+#chartKcal{
+    width: 100%;
+    height: 20%;
+    color: #F91B4E;
+    font-size: 12px;
+    font-weight: bold;
+}
+#chartKcal #boyKcal{
+    width: 20%;
+    height: 100%;
+    text-align: left;
+}
+#chartKcal .empty_place{
+    width: 60%;
+    height: 100%;
+    background-color: transparent;
+}
+#chartKcal #girlKcal{
+    width: 20%;
+    height: 100%;
+    text-align: right;
+}
+

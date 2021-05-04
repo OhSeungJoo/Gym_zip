@@ -1,0 +1,6 @@
+[
+{"no":1,"title":"강의이름이열글자였나","image":"img/coach1.png","calorie":320,"level":"초급","score":4.3,"reviewCount":22,"coach":"양치승","tier":"트레이너","energy":43,"available":"7","helpful":"M"},
+{"no":1,"title":"아주 멋진 강의","image":"img/coach2.png","calorie":3222,"level":"중급","score":1.2,"reviewCount":3234,"coach":"몰라","tier":"관장","energy":2222,"available":"30","helpful":"F"},
+{"no":1,"title":"아주 멋진 강의","image":"img/coach3.png","calorie":3222,"level":"중급","score":1.2,"reviewCount":3234,"coach":"몰라","tier":"관장","energy":2222,"available":"30","helpful":"A"},
+{"no":1,"title":"아주 멋진 강의","image":"img/coach4.png","calorie":3222,"level":"중급","score":1.2,"reviewCount":3234,"coach":"몰라","tier":"관장","energy":2222,"available":"30","helpful":"M"}
+]

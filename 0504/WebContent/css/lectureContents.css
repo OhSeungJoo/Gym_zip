@@ -1,0 +1,196 @@
+/*단 CSS*/
+.bar {
+    overflow: hidden;
+}
+
+/*단 수평블록 설정*/
+.bar_contents{
+    float:left;
+}
+#lectureContentsListBox{
+    width: 800px;
+    margin: 10px auto;
+
+}
+#lectureIntroduceBox .bar{
+    margin-bottom: 20px;
+    text-align: left;
+    /*background-color: #F91B4E;*/
+}
+#lectureIntroduceBox .bar div:nth-child(1),#curriculumBox div:nth-child(1){
+    width: 30%;
+    height: 100%;
+    font-size: 25px;
+    margin-top: 10px;
+    /*background-color: #eeeeee;*/
+}
+
+#lectureIntroduceBox .bar div:nth-child(2),#curriculum div:nth-child(2){
+    width: 70%;
+    font-size: 20px;
+    /*background-color: orangered;*/
+}
+.pre_line{
+    white-space: pre-line;
+}
+#curriculumBox thead{
+    background-color: #dddddd;
+}
+#curriculumBox th{
+    padding: 20px 0px;
+}
+#curriculumBox tr{
+    border-bottom: 1px solid #bbbbbb;
+    /*background-color: #00969b;*/
+    /* padding: 10px 0px;*/
+}
+#curriculumBox td{
+    width: 160px;
+    text-align: center;
+    vertical-align: middle;
+    /*line-height: 90px;*/
+    padding: 5px 0px;
+    margin: 0px;
+}
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.review_total{
+    width: 800px;
+    height: 200px;
+    margin: 20px auto;
+    background-color: antiquewhite;
+    background-color: #eeeeee;
+}
+
+#tabTitle{
+    width: 300px;
+    height: 200px;
+    text-align: center;
+    line-height: 100px;
+}
+#starPoint{
+    width: 300px;
+    height: 200px;
+    text-align: center;
+}
+#starIcon{
+    width: 200px;
+    height: 150px;
+    font-size:80px;
+    line-height: 150px;
+    color: yellow;
+    /*background: #00969b;*/
+}
+#starData{
+    width: 200px;
+    height: 50px;
+    /*line-height: 50px;*/
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+#tabTitle{
+    font-size: 30px;
+    font-weight: bold;
+}
+#reviewList{
+    width: 600px;
+    height: 800px;
+    margin:auto;
+    /*background-color: lightpink;*/
+}
+.review_card{
+    width: 600px;
+    box-shadow: 1px 1px 10px #424242;
+    margin-bottom:5px;
+    /*height: 200px;*/
+}
+.photo{
+    width: 80px;
+    height: 200px;
+    /*border-right: 1px solid #424242;*/
+}
+.photo div{
+    background-color: #424242;
+    margin: 10px auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+.more{
+    width: 520px;
+    height: 20px;
+    text-align: center;
+    margin: auto;
+    /*background-color: azure;*/
+}
+.little{
+    width:520px;
+    height: 20px;
+    margin: auto;
+    text-align: center;
+}
+.off{
+    display:none;
+}
+.review_contents{
+    width: 520px;
+    min-height:120px;
+    /*background-color: skyblue;*/
+    white-space: pre-line;
+}
+.review_contents.on{
+    height: 120px;
+    overflow: hidden;
+}
+.writer_explain{
+    font-weight: bold;
+}
+.writer_explain1{
+    width:520px;
+    height:30px;
+    /*background-color: orangered;*/
+}
+.writer_tier{
+    width:80px;
+    height:30px;
+    line-height: 30px;
+    text-align:center;
+}
+.writer_name{
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    /*background-color: violet;*/
+}
+.writer_kcal{
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.report{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+}
+.writer_explain2{
+    width:520px;
+    height:30px;
+    /*background-color: aquamarine;*/
+}
+.writer_date{
+    width:180px;
+    height: 30px;
+    line-height: 30px;
+    /*background-color: burlywood;*/
+}
+.writer_lecture_name{
+    width: 340px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+}

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+<!-- NULL 입력하기 위한 세팅 -->
+<settings>
+	<setting name="jdbcTypeForNull" value="NULL" />
+</settings>
+
+<!-- 타입엘리어스 설정 -->
+<typeAliases>
+		<typeAlias alias="Member" type="com.joa.sht.gym_zip.vo.Member"/>
+		<!-- 0125 해원 추가 -->
+		<typeAlias alias="ExDummy" type="com.joa.sht.gym_zip.vo.ExDummy"/>
+		<typeAlias alias="ExRecord" type="com.joa.sht.gym_zip.vo.ExRecord"/>
+		<typeAlias alias="Exercise" type="com.joa.sht.gym_zip.vo.Exercise"/>
+			<!-- 0127해원 추가 -->
+		<typeAlias alias="CoachExerciseListFilter" type="com.joa.sht.gym_zip.vo.CoachExerciseListFilter"/>
+		<typeAlias alias="RepresentExercise" type="com.joa.sht.gym_zip.vo.RepresentExercise"/>
+		<typeAlias alias="ReExerciseFilter" type="com.joa.sht.gym_zip.vo.ReExerciseFilter"/>
+		
+		<typeAlias alias="Coach" type="com.joa.sht.gym_zip.vo.Coach"/>
+		<typeAlias alias="CoachListFilter" type="com.joa.sht.gym_zip.vo.CoachListFilter"/>
+		<typeAlias alias="CoachMain" type="com.joa.sht.gym_zip.vo.CoachMain"/>
+		<typeAlias alias="Subscribe" type="com.joa.sht.gym_zip.vo.Subscribe"/>
+		
+	
+		<typeAlias alias="Lecture" type="com.joa.sht.gym_zip.vo.Lecture"/>
+		<typeAlias alias="LectureListStd" type="com.joa.sht.gym_zip.vo.LectureListStd"/>
+		<typeAlias alias="LectureReviewContent" type="com.joa.sht.gym_zip.vo.LectureReviewContent"/>
+		<typeAlias alias="LectureReview" type="com.joa.sht.gym_zip.vo.LectureReview"/>
+		<typeAlias alias="Count" type="com.joa.sht.gym_zip.vo.Count"/>
+		<typeAlias alias="Step" type="com.joa.sht.gym_zip.vo.Step"/>
+		<typeAlias alias="Coaching" type="com.joa.sht.gym_zip.vo.Coaching"/>
+
+		<!--  0119 추가 / 오승주  -->
+		<typeAlias alias="PageVO" type="com.joa.sht.gym_zip.vo.PageVO"/>
+		<!-- 0122 추가 / 강의 결제 VO -->
+		<typeAlias alias="LecturePayment" type="com.joa.sht.gym_zip.vo.LecturePayment"/>
+			<!-- 0125 추가  / 오승주-->
+		<typeAlias alias="LectureListFilter" type="com.joa.sht.gym_zip.vo.LectureListFilter"/>
+	<!-- ExRecordPhoto -->
+		<!-- 0126 // 운동 기록 사진 -->
+		<typeAlias alias="ExRecordPhoto" type="com.joa.sht.gym_zip.vo.ExRecordPhoto"/>
+		<!-- 0124 추가 백경현 -->
+		<typeAlias alias="WhoseExercise" type="com.joa.sht.gym_zip.vo.WhoseExercise"/>
+		<!-- 0126 백경현 추가 -->
+		<typeAlias alias="Curriculum" type="com.joa.sht.gym_zip.vo.Curriculum"/>
+		<typeAlias alias="LectureAdImage" type="com.joa.sht.gym_zip.vo.LectureAdImage"/>
+		<!-- 0131 조용규 -->
+		<typeAlias alias="EnergyHistory" type="com.joa.sht.gym_zip.vo.EnergyHistory"/>
+		
+		<!-- 0129 백경현 추가 -->
+		<typeAlias alias="ExerMember" type="com.joa.sht.gym_zip.vo.ExerMember"/>
+		<typeAlias alias="Keyword" type="com.joa.sht.gym_zip.vo.Keyword"/>
+		<typeAlias alias="CoachSearch" type="com.joa.sht.gym_zip.vo.CoachSearch"/>
+		
+		<!-- 0207 박해원 추가 -->
+		<typeAlias alias="CAvailable" type="com.joa.sht.gym_zip.vo.CAvailable"/>
+		
+		
+</typeAliases>
+
+
+<!-- 데이터베이스와 연결 환경설정 -->
+<environments default="development">
+	<environment id="development">
+		<transactionManager type="JDBC"/>
+		<dataSource type="JNDI">
+			<property name="data_source" value="java:comp/env/oraclexe"/>
+
+		</dataSource>
+	</environment>
+</environments>
+<!-- mapper 경로 설정 -->
+<mappers>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/members.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/lecture.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/subscribe.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/exercise.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/coach.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/representExercises.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/lectureReview.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/lectureListStd.xml"/>
+	<!-- 0122 추가 energyHistory.xml -->
+	<mapper resource="/com/joa/sht/gym_zip/mapper/energyHistory.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/exRecord.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/coaching.xml"/>
+	<!-- 0125 해원 추가  -->
+	<mapper resource="/com/joa/sht/gym_zip/mapper/exDummy.xml"/>
+		<!-- 0126 백경현 추가 -->
+	<mapper resource="/com/joa/sht/gym_zip/mapper/curriculum.xml"/>
+	<mapper resource="/com/joa/sht/gym_zip/mapper/lectureAdImage.xml"/>
+	
+	<!-- 0129 백경현 추가 -->
+	<mapper resource="/com/joa/sht/gym_zip/mapper/exerMember.xml"/>
+	
+	<!-- 0207 박해원 추가 -->
+	<mapper resource="/com/joa/sht/gym_zip/mapper/cAvailables.xml"/>
+</mappers>
+
+
+
+</configuration>

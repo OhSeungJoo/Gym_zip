@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="members">
+<!-- 0121 ///// 멤버 mapper 수정  -->
+	<select id="selectLogin" resultType="Member" parameterType="Member">
+	SELECT no, my_energy myEnergy,profile_img profileImg,nickname,email,password,gender,birthDate,bm_no bmNo,
+		member_tier_no memberTierNo,regdate,height,weight,kcal_total kcalTotal
+	FROM member
+	WHERE email =#{email} AND password=#{password}
+	</select>
+	
+	<select id="checkEmail" resultType="int" parameterType="string">
+	SELECT COUNT(*)
+	FROM member
+	WHERE email=#{email}
+	</select>
+
+	
+	<select id="memberTier" resultType="string" parameterType="int">
+	SELECT mt.name
+	FROM member m, member_tier mt
+	WHERE m.member_tier_no= mt.no AND m.no = #{no}
+	</select>
+	
+	<!-- 회원 가입 insert 구문 -->
+	<insert id="joinMember" parameterType="Member">
+	INSERT INTO member
+	(no,my_energy,profile_img,nickname,email,password,gender,birthdate,
+	bm_no,member_tier_no,regdate,height,weight,kcal_total)
+	VALUES
+	(member_seq.nextval,#{myEnergy},'default.jpg',#{nickname},#{email},#{password},
+	#{gender},#{birthDate},0,1,sysdate, #{height},#{weight},0)
+	</insert>
+	<!-- end 회원 가입 insert 구문 -->
+	
+	<!-- 최신운동기록 불러오기 -->
+	<select id="getRecentExRecord" resultType="ExRecord" parameterType="int">
+		SELECT bmi_before bmiBefore, bmi_after bmiAfter, kcal, start_time startTime, end_time endTime, avg_bpm avgBpm, high_bpm highBpm, total_weight totalWeight, heaviest, type, member_no memberNo, regdate, muscle_bone muscleBone, bmm, fat_mass fatMass, fat_rate fatRate, c_l_no cLNo, ex_no exNo
+		FROM(
+		SELECT er.no, er.bmi_before, er.BMI_AFTER, er.kcal, er.start_time, er.end_time, er.avg_bpm, er.high_bpm, er.total_weight, er.heaviest, er.type, er.member_no, er.regdate, er.weight, er.muscle_bone, er.bmm, er.fat_mass, er.fat_rate, er.c_l_no, er.ex_no
+		FROM member m, ex_record er
+		WHERE m.no = er.member_no AND m.no =  #{no}
+		ORDER BY er.regdate DESC)
+		WHERE ROWNUM = 1
+	</select>
+
+	<!-- 전체운동기록 불러오기 -->
+	<select id="getExRecord" resultType="ExRecord" parameterType="ExRecord">
+		SELECT m.nickname, er.no, er.bmi_before, er.BMI_AFTER, er.kcal, er.start_time, er.end_time, er.avg_bpm, er.high_bpm, er.total_weight, er.heaviest, er.type, er.member_no, er.regdate, er.weight, er.muscle_bone, er.bmm, er.fat_mass, er.fat_rate, er.c_l_no, er.ex_no
+		FROM member m, ex_record er
+		WHERE er.type='c' AND m.no = #{no} AND er.start_time= #{startTime}
+	</select>
+	
+	
+	<!-- 운동 칼로리 총합 -->
+	<select id="sumKcal" resultType="int" parameterType="int">
+		SELECT sum(kcal)
+		FROM member m, ex_record er
+		WHERE m.no = er.member_no AND m.no = #{no}
+	</select>
+
+	
+	
+	<!-- 0122 강의 결제 시 멤버의 my_energy 차감  -->
+	<update id="updateMemberLecturePayment" parameterType="LecturePayment">
+	UPDATE member
+	SET my_energy=my_energy-#{cost}
+	WHERE no=#{memberNo}
+	</update>
+	<!--  end 멤버의 강의 결제  -->
+	<!-- 0122 강의 결제 시 코치의 my_energy 증가 -->
+	<update id="updateCoachLecturePayment" parameterType="LecturePayment">
+	UPDATE member
+	SET my_energy=my_energy+#{cost}
+	WHERE no=#{coachNo}
+	</update>
+	<!-- end 코치의 강의 등록시 에너지 상승  -->
+	
+	<!-- 0126 운동 기록 사진 의 총 개수 // 오승주  -->
+	<select id="selectExRecordPhotoTotal" parameterType="int" resultType="int">
+	SELECT COUNT(*)
+	FROM ex_record_photo
+	WHERE member_no=#{no}
+	</select>
+	<!-- end 운동 기록 사진 개수 -->
+	
+	
+	<!-- 0126 운동 기록 사진 최신순 -->
+	<select id="selectExRecordPhotoList" parameterType="int" resultType="ExRecordPhoto">
+	SELECT imgUrl,regdate
+	FROM(SELECT imgUrl,regdate, rownum r
+	FROM(SELECT img_url imgUrl,regdate
+	FROM ex_record_photo
+	WHERE member_no=1
+	ORDER BY regdate DESC))
+	WHERE r BETWEEN 1 AND #{no}
+	</select>
+	
+	<!-- 0126 운동 기록 사진 (파노라마) -->
+	<select id="selectPanoramaList" parameterType="int" resultType="ExRecordPhoto">
+	SELECT img_url imgUrl,regdate
+	FROM ex_record_photo
+	WHERE member_no=#{no}
+	ORDER BY regdate 
+	</select>
+	<!-- end 운동 기록 사진  -->
+	
+	<!-- 0129 운동 에너지 추가 -->
+	<update id="updateEnergyAdd" parameterType="int">
+		update member
+		set my_energy= my_energy+49
+		where  no=#{no}
+	</update>
+	<!-- 0129 운동 에너지 감소 -->
+	<update id="updateEnergySub" parameterType="int">
+		update member
+		set my_energy= my_energy-49
+		where  no=#{no}
+	</update>
+	
+	<!-- 0129 회원 가입시 멤버 번호 얻어오기 -->
+	<select id="selectMemberNo" parameterType="Member" resultType="int">
+	SELECT no
+	FROM member
+	WHERE email=#{email} AND password=#{password}
+	</select>
+</mapper>

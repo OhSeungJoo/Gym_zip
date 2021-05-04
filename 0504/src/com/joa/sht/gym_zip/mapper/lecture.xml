@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lecture">
+
+	<select id="memberLecture" resultType="Lecture" parameterType="int">
+		SELECT c.nickname, mt.name tierName, l.title, lls.period, lls.start_date startDate, lls.end_date endDate, lls.view_count viewCount, l.no no, m.no memberNo, lr.no reviewNo
+		FROM member m, lecture_list_std lls, lecture l, coach c, member_tier mt, lecture_review lr
+		WHERE m.no=lls.member_no AND lls.no=l.no AND c.no = l.coach_no AND mt.no = c.coach_tier_no AND lr.no= lls.no AND m.no=#{no}
+	</select>
+
+
+<!-- 0116 메인 페이지 인기 강의 추천
+	오승주 작성   -->
+	<select id="selectLectureMainList" resultType="Lecture">
+	SELECT lecture_no no,title,thumbnail
+	FROM(SELECT lecture_no,title,thumbnail,rownum r
+	FROM(SELECT lecture_no,l.no,l.title title,l.thumbnail thumbnail
+	FROM(SELECT  count(*) c,lecture_no
+		FROM lecture_list_std 
+		GROUP BY lecture_no
+		ORDER BY 1 DESC),lecture l
+	WHERE lecture_no=l.no
+	ORDER BY c DESC))
+	WHERE r BETWEEN 1 AND 4
+	</select>
+	<!-- end 메인 페이지 인기 강의 추천 -->
+	
+	
+	
+	<!-- 0117 강의 상세 페이지 select 구문 / 오승주 작성   -->
+	<select id="selectLectureDetail" resultType="Lecture" parameterType="int">
+	SELECT l.title,l.levels,l.male_num maleNum, l.female_num femaleNum,
+	l.male_kcal maleKcal,l.fe_kcal feKcal,l.avg_rating avgRating,l.view_count viewCount,l.period, 
+	l.cost, l.introduction,l.recommand,m.profile_img profileImg,c.nickname,t.name tierName,l.thumbnail thumbnail,l.no no
+	FROM lecture l,member m,coach c,member_tier t
+	WHERE l.coach_no=m.no AND l.coach_no=c.no AND c.coach_tier_no=t.no AND
+	l.no=#{no}
+	</select>
+	<!-- end 강의 상세 페이지 select 구문  -->
+	
+	<!-- 운동별 강의 리스트  / 0121 백경현 -->
+	<select id="selectExerciseDetailLectureList" resultType="Lecture" parameterType="int">
+		SELECT 	distinct l.no no, l.fe_kcal feKcal, l.title title, l.male_kcal maleKcal, l.levels levels, l.cost cost, l.period period,
+		l.avg_rating avgRating, l.target_gender targetGender, l.times times, l.thumbnail thumbnail, l.introduction introduction,
+		l.recommand recommand, l.coach_no coachNo, l.male_num maleNum, l.female_num femaleNum, l.on_off onOff, l.view_count viewCount
+		FROM curriculum c, lecture l
+		WHERE c.exercise_no = #{no}
+		AND c.lecture_no = l.no
+	</select>
+	
+	
+	
+	<select id="selectLectureTotal" resultType="Count" parameterType="int">
+		SELECT count(l.no) countResult
+		FROM member m, lecture_list_std lls, lecture l, coach c
+		WHERE m.no=lls.member_no AND lls.no=l.no AND c.no = l.coach_no AND m.no=#{no}
+	</select>
+	<!-- 트레이닝룸 페이징처리 END -->
+	
+	
+	<!-- 0122 강의 번호를 이용하여 코치 번호와 강의 기간, 금액을 알기 위함 오승주 -->
+	<select id="selectLectureInform" parameterType="int" resultType="Lecture">
+	SELECT coach_no coachNo, period, cost
+	FROM lecture	
+	WHERE no=#{no}
+	</select>
+	<!--  end 강의 번호 이용, 코치 번호 강의기간, 금액 구하기  -->
+	
+	
+	
+	<!-- 0123 강의 수강생 수 증가 시키기 -->
+	<update id="updateLectureMemberNum" parameterType="int">
+	UPDATE lecture
+	SET male_num =(SELECT COUNT(*)
+	FROM lecture_list_std l,member m
+	WHERE l.lecture_no=#{no} AND l.member_no=m.no AND m.gender='M') ,
+	female_num=(SELECT COUNT(*)
+	FROM lecture_list_std l,member m
+	WHERE l.lecture_no=#{no} AND l.member_no=m.no AND m.gender='F')
+	WHERE no=#{no}
+	</update>
+	
+	<!-- 0124 강의의 운동횟수가 10번 미만일 경우 운동 더미에서 칼로리 구하기 (여자) -->
+	<select id="selectFemaleKcalDummy" parameterType="int" resultType="int">
+	SELECT AVG(kcal)
+	FROM ex_dummy e,( 
+	SELECT DISTINCT c.exercise_no exNo
+	FROM curriculum c, lecture l
+	WHERE c.lecture_no=l.no AND l.no=#{no})
+	WHERE e.ex_no=exNo AND e.gender='F'
+	</select>
+	
+	<!-- 0124 남자 평균 칼로리(강의 본 횟수 10번 미만일때) -->
+	<select id="selectMaleKcalDummy" parameterType="int" resultType="int">
+	SELECT AVG(kcal)
+	FROM ex_dummy e,( 
+	SELECT DISTINCT c.exercise_no exNo
+	FROM curriculum c, lecture l
+	WHERE c.lecture_no=l.no AND l.no=#{no})
+	WHERE e.ex_no=exNo AND e.gender='M'
+	</select>
+	
+	
+	<!-- 0125 강의 카드 리스트  -->
+	<select id="selectLectureCardList" resultType="Lecture" parameterType="LectureListFilter">
+	SELECT no,title, thumbnail,kcal,levels,cost,period,targetGender,avgRating,reviewNo,nickname,tierName,tierNo,sales,regdate
+	FROM(SELECT no,title, thumbnail,kcal,levels,cost,period,targetGender,avgRating,reviewNo,nickname,tierName,tierNo,sales,regdate, rownum r
+	FROM(
+	SELECT l.no, l.title, l.thumbnail,
+	(CASE 
+	WHEN l.view_count >= 10 THEN (l.fe_kcal*l.female_num+l.male_kcal*l.male_num)/(l.female_num+l.male_num)
+    ELSE (SELECT AVG(kcal)
+         FROM ex_dummy e,( 
+         SELECT DISTINCT c.exercise_no exNo, l.no leNo
+         FROM curriculum c, lecture l
+         WHERE c.lecture_no=l.no)
+         WHERE e.ex_no=exNo AND leNo=l.no
+         GROUP BY leNo) END) AS kcal
+	,l.levels,l.cost,l.period,l.target_gender targetGender,
+	(CASE
+   WHEN (SELECT COUNT(*)
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no
+   GROUP BY lls.lecture_no) > 0 THEN (SELECT (AVG(lv.effect)+AVG(lv.delivery)+
+   AVG(lv.prepare)+AVG(lv.kindness)+AVG(lv.quality)) AS score
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no)
+   ELSE 0 END) AS avgRating,
+	(CASE
+   WHEN (SELECT COUNT(*)
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no
+   GROUP BY lls.lecture_no)>0 THEN (SELECT COUNT(*)
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no
+   GROUP BY lls.lecture_no)
+   ELSE 0 END) AS reviewNo, c.nickname,t.name tierName,t.no tierNo, lls.sales sales, l.regdate regdate
+	FROM lecture l,coach c, member_tier t,(SELECT COUNT(*) sales, lls.lecture_no lectureNo
+											FROM lecture_list_std lls
+											GROUP BY lls.lecture_no) lls
+	WHERE l.coach_no=c.no AND c.coach_tier_no=t.no AND l.no=lls.lectureNo
+		AND l.times/60 BETWEEN #{timeRangeStart} AND #{timeRangeEnd}
+	<if test="bigginer!=true">
+		AND levels !='초급'
+	</if>
+	<if test="intermediate!=true">
+		AND levels !='중급'
+	</if>
+	<if test="advanced!=true">
+		AND levels !='고급'
+	</if>
+	<if test="male!=true">
+		AND l.target_gender !='M'
+	</if>
+	<if test="female!=true">
+		AND l.target_gender !='F'
+	</if>
+	<if test="middle!=true">
+		AND l.target_gender !='A'
+	</if>
+	<choose>
+		<when test="sort=='kcal'">
+		ORDER BY kcal DESC
+		</when>
+		<when test="sort=='sales'">
+		ORDER BY sales DESC
+		</when>	
+		<when test="sort=='register'">
+		ORDER BY regdate DESC
+		</when>
+		<when test="sort=='coachTier'">
+		ORDER BY tierNo DESC
+		</when>
+		<when test="sort=='score'">
+		ORDER BY avgRating DESC
+		</when>
+		<when test="sort=='price'">
+		ORDER BY cost 
+		</when>
+	</choose>
+	))WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	<!-- end 강의 카드 리스트 default -->
+	
+	<!-- 0125 강의 수 구하기  -->
+	<select id="selectLectureNum" resultType="int">
+	SELECT COUNT(*)
+	FROM lecture
+	</select>
+	
+	<!-- 0125 강의 카드 리스트 개수 구하기 -->
+	<select id="selectLectureCardCount" resultType="int" parameterType="LectureListFilter">
+	SELECT COUNT(*)
+	FROM(
+	SELECT l.no, l.title, l.thumbnail,
+	(CASE 
+	WHEN l.view_count >= 10 THEN (l.fe_kcal*l.female_num+l.male_kcal*l.male_num)/(l.female_num+l.male_num)
+    ELSE (SELECT AVG(kcal)
+         FROM ex_dummy e,( 
+         SELECT DISTINCT c.exercise_no exNo, l.no leNo
+         FROM curriculum c, lecture l
+         WHERE c.lecture_no=l.no)
+         WHERE e.ex_no=exNo AND leNo=l.no
+         GROUP BY leNo) END) AS kcal
+	,l.levels,l.cost,l.period,l.target_gender targetGender,
+	(CASE
+   WHEN (SELECT COUNT(*)
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no
+   GROUP BY lls.lecture_no) > 0 THEN (SELECT (AVG(lv.effect)+AVG(lv.delivery)+
+   AVG(lv.prepare)+AVG(lv.kindness)+AVG(lv.quality)) AS score
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no)
+   ELSE 0 END) AS avgRating,
+	(CASE
+   WHEN (SELECT COUNT(*)
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no
+   GROUP BY lls.lecture_no)>0 THEN (SELECT COUNT(*)
+   FROM lecture_list_std lls, lecture_review lv
+   WHERE lls.no=lv.no AND lls.lecture_no=l.no
+   GROUP BY lls.lecture_no)
+   ELSE 0 END) AS reviewNo, c.nickname,t.name tierName,t.no tierNo, lls.sales sales, l.regdate regdate
+	FROM lecture l,coach c, member_tier t,(SELECT COUNT(*) sales, lls.lecture_no lectureNo
+											FROM lecture_list_std lls
+											GROUP BY lls.lecture_no) lls
+	WHERE l.coach_no=c.no AND c.coach_tier_no=t.no AND l.no=lls.lectureNo
+	AND l.times/60 BETWEEN #{timeRangeStart} AND #{timeRangeEnd}
+	<if test="bigginer!=true">
+		AND levels !='초급'
+	</if>
+	<if test="intermediate!=true">
+		AND levels !='중급'
+	</if>
+	<if test="advanced!=true">
+		AND levels !='고급'
+	</if>
+	<if test="male!=true">
+		AND l.target_gender !='M'
+	</if>
+	<if test="female!=true">
+		AND l.target_gender !='F'
+	</if>
+	<if test="middle!=true">
+		AND l.target_gender !='A'
+	</if>
+	<choose>
+		<when test="sort=='kcal'">
+		ORDER BY kcal DESC
+		</when>
+		<when test="sort=='sales'">
+		ORDER BY sales DESC
+		</when>	
+		<when test="sort=='register'">
+		ORDER BY regdate DESC
+		</when>
+		<when test="sort=='coachTier'">
+		ORDER BY tierNo DESC
+		</when>
+		<when test="sort=='score'">
+		ORDER BY avgRating DESC
+		</when>
+		<when test="sort=='price'">
+		ORDER BY cost 
+		</when>
+	</choose>)
+	</select>
+	<!-- end 강의 카드 리스트 default -->
+		
+
+	<!-- 강의 등록 /0126 백경현 -->
+	<insert id="insertLecture" parameterType="lecture">
+	<selectKey resultType="int" keyProperty="no" order="BEFORE">
+		SELECT lecture_seq.nextval FROM DUAL
+	</selectKey>
+		INSERT INTO lecture(no, fe_kcal,title, male_kcal, levels,cost,period,avg_rating, target_gender, times, thumbnail, introduction, recommand,coach_no,regdate,male_num,female_num,on_off,view_count)
+		VALUES(#{no}, 0, #{title}, 0,#{levels}, #{cost}, #{period},0,#{targetGender},#{times},#{no}||#{thumbnail},#{introduction},#{recommand},#{coachNo},sysdate,0,0,'F',0)
+	</insert>
+	
+	<select id="selectLectureNo" parameterType="lecture" resultType="lecture">
+		SELECT no
+		FROM lecture
+		WHERE title = #{title} AND levels=#{levels} AND cost=#{cost}
+		AND target_gender = #{targetGender} AND times = #{times} AND coach_no=#{coachNo}
+		ORDER BY regdate DESC
+	</select>
+	
+	
+	<!-- 0130 강의 검색 백경현 -->
+	<select id="selectbyKeyword" parameterType="Keyword" resultType="Lecture">
+	SELECT l.no no, l.title title
+	FROM lecture l
+	WHERE l.no=-1
+	<if test="keywords != null">
+	 OR
+	<foreach item="keyword"  collection="keywords" open="("
+		separator="OR" close=")">
+		l.title like #{keyword}
+	</foreach>
+	</if>
+	</select>
+	
+	<!-- 0206 코치가 올린 강의 목록 페이징 박해원 -->
+	<select id="selectCoachLecturePagingList" resultType="Lecture" parameterType="PageVO">
+	
+		SELECT NO, feKcal, TITLE, maleKcal, LEVELS,COST,PERIOD, avgRating, targetGender, TIMES,	THUMBNAIL,
+		INTRODUCTION, RECOMMAND, coachNo, REGDATE,  maleNum,  femaleNum,  onOff,  viewCount
+		FROM(SELECT NO, feKcal, TITLE, maleKcal, LEVELS,COST,PERIOD, avgRating, targetGender, TIMES, THUMBNAIL,
+		INTRODUCTION, RECOMMAND, coachNo, REGDATE,  maleNum,  femaleNum,  onOff,  viewCount,rownum r
+		FROM(SELECT NO,FE_KCAL feKcal, TITLE, MALE_KCAL maleKcal, LEVELS,COST,PERIOD,AVG_RATING avgRating,TARGET_GENDER targetGender, TIMES, THUMBNAIL,
+		INTRODUCTION, RECOMMAND, COACH_NO coachNo,	REGDATE, MALE_NUM maleNum, FEMALE_NUM femaleNum, ON_OFF onOff, VIEW_COUNT viewCount
+		FROM lecture
+		WHERE coach_no=#{no}
+		ORDER BY no DESC
+		))
+		WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	
+		
+	<!--0206 코치가  올린 강의 갯수를 count :박해원-->
+	<select id="selectCoachLectureListCount" resultType="int" parameterType="int">
+		select count(*)
+		from lecture
+		where coach_no = #{coachNo}
+	</select>
+	
+	
+	<!-- 0206 박해원  코치마이페이지 강의목록에서 공개 비공개 토글 버튼을 클릭시 강의 테이블의 onOff 컬럼이 update -->
+	<update id="updateLectureOnOff" parameterType="Lecture">
+		update lecture
+		set on_off=#{onOff}
+		where no = #{no}
+	</update>
+	
+</mapper>

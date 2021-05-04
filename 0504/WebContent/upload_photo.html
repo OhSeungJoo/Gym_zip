@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>사진 올리기</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+
+    <style>
+
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+
+        /* 사진 올리기 박스*/
+        #uploadPhotoBox{
+            width: 800px;
+            height:600px;
+            border: 1px solid #f91b4e;
+            position: fixed;
+            margin: -301px 0 0 -401px;
+            top:50%;
+            left:50%;
+        }
+        /* end 사진 올리기 박스*/
+
+        #uploadPhotoBox>div{
+            position: absolute;
+        }
+
+        /*사진 올리기*/
+        .title{
+            text-align: center;
+            top:50px;
+            width:800px;
+            color: #f91b4e;
+            font-weight: 600;
+            font-size: 35px;
+        }
+        /*end .title    */
+
+        /* 사진들, 더하기 버튼 */
+        #uploadPhotoBox #photoBox{
+            width:525px;
+            height:205px;
+
+            margin: auto;
+            top:160px;
+            left: 140px;
+        }
+        /* end 사진들, 더하기 버튼*/
+
+        /* 사진 갯수 표시*/
+        #uploadPhotoBox #photoNumBox{
+            width:90px;
+            height:50px;
+
+            top:440px;
+            right:40px;
+        }
+        /* end 사진 갯수 표시 */
+
+        /*하단 버튼들을 담는 div*/
+        #uploadPhotoBox .bottom_btn{
+            bottom:0px;
+        }
+        /*end 하단 버튼 들을 담는 div*/
+
+
+        /*취소와 완료 버튼*/
+        #uploadPhotoBox .bottom_btn>button{
+            width:400px;
+            border: 1px solid #f91b4e;
+            height:50px;
+            font-family: "Noto Sans KR", sans-serif;
+            cursor: pointer;
+        }
+    /*    end 취소와 완료 버튼*/
+
+        /*취소 버튼*/
+        .bottom_btn .cancel_btn{
+            background-color: #fff;
+            color: #f91b4e;
+        }
+    /*    end 취소버튼*/
+
+        /*완료 버튼*/
+        .bottom_btn .ok_btn{
+            background-color: #f91b4e;
+            color: #fff;
+        }
+    /*    end 완료 버튼*/
+
+
+
+
+        /*사진 한개, 사진 업로드 버튼*/
+        #photoBox li{
+         float: left;
+            width:98px;
+            height:98px;
+            margin-right:5px;
+            margin-bottom: 5px;
+            border: 1px solid #e0e0e0;
+            position:relative;
+
+        }
+        /*end 사진 한개 업로드 버튼*/
+
+        /*업로드 버튼*/
+        #plusPhotoBtn{
+            width:100px;
+            height:100px;
+            border: none;
+            background-color: #e0e0e0;
+            font-size: 25px;
+            color: #757575;
+
+        }
+    /*    end 업로드 버튼*/
+
+    /*    사진 이미지들*/
+        #photoBox .photo_list img.photo_item{
+            width:98px;
+            height:98px;
+            position:fixed;
+        }
+    /*    end 사진 이미지들*/
+
+    /*    사진 지우기 버튼*/
+        #photoBox .photo_list button.delete_img_btn{
+            position:absolute;
+            background-color: rgba(0,0,0,0.7);
+            color: #fff;
+            width:15px;
+            height:15px;
+            right:0px;
+            line-height: 10px;
+            border: none;
+            text-align: center;
+            font-size: 17px;
+
+        /*    일단은 안보이게*/
+            display: none;
+        }
+    /*    end 사진 지우기 버튼*/
+
+
+    /*    사진 갯수 표기 내부*/
+        #photoNumBox>div{
+            display: inline-block;
+
+            font-size: 20px;
+            font-weight: 500;
+        }
+    /*    end 사진 갯수 표기 내부*/
+    
+    #plusPhotoBtn input{
+    	display:none;
+    }
+    
+    #plusPhotoBtn, #plusPhotoBtn span{
+    	display:inline-block;
+    	width:98px;
+    	height:98px;
+    }
+    
+   #plusPhotoBtn span{
+   		
+   		text-align:center;
+   		line-height:98px;
+    }
+
+    </style>
+</head>
+<body>
+<div class="pop_up" id="uploadPhotoBox">
+    <div class="title">사진 올리기</div>
+
+<!--    사진들과 사진 업로드 버튼-->
+    <div id="photoBox">
+        <ul>
+<!-- 사진들  -->
+
+
+
+<!-- end 사진들 -->
+
+
+<!--            사진 업로드 버튼-->
+           <li class="plus_photo"><label id="plusPhotoBtn"><input type="file"><span><i class="fas fa-plus"></i></span></input></label></li>
+<!--            end 사진들 -->
+        </ul>
+
+
+    </div>
+
+<!--    사진 갯수-->
+    <div id="photoNumBox"><div id="photoNum"></div><div id="totalPhotoNum">/10</div></div>
+<!--    end 사진 갯수-->
+    <div class="bottom_btn">
+        <button class="cancel_btn">취소</button><!--
+        --><button class="ok_btn">완료</button>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script>
+
+let photoNum=0;
+// 사진 추가 li
+const $plusPhoto=$(".plus_photo");
+const $photoNum=$("#photoNum");
+const $photoBox=$("#photoBox ul");
+<!--    사진 목록에 마우스 호버시-->
+    $photoBox.on("mouseenter",".photo_list",function () {
+      $(this).children(".delete_img_btn").css("display","block");
+    });
+//end  사진 목록에 마우스 호버시
+
+//   마우스 호버 토글
+
+    $photoBox.on("mouseleave",".photo_list",function () {
+        $(this).children(".delete_img_btn").css("display","none");
+    });
+// end 마우스 호버 토글
+
+// 사진 삭제 버튼 누르면 사진 없애기
+    $photoBox.on("click",".delete_img_btn",function () {
+    	
+    	$(this).parent().remove();
+    	photoNum--;
+    	$photoNum.text(photoNum);
+    	if(photoNum<10){
+    		$plusPhoto.show();
+    	}
+  
+    });
+// end 사진 삭제 버튼 누르면 사진 없애기
+
+// 사진 추가하기 버튼 
+const $plusPhotoBtn=$(".plus_photo label input");
+
+
+// 사진 목록
+
+
+$plusPhotoBtn.on("click",function(){
+	
+	$.ajax{
+		url:"",
+		error:function(){
+			
+		},
+		success:function(json){
+			const photoSrc=json;
+			//const photoSrc="";
+			// li 요소 생성하기
+			let $photoItem=$("<li>").addClass("photo_list");
+			// li에 이미지 요소 생성하고 붙이기 
+			const $photoSrc=$("<img>").addClass("photo_item").attr("src",photoSrc);
+			$photoItem.append($photoSrc);
+			// 사진을 삭제하는 버튼을 생성하고 붙이기 
+			let $deleteBtn=$("<button>").addClass("delete_img_btn");
+			// x 표시를 생성하고 버튼에 붙이기 
+			const $deleteIcon=$("<i>").addClass("fas").addClass("fa-times");
+			$deleteBtn.append($deleteIcon);
+			$photoItem.append($deleteBtn);
+			
+			
+			$photoBox.prepend($photoItem);
+		
+			photoNum++;
+			
+			$photoNum.text(photoNum);
+			
+			if(photoNum==10){
+				$plusPhoto.hide();
+			}
+			
+			
+	
+		}
+	}
+	
+	
+
+	
+});
+
+</script>
+</body>
+</html>

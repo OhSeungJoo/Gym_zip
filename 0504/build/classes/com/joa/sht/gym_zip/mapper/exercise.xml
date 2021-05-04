@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exercise">
+<!-- 0116/ 오승주  메인 페이지 인기 운동 추천  -->
+<select id="selectMainExerciseList" resultType="Exercise">
+SELECT no,name,thumbnail,coach_no coachNo
+FROM(SELECT no,exercise_no,name,ex_count, thumbnail,coach_no,rownum r
+FROM (SELECT no, exercise_no,name, ex_count, thumbnail,coach_no 
+	FROM exercise
+	ORDER BY ex_count DESC))
+WHERE r BETWEEN 1 AND 4
+</select>
+<!--  end 0116 / 오승주 메인페이지 인기 운동 추천  -->
+
+<!-- 칼로리 기준 운동카드 리스트 조회 : 백경현  -->
+	<select id="selectExerciseList"  parameterType="Step" resultType="Exercise" >
+	SELECT 	no, exerciseNo, name, setNum, url, levels,
+			maleNum, femaleNum, maleKcal, feKcal,
+		  	coachNo, onOff, regdate, free, exCount,  thumbnail,
+		   	bmOnOff, exWeight,  targetGender , viewCount,
+			coachNickname, tierName,
+			manHeight, manWeight, dummyGender, manKcal,
+			womanHeight, womanWeight, womanKcal, avgKcal
+	FROM (SELECT no, exerciseNo, name, setNum, url, levels,
+		 maleNum, femaleNum, maleKcal, feKcal,
+		  coachNo, onOff, regdate, free, exCount,  thumbnail,
+		   bmOnOff, exWeight,  targetGender , viewCount,
+			 coachNickname, tierName,
+			 manHeight, manWeight, dummyGender, manKcal,
+			womanHeight, womanWeight, womanKcal, avgKcal, rownum r
+	FROM (
+		SELECT e.no no, e.exercise_no exerciseNo, e.name name, e.set_num setNum, e.url url, e.levels levels,
+		 e.male_num maleNum, e.female_num femaleNum, e.male_kcal maleKcal, e.fe_kcal feKcal,
+		  e.coach_no coachNo, e.on_off onOff, e.regdate regdate, e.free free, e.ex_count exCount, e.thumbnail thumbnail,
+		   e.bm_on_off bmOnOff, e.ex_weight exWeight, e.target_gender targetGender ,e.view_count viewCount,
+			c.nickname coachNickname, t.name tierName,
+			dm.height manHeight, dm.weight manWeight, dm.gender dummyGender, dm.kcal manKcal,
+			df.height womanHeight, df.weight womanWeight, df.kcal womanKcal,
+			Round(NVL((e.male_kcal*e.male_num+ e.female_num*e.fe_kcal) / DECODE((e.male_num+e.female_num), 0, NULL, (e.male_num+e.female_num)), 0),1) avgKcal
+		FROM exercise e,coach c,member_tier t, ex_dummy dm, ex_dummy df
+		WHERE e.exercise_no=#{no}
+		AND e.coach_no = c.no
+		AND c.coach_tier_no = t.no
+		AND e.no = dm.ex_no(+)
+		AND dm.gender(+)='M'
+		AND e.no = df.ex_no(+)
+		AND df.gender(+)='F'
+		<choose>
+		<when test="step == 0">
+	    	ORDER BY avgKcal DESC
+	 	</when>
+	 	<when test="step == 1">
+	    	ORDER BY e.view_count DESC
+	 	</when>
+	 	<when test="step == 2">
+	    	ORDER BY e.regdate 
+	 	</when>
+	</choose>
+	))
+	WHERE r between #{pageStart} AND #{pageEnd}
+	</select>
+	<!--운동 데이터베이스 테이블 조회 : 백경현  -->
+	<select id="selectExerciseCardCount"  parameterType="int" resultType="Count" >
+		SELECT count(e.no) countResult
+		FROM exercise e,coach c,member_tier t, ex_dummy dm, ex_dummy df
+		WHERE e.exercise_no=#{no}
+		AND e.coach_no = c.no
+		AND c.coach_tier_no = t.no
+		AND e.no = dm.ex_no(+)
+		AND dm.gender(+)='M'
+		AND e.no = df.ex_no(+)
+		AND df.gender(+)='F'
+	</select>
+	
+	<select id="selectExerciseDetail" parameterType="int" resultType="Exercise">
+		select	e.no no, e.exercise_no exerciseNo, e.name name, e.set_num setNum, e.url url,
+		e.levels levels, e.male_num maleNum,  e.female_num femaleNum,
+		e.male_kcal maleKcal, e.fe_kcal feKcal,
+		e.coach_no coachNo, e.on_off onOff, e.regdate regdate,
+		e.free free, e.ex_count exCount, e.thumbnail thumbnail, e.bm_on_off bmOnOff,
+		e.ex_weight exWeight, e.target_gender targetGender, e.view_count viewCount,
+		c.nickname coachNickname, c.cost cost, c.ad_text adText,
+		c.coach_tier_no coachTierNo, t.name tierName,
+		dm.height manHeight, dm.weight manWeight, dm.gender dummyGender, dm.kcal manKcal,
+		df.height womanHeight, df.weight womanWeight, df.kcal womanKcal,
+		Round(NVL((e.male_kcal*e.male_num+ e.female_num*e.fe_kcal) / DECODE((e.male_num+e.female_num), 0, NULL, (e.male_num+e.female_num)), 0),1) avgKcal,
+		cp.image coachImage
+		from exercise e, coach c, member_tier t, ex_dummy dm, ex_dummy df, coach_photo cp
+		WHERE e.no=#{no}
+		AND c.coach_tier_no = t.no
+		AND e.coach_no = c.no
+		AND cp.coach_no(+) = c.no 
+		AND e.no = dm.ex_no(+)
+		AND dm.gender(+)='M'
+		AND e.no = df.ex_no(+)
+		AND df.gender(+)='F'
+	</select>
+	
+	<!--운동 데이터베이스 테이블 조회 : 백경현  -->
+	<select id="selectAllOne"  parameterType="int" resultType="Exercise" >
+		SELECT no, exercise_no exerciseNo, name, set_num setNum, url, levels,
+		 male_num maleNum, female_num femaleNum, male_kcal maleKcal, fe_kcal feKcal,
+		  coach_no coachNo, on_off onOff, regdate, free, ex_count exCount, thumbnail,
+		   bm_on_off bmOnOff, ex_weight exWeight, target_gender targetGender,view_count viewCount 
+		FROM exercise
+	</select>
+
+		
+	<!-- 0123 강의 상세 커리큘럼 : 오승주  -->
+	<select id="selectCurriculum" parameterType="int" resultType="Exercise">
+	SELECT e.name,e.thumbnail,e.exercise_time exerciseTime
+	FROM curriculum c, exercise e
+	WHERE c.exercise_no=e.no AND c.lecture_no=#{no}
+	ORDER BY c.seq
+	</select>
+	
+		
+	<!--0125 운동번호를 얻기위한 운동 테이블 selectOne :박해원-->
+	<select id="selectExNoList"  parameterType="Exercise" resultType="Exercise" >
+	
+		SELECT no, exercise_no exerciseNo, name, set_num setNum, url, levels,
+		 male_num maleNum, female_num femaleNum, male_kcal maleKcal, fe_kcal feKcal,
+		  coach_no coachNo, on_off onOff, regdate, free, ex_count exCount, thumbnail,
+		   bm_on_off bmOnOff, ex_weight exWeight, target_gender targetGender,view_count viewCount 
+		FROM exercise
+		WHERE name=#{name} AND coach_no=#{coachNo}
+		ORDER BY no DESC
+	</select>
+	
+	
+	<!--0125 코치가 운동을 등록 :박해원-->
+	<insert id="insertEx" parameterType="Exercise">
+	
+		insert into exercise(NO, EXERCISE_NO, NAME, SET_NUM, URL, LEVELS, MALE_NUM, FEMALE_NUM, MALE_KCAL, FE_KCAL, COACH_NO, ON_OFF, REGDATE, FREE, EX_COUNT, THUMBNAIL,
+	 BM_ON_OFF, EX_WEIGHT, TARGET_GENDER, VIEW_COUNT,exercise_time)
+	 values(exercise_seq.nextval,#{exerciseNo},#{name},0,#{url},#{levels},0,0,0,0,#{coachNo},'F',sysdate,#{free},#{exCount},#{thumbnail},#{bmOnOff},#{exWeight},#{targetGender},0,#{exerciseTime})
+	</insert>
+	
+	
+	<!--0127 코치가  올린 운동목록을 볼때 필요한 운동SelectList :박해원-->
+	<select id="selectCoachExList"  resultType="Exercise" parameterType="CoachExerciseListFilter">
+	
+		SELECT no,exerciseNo,name,setNum,url, levels,maleNum,femaleNum,maleKcal,feKcal,
+				coachNo,onOff,regdate, free,exCount, thumbnail,bmOnOff,exWeight,targetGender,viewCount,avgKcal
+		FROM(SELECT no,exerciseNo,name,setNum,url, levels,maleNum,femaleNum,maleKcal,feKcal,
+				coachNo,onOff,regdate, free,exCount, thumbnail,bmOnOff,exWeight,targetGender,viewCount,avgKcal,rownum r
+		FROM (SELECT no, exercise_no exerciseNo, name, set_num setNum, url, levels,
+		 male_num maleNum, female_num femaleNum,male_kcal maleKcal, fe_kcal feKcal,
+		  coach_no coachNo, on_off onOff, regdate, free, ex_count exCount, thumbnail,
+		   bm_on_off bmOnOff, ex_weight exWeight, target_gender targetGender,
+		   view_count viewCount, (CASE 
+								  WHEN 
+								  <![CDATA[ e.view_count< 10 ]]>THEN (SELECT AVG(kcal)
+								  FROM ex_dummy
+							 	  WHERE ex_no=e.no)
+								  ELSE (e.male_kcal+e.fe_kcal)/2 END)  avgKcal 
+			FROM exercise e
+			WHERE coach_no=#{coachNo}
+		<choose>
+		<when test="sort == 1">
+	    	ORDER BY avgKcal DESC
+	 	</when>
+	 	<when test="sort == 2">
+	    	ORDER BY e.view_count DESC
+	 	</when>
+	 	<when test="sort == 3">
+	    	ORDER BY e.name 
+	 	</when>
+	 	<when test="sort == 4">
+	    	ORDER BY e.regdate 
+	 	</when>
+	</choose> ))
+		WHERE r BETWEEN #{pageStart} AND #{pageEnd}
+	</select>
+	
+	<!--0128 코치가  올린 운동 갯수를 count :박해원-->
+	<select id="selectCoachExListCount" resultType="int" parameterType="CoachExerciseListFilter">
+		select count(*)
+		from exercise
+		where coach_no = #{coachNo}
+	</select>
+	
+	<!-- 코치의 부위별 운동 리스트 조회 백경현  -->
+	<select id="selectExerciseByCoachAndPart" parameterType="WhoseExercise" resultType="Exercise">
+		SELECT 	e.no no, e.exercise_no exerciseNo, e.name name, e.set_num setNum, e.levels levels,
+		e.male_num maleNum, e.female_num femaleNum, e.male_kcal maleKcal, e.fe_kcal feKcal,
+		e.coach_no coachNo, e.on_off onOff, e.regdate regdate, e.free free, e.ex_count exCount,e.exercise_time exerciseTime,
+		e.thumbnail thumbnail, e.bm_on_off bmOnOff, e.ex_weight exWeight, e.target_gender targetGender,
+		e.view_count viewCount, dm.height manHeight, dm.weight manWeight, dm.gender dummyGender, dm.kcal manKcal,
+		df.height womanHeight, df.weight womanWeight, df.kcal womanKcal,
+		Round(NVL((e.male_kcal*e.male_num+ e.female_num*e.fe_kcal) / DECODE((e.male_num+e.female_num), 0, NULL, (e.male_num+e.female_num)), 0),1) avgKcal
+		FROM exercise e, represent_exercise re, ex_dummy dm, ex_dummy df
+		WHERE e.exercise_no = re.no
+		AND e.coach_no=#{coachNo}
+		AND e.no = dm.ex_no(+)
+		AND dm.gender(+)='M'
+		AND e.no = df.ex_no(+)
+		AND df.gender(+)='F'
+		<if test="exercisePart == 1">
+	  		AND re.part_no = 1
+		</if>
+		<if test="exercisePart == 2">
+	  		AND re.part_no = 2
+		</if>
+		<if test="exercisePart == 3">
+	  		AND re.part_no = 3
+		</if>
+		<if test="exercisePart == 4">
+	  		AND re.part_no = 4
+		</if>
+		<if test="exercisePart == 5">
+	  		AND re.part_no = 5
+		</if>
+		<if test="exercisePart == 6">
+	  		AND re.part_no = 6
+		</if>
+		<if test="exercisePart == 7">
+	  		AND re.part_no = 7
+		</if>
+	</select>
+	
+	
+	<!-- 0129  박해원  코치마이페이지 운동목록에서 공개 비공개 토글 버튼을 클릭시 운동 테이블의 onOff 컬럼이 update -->
+	<update id="updateOnOff" parameterType="Exercise">
+		update exercise
+		set on_off=#{onOff}
+		where exercise_no= #{exerciseNo}
+	</update>
+	
+	<!-- 0130 운동 검색 백경현 -->
+	<select id="selectbyKeyword" parameterType="Keyword" resultType="Exercise">
+	SELECT e.no no, e.name name, e.exercise_no exerciseNo
+	FROM exercise e
+	WHERE e.no=-1
+	<if test="keywords != null">
+	 OR
+	<foreach item="keyword"  collection="keywords" open="("
+		separator="OR" close=")">
+		e.name like #{keyword}
+	</foreach>
+	</if>
+</select>
+</mapper>

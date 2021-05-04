@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>구독한 코치 목록</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+
+    <style>
+        body{
+            font-family: "Noto Sans KR",sans-serif;
+        }
+
+        /*구독 코치 목록*/
+        #subCoachList{
+            width:800px;
+            height:250px;
+
+            margin: auto;
+
+            border:1px solid #e0e0e0;
+        }
+        /*end 구독 코치 목록*/
+
+
+        /* 구독 코치 목록 -> 코치 프로필*/
+        #subCoachList .coachProfile{
+            height:70px;
+            border-bottom: 1px solid #424242;
+
+            position: relative;
+        }
+        /* end 구독 코치 목록 -> 코치 프로필 */
+
+        /*코치 이미지*/
+        #subCoachList .coachProfile .coach_img{
+            position: absolute;
+            top:10px;
+            left:10px;
+            width: 50px;
+            height:50px;
+            border-radius: 100%;
+            border:1px solid #424242;
+        }
+        /*end 코치 이미지*/
+
+        /*코치 이름*/
+        #subCoachList .coachProfile .coach_name{
+            display: inline-block;
+            position: absolute;
+            top: 30px;
+            left:80px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        /*end 코치 이름*/
+
+        /*구독 취소 버튼*/
+        #subCoachList #subCancelBtn{
+            position: absolute;
+            top:30px;
+            right:20px;
+            background-color: #fff;
+            border: 1px solid #f91b4e;
+
+            font-family: "Noto Sans KR", sans-serif;
+            color: #f91b4e;
+        }
+        /*end 구독 취소 버튼 */
+
+
+        /*구독한 코치 목록(한개)*/
+        #subCoachList .exercise_list_box{
+            background-color: #FFEB3B;
+            position: relative;
+        }
+        /*end 구독한 코치 목록(한개)*/
+
+
+        /*운동 목록 내부 div*/
+        #subCoachList .exercise_list_box>div{
+            float: left;
+        }
+        /*end 운동 목록 내부 div*/
+
+
+        /*운동 목록*/
+        #subCoachList .exercise_list_box .exercise_list{
+            display: inline-block;
+
+            width:180px;
+            height:180px;
+            margin-right: 10px;
+        }
+        /*end 운동 목록*/
+
+        /*사이드 버튼*/
+        #subscribeCoachBox .exercise_list_box .side_btn button{
+            width:20px;
+            height:179px;
+            line-height: 179px;
+            border: none;
+            background-color: #fff;
+            color: #f91b4e;
+            font-family: "Noto Sans KR", sans-serif;
+
+        }
+        /*end 사이드 버튼*/
+
+
+        /*이전 버튼*/
+        .exercise_list_box .side_btn .next_btn{
+            margin-left: -10px;
+        }
+        /*end 이전 버튼*/
+
+        /*다음 버튼*/
+        .exercise_list_box .side_btn .prev_btn{
+            margin-left: 5px;
+        }
+        /*end 다음 버튼*/
+
+        /*운동 이미지*/
+        .exercise_img{
+            margin-top:10px;
+            border: none;
+        }
+        /* end 운동 이미지 */
+
+        /*운동 이름*/
+        .exercise_list .exercise_name{
+            padding-top:10px;
+            border-top:1px solid #e0e0e0;
+            text-align: center;
+        }
+        /*end 운동 이름 */
+
+        /*구독 취소 팝업 css*/
+        #subscribeCancelBox{
+            width:600px;
+            height:300px;
+            border:1px solid #f91b4e;
+            position: fixed;
+            top:50%;
+            left:50%;
+            background-color: #fff;
+            margin:-151px 0 0 -301px;
+        }
+
+        #subscribeCancelBox .title{
+            font-size: 25px;
+            font-weight: 600;
+            color: #f91b4e;
+            text-align: center;
+            height:50px;
+            line-height: 50px;
+        }
+
+        #subscribeCancelBox .text{
+            height:200px;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        #subscribeCancelBox .bottomBtn button{
+            width:300px;
+            height:50px;
+            font-family: "Noto Sans KR", sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            border: 1px solid #f91b4e;
+        }
+
+        .bottomBtn #yes{
+            color: #f91b4e;
+            background-color: #fff;
+
+        }
+
+        .bottomBtn #no{
+            color: #fff;
+            background-color: #f91b4e;
+        }
+
+        /*end 구독 취소 팝업 css*/
+
+        .popup{
+            position:absolute;
+            width:100%;
+            height:100%;
+            background-color: rgba(0,0,0,0.7);
+            top:0px;
+            display: none;
+        }
+
+        .popup.on{
+            display: block;
+        }
+
+
+    </style>
+</head>
+<body>
+<!--구독한 코치 목록 박스-->
+<div id="subscribeCoachBox">
+<!--    구독한 코치 목록-->
+    <ul>
+        <!-- 구독한 코치 목록(코치 한명)-->
+        <li id="subCoachList">
+            <!-- 구독한 코치 목록 상단 프로필 -->
+            <div class="coachProfile">
+                <img class="coach_img">
+                <div class="coach_name">양치승</div>
+                <button id="subCancelBtn">구독 취소</button>
+            </div>
+            <!--end 구독한 코치 목록 상단 프로필-->
+
+            <!-- 구독한 코치의 운동 목록 박스 -->
+            <div class="exercise_list_box">
+                <!-- 이전 버튼 -->
+                <div class="side_btn"><button class="prev_btn"><</button></div><!--
+                end 이전 버튼
+                --><!--
+                --><div>
+                    <!-- 구독한 코치의 운동 목록 -->
+                    <ul>
+                        <!-- 구독한 코치의 운동 목록(한 개) -->
+                        <li class="exercise_list">
+                            <a>
+                            <div><img class="exercise_img" width="180" height="120"></div>
+                            <div class="exercise_name">양치승과 함께 풀업</div>
+                            </a>
+                        </li>
+                        <!--  end 구독한 코치의 운동 목록 (한 개)
+                        --><!--
+                        --><li class="exercise_list">
+                            <a>
+                                <div><img class="exercise_img" width="180" height="120"></div>
+                                <div class="exercise_name">양치승과 함께 풀업</div>
+                            </a>
+                        </li><!--
+                        --><li class="exercise_list">
+                            <a>
+                                <div><img class="exercise_img" width="180" height="120"></div>
+                                <div class="exercise_name">양치승과 함께 풀업</div>
+                            </a>
+                        </li><!--
+                         --><li class="exercise_list">
+                        <a>
+                            <div><img class="exercise_img" width="180" height="120"></div>
+                            <div class="exercise_name">양치승과 함께 풀업</div>
+                        </a>
+                        </li>
+                    </ul>
+                <!--end 구독한 코치의 운동 목록 -->
+                </div><!--
+                --><!-- 다음 버튼
+                --><div class="side_btn"><button class="next_btn">&gt;</button></div>
+                <!-- end 다음 버튼 -->
+
+            </div>
+            <!-- end 구독한 코치의 운동 목록 박스 -->
+        </li>
+        <!--end 구독한 코치 목록(코치 한 명)-->
+    </ul>
+<!--    구독한 코치 목록-->
+
+</div>
+<!--end 구독한 코치 목록 박스-->
+<!--구독 취소 팝업-->
+<div class="popup">
+
+    <div id="subscribeCancelBox">
+        <div class="title">구독 취소</div>
+        <div class="text">정말 구독을 취소하시겠어요?</div>
+        <div class="bottomBtn">
+            <button id="yes">예</button><!--
+        --><button id="no">아니오</button>
+        </div>
+    </div>
+
+</div>
+<!--end 구독 취소 팝업-->
+<script src="js/jquery.js"></script>
+<script>
+    $("#subCancelBtn").on("click",function () {
+       $(".popup").toggleClass("on");
+    });
+
+    // 구독 취소 -> 예
+    $("#subscribeCancelBox #yes").on("click",function () {
+        $(".popup").toggleClass("on");
+    });
+
+    // 구독취소 -> 아니오
+    $("#subscribeCancelBox #no").on("click",function () {
+       $(".popup").toggleClass("on");
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ExDummy">
+	
+	
+	<insert id="insertExDummy" parameterType="ExDummy">
+		INSERT INTO ex_dummy (NO,HEIGHT,WEIGHT,GENDER,EX_NO,KCAL)
+		values(ex_dummy_seq.nextval,#{height},#{weight},#{gender},#{exNo},#{kcal})
+	
+	</insert>
+
+</mapper>

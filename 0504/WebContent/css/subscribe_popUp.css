@@ -1,0 +1,181 @@
+
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        /*구독 팝업 창*/
+        .subscribe_pop_up{
+            width:800px;
+            height:600px;
+            border: 1px solid #f91b4e;
+            position:fixed;
+            background-color:#fff;
+            margin:-301px 0 0 -401px;
+            top:50%;
+            left:50%;
+        }
+    /*    end 구독 팝업 창*/
+
+    /*    구독*/
+        .subscribe_pop_up .subscribe_title{
+            width:800px;
+            height:60px;
+            line-height: 60px;
+            font-size: 30px;
+            color: #f91b4e;
+            font-weight: 600;
+            text-align: center;
+        }
+    /*    end 구독*/
+
+
+    /*    구독 안내 문구*/
+        .subscribe_pop_up .subscribe_text{
+            width:760px;
+            height:160px;
+            margin-top:50px;
+            padding:20px;
+            text-align: center;
+        }
+    /*    end 구독 안내 문구*/
+
+
+    /*    코치 이름 및 문구*/
+        .subtext.first>div{
+            display: inline-block;
+        }
+    /*    end 코치 이름 및 문구*/
+
+    /*    문구첫째 줄*/
+        .subscribe_pop_up .subtext.first{
+           margin-top: 30px;
+        }
+    /*    end 문구첫째 줄*/
+
+    /*    코치이름*/
+        .subtext.first .coach_name{
+            font-size: 30px;
+            font-weight: 600;
+        }
+    /*    end 코치이름*/
+
+    /*    코치 이름 옆 문구*/
+        .subtext.first .text{
+            font-size:25px;
+            font-weight: 500;
+        }
+    /*    end 코치 이름 옆 문구*/
+
+    /*    두번째 안내 문구*/
+        .subtext.second{
+            margin-top:20px;
+            font-size: 25px;
+            font-weight: 400;
+        }
+    /*    end 두번째 안내 문구*/
+
+    /*    에너지 표기 box*/
+        .subscribe_pop_up .energy_inform_box{
+            height:200px;
+
+        }
+    /*    end 에너지 표기 box*/
+
+    /*    하단 버튼 div (취소, 구독하기)*/
+        .bottom_btn{
+            height:60px;
+
+            position:absolute;
+            bottom:0px;
+        }
+    /*    end 하단 버튼 div(취소, 구독하기*/
+
+
+    /*    취소 버튼과 구독하기 버튼*/
+        .bottom_btn>button{
+            font-family: "Noto Sans KR", sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            width:400px;
+        }
+    /*    end  취소 버튼과 구독하기 버튼*/
+
+    /*    취소 버튼*/
+        .bottom_btn .cancel_btn{
+
+            height:59px;
+            border: none;
+            background-color: #fff;
+            color:#f91b4e;
+            border-top: 1px solid #f91b4e;
+        }
+    /*    end 취소 버튼*/
+
+    /*    구독하기 버튼*/
+        .bottom_btn .ok_btn, .bottom_btn .charge_btn{
+            border: none;
+            background-color: #f91b4e;
+            height:60px;
+            color: #fff;
+        }
+    /*    end 구독하기 버튼*/
+
+    /*    에너지 표기 내부 div*/
+        .energy_inform_box>div{
+            width:250px;
+            height:200px;
+            margin:0 5px;
+            background-color: #fff;
+            display: inline-block;
+        }
+    /*    end 에너지 표기 내부 div*/
+
+
+
+    /*!*  현재 에너지, 구독에너지, 결제시 잔여 에너지*!*/
+        .energy_inform_box .energy .energy_title{
+            color: #f91b4e;
+            height:40px;
+            font-size: 18px;
+            line-height: 40px;
+            text-align: center;
+        }
+    /*!*    end 현재 에너지, 구독 에너지, 결제시 잔여 에너지*!*/
+
+    /*    에너지 이미지와 수 담은 div*/
+        .energy_inform_box .energy_img_num{
+            width:230px;
+            height:120px;
+            margin:20px 10px;
+
+
+        }
+    /*    end 에너지 이미지와 수 담은 div*/
+
+
+    /*    에너지 이미지와 수*/
+        .energy_inform_box .energy_img_num>div{
+            float: left;
+        }
+    /*    end 에너지 이미지와 수*/
+
+    /*    에너지 이미지*/
+        .energy_inform_box .energy_img{
+            width:100px;
+            height:100px;
+            background-image: url("/img/energy_large.png");
+        }
+    /*    end 에너지 이미지*/
+
+    /*    에너지 수*/
+        .energy_inform_box .energy_num{
+
+            width:110px;
+            margin-left:20px;
+            height:100px;
+            color: #f91b4e;
+            font-size: 30px;
+            line-height: 100px;
+            text-align: center;
+        }
+    /*    end 에너지 수*/

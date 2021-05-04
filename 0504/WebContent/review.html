@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/all.min.css"/>
+    <link rel="stylesheet" href="css/Chart.css"/>
+    <style>
+        /*단 CSS*/
+        .bar {
+            overflow: hidden;
+        }
+        .review_total{
+            width: 800px;
+            height: 200px;
+            margin: 20px auto;
+            background-color: antiquewhite;
+        }
+        /*단 수평블록 설정*/
+        .bar_contents{
+            float:left;
+        }
+        #tabTitle{
+            width: 300px;
+            height: 200px;
+            text-align: center;
+            line-height: 100px;
+        }
+        #starPoint{
+            width: 300px;
+            height: 200px;
+            text-align: center;
+        }
+        #starIcon{
+            width: 200px;
+            height: 150px;
+            font-size:80px;
+            line-height: 150px;
+            color: yellow;
+        }
+        #starData{
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        #tabTitle{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #reviewList{
+            width: 600px;
+            height: 800px;
+            margin:auto;
+            /*background-color: lightpink;*/
+        }
+        .review_card{
+            width: 600px;
+            box-shadow: 1px 1px 10px #424242;
+            margin-bottom: 5px;
+            /*height: 200px;*/
+        }
+        .photo{
+            width: 80px;
+            height: 200px;
+            /*border-right: 1px solid #424242;*/
+        }
+        .photo div{
+            background-color: #424242;
+            margin: 10px auto;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+        }
+        .more{
+            width: 520px;
+            height: 20px;
+            text-align: center;
+            margin: auto;
+            /*background-color: azure;*/
+        }
+        .little{
+            width:520px;
+            height: 20px;
+            margin: auto;
+            text-align: center;
+        }
+        .off{
+            display:none;
+        }
+        .review_contents{
+            width: 520px;
+            min-height:120px;
+            /*background-color: skyblue;*/
+            white-space: pre-line;
+        }
+        .review_contents.on{
+            height: 120px;
+            overflow: hidden;
+        }
+        .writer_explain{
+            font-weight: bold;
+        }
+        .writer_explain1{
+            width:520px;
+            height:30px;
+            /*background-color: orangered;*/
+        }
+        .writer_tier{
+            width:80px;
+            height:30px;
+            line-height: 30px;
+            text-align:center;
+        }
+        .writer_name{
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: left;
+            /*background-color: violet;*/
+        }
+        .writer_kcal{
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .report{
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+        }
+        .writer_explain2{
+            width:520px;
+            height:30px;
+            /*background-color: aquamarine;*/
+        }
+        .writer_date{
+            width:180px;
+            height: 30px;
+            line-height: 30px;
+            /*background-color: burlywood;*/
+        }
+        .writer_lecture_name{
+            width: 340px;
+            height:30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .hidden{
+            display: none;
+        }
+        .review_init{
+            width: 800px;
+            height: 800px;
+            margin: auto;
+            padding-top: 100px;
+            background-color: #dddddd;
+        }
+        .review_init_box{
+            width: 600px;
+            height: 600px;
+            margin:auto;
+
+            background-color: #888888;
+        }
+        .review_init_text{
+            font-size: 40px;
+            text-align: center;
+            line-height: 600px;
+            color:#eeeeee;
+        }
+    </style>
+</head>
+<body>
+<div class="review_box">
+    <div class="review_init hidden">
+        <div class="review_init_box">
+            <div class="review_init_text">
+                 아직 리뷰가 없습니다~
+            </div>
+        </div>
+    </div>
+    <div class="normal_review ">
+        <div class="review_total bar">
+            <div id="tabTitle" class="bar_contents">코치평점</div>
+            <div id="starPoint"  class="bar_contents">
+                <div id="starIcon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div id="starData">
+                    3.8 (3244)
+                </div>
+            </div>
+            <div class="bar_contents">
+                <canvas id="marksChart"  width="200" height="200"></canvas>
+            </div>
+        </div>
+        <div id="reviewList">
+            <div class="review_card bar">
+                <div class="photo bar_contents">
+                    <div></div>
+                </div>
+                <div class="bar_contents writer_explain">
+                    <div class="bar writer_explain1">
+                        <div class="bar_contents writer_tier">
+                            골드골드
+                        </div>
+                        <div class="bar_contents writer_name">
+                            김수현수현수현
+                        </div>
+                        <div class="bar_contents writer_kcal">
+                            소모칼로리150kcal
+                        </div>
+
+                        <div class="bar_contents report">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                    </div>
+                    <div class="bar writer_explain2">
+                        <div class="bar_contents writer_date">
+                            2020-12-01 21:39:27
+                        </div>
+                        <div class="bar_contents writer_lecture_name ">
+                            스무글자스무글자스무글자스무글자스무글자 수강
+                        </div>
+                    </div>
+                    <div class="review_contents on">
+                        양치승 트레이너 코치님은 완전 친절하시고
+                        운동방법이나 운동에 대해서 정확하게 알려주십니다~
+                        감사합니다♡♡♡
+                        또한 운동에 대해 잘 모르거나 자세에 대해 의문의 들때도 항상 친절하게 답변해주시고 시간때에 상관없이
+                        항상 밝은 미소로 응대해주십니다.
+                        양치승 트레이너 코치님은 완전 친절하시고
+                        운동방법이나 운동에 대해서 정확하게 알려주십니다~
+                        감사합니다♡♡♡
+                        또한 운동에 대해 잘 모르거나 자세에 대해 의문의 들때도 항상 친절하게 답변해주시고 시간때에 상관없이
+                        항상 밝은 미소로 응대해주십니다.
+                    </div>
+                    <div class="more"><i class="fas fa-angle-double-down"></i> 더보기</div>
+                    <div class="little off"><i class="fas fa-angle-double-up"></i> 접 기</div>
+                </div>
+            </div><!--review card end-->
+            
+        </div><!--#reviewList-->
+    </div>
+</div><!--.review_box end-->
+
+
+
+
+<script src="js/jquery.js"></script>
+<script src="js/Chart.js"></script>
+<script>
+    var marksCanvas = document.getElementById("marksChart");
+    var ScoreData=[2.8, 3.5, 4.3, 4.2, 3.0];
+    var ScoreLabel=["커리큘럼", "준비성", "친절도", "시간준수", "전달력"];
+    var marksData = {
+        labels: ScoreLabel,
+        datasets: [{
+            backgroundColor: "transparent",
+            borderColor: "rgb(249,27,78)",
+            fill: false,
+            radius: 5,
+            pointRadius: 2,
+            pointBorderWidth: 1,
+            pointBackgroundColor: "rgb(249,27,78)",
+            pointBorderColor: "rgb(249,27,78)",
+            pointHoverRadius: 10,
+            data: ScoreData
+        }]
+    };
+
+    var chartOptions = {
+        responsive: false,//크기 조정 마음대로 하려면 false
+        scale: {
+            gridLines: {
+                color: "black",
+                lineWidth: 1
+            },
+            angleLines: {
+                display: false
+            },
+            ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: 5,
+                stepSize: 1
+            },
+            pointLabels: {
+                fontSize: 10,
+                fontColor: "rgb(249,27,78)"
+            }
+        },
+        legend: {
+            display: false
+        }
+    };
+
+    var radarChart = new Chart(marksCanvas, {
+        type: 'radar',
+        data: marksData,
+        options: chartOptions
+    });
+    $(".more").click(function () {
+        let $more = $(this);
+        $more.addClass("off");
+        $more.next().removeClass("off");
+        $more.prev().removeClass("on")
+    });//더보기 눌렀을때
+    $(".little").click(function () {
+        let $little = $(this);
+        $little.addClass("off");
+        $little.prev().removeClass("off");
+        $little.prev().prev().addClass("on");
+
+    });//접 기  눌렀을때
+</script>
+</body>
+</html>

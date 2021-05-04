@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>GYM.zip</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+    <link rel="icon" href="img/logo_coral.ico">
+
+    <style>
+        #wrap{
+            font-family: "Noto Sans KR",sans-serif;
+        }
+        #container{
+            width: 100%;
+        }
+        #content{
+            width:1100px;
+            margin: auto;
+        }
+        #steady{
+            width: 400px;
+            height: 600px;
+            position: relative;
+            top: 20px;
+            left: 20px;
+        }
+        #steady span{
+            position: absolute;
+            font-size: 30px;
+            top: 110px;
+            left: 170px;
+        }
+
+        #steady div{
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        #rightSide{
+            width: 620px;
+            position: relative;
+            left: 450px;
+            top: -580px;
+        }
+
+        dt {
+            margin: 20px 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #f91b4e;
+            border-bottom: 2px solid #f91b4e;
+        }
+        dt div{
+            margin-bottom: 5px;
+        }
+        #many{
+           width: 600px;
+            height: 150px;
+            margin: 25px 10px;
+        }
+        #many dd{
+            width: 170px;
+            height: 60px;
+            margin: 20px 10px;
+            float: left;
+            border: 1px solid #f91b4e;
+            font-size: 18px;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        #season{
+            width: 600px;
+            margin: 25px 10px;
+            overflow: hidden;
+        }
+
+        #season dd{
+            float: left;
+            width: 80px;
+            height: 20px;
+            margin:10px;
+        }
+        #season dd:nth-child(4n+4){
+            width: 280px;
+        }
+        .bar_contents{
+            width: 100%;
+            height: 15px;
+            background-color: #fff;
+            border: 1px solid #f91b4e;
+        }
+        .seasonTime{
+            width: 75%;
+            height: 15px;
+            background-color: #f91b4e;
+        }
+        #gain{
+            width: 600px;
+            margin: 25px 10px;
+            overflow: hidden;
+        }
+
+        #gain dd{
+            float: left;
+            width: 140px;
+            height: 60px;
+            margin: 25px;
+            border: 1px solid #e0e0e0;
+            font-size: 20px;
+
+        }
+        #gain div{
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        #gain dd:nth-last-child(1){
+            line-height: 60px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="content">
+               <div id="tmiBox">
+
+                <div id="steady">
+                    <img src="img/box.png">
+                    <span>100kg</span>
+                    <div>내가 들어올린 무게!!!</div>
+                </div>
+
+                <div id="rightSide">
+                    <div id="many">
+                        <dl>
+                            <dt><div>내가 운동을 이렇게나 했다니?!</div></dt>
+                            <dd>16일</dd>
+                            <dd>272시간</dd>
+                            <dd>22,349분</dd>
+                        </dl>
+                    </div>
+                    <!--Many END-->
+
+                    <div id="season">
+                        <dl>
+                            <dt><div>시즌별 운동시간</div></dt>
+                            <dd>시즌4</dd>
+                            <dd>플레티넘</dd>
+                            <dd><div class="bar_contents">
+                                <div class="seasonTime"></div></div></dd>
+                            <dd>163시간</dd>
+
+                            <dd>시즌3</dd>
+                            <dd>플레티넘</dd>
+                            <dd><div class="bar_contents">
+                                <div class="seasonTime"></div></div></dd>
+                            <dd>163시간</dd>
+
+                            <dd>시즌2</dd>
+                            <dd>플레티넘</dd>
+                            <dd><div class="bar_contents">
+                                <div class="seasonTime"></div></div></dd>
+                            <dd>163시간</dd>
+
+                            <dd>시즌1</dd>
+                            <dd>플레티넘</dd>
+                            <dd><div class="bar_contents">
+                                <div class="seasonTime"></div></div></dd>
+                            <dd>163시간</dd>
+
+
+                        </dl>
+                    </div>
+                    <!--season END-->
+
+                    <div id="gain">
+                        <dl>
+                            <dt><div>운동을 해서 생긴 이득은?</div></dt>
+                            <dd><div>수명연장</div>1288시간</dd>
+                            <dd><div>칼로리소모</div>1288시간</dd>
+                            <dd><div>근손실방지</div>1288시간</dd>
+                            <dd><div>체지방감소</div>1288시간</dd>
+                            <dd><div>연애할수있는횟수</div>1288시간</dd>
+                            <dd><div>운동하러가기</div></dd>
+                        </dl>
+                    </div>
+                    <!-- gain END-->
+                 </div>
+                   <!--rightSide END-->
+                </div>
+                <!--tmiBox END-->
+            </div>
+            <!--content END-->
+        </div>
+        <!-- container END-->
+    </div>
+
+<!--wrap END-->
+
+</body>
+</html>

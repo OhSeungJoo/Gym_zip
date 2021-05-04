@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>삭제할거니</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+
+
+    <style>
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        .pop_up_box{
+            width:600px;
+            height:300px;
+            position: fixed;
+            top:50%;
+            left:50%;
+            margin: -151px 0 0 -301px;
+            border: 1px solid #f91b4e;
+        }
+
+
+
+        .pop_up_box .close_btn{
+            width:50px;
+            height:40px;
+            border: none;
+            color: #757575;
+            font-size: 25px;
+            position: absolute;
+            top:0px;
+            right:0px;
+            background-color: #fff;
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        .pop_up_box .text{
+            height:50px;
+            line-height: 50px;
+            margin-top:125px;
+            font-size: 25px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .pop_up_box .ok{
+            position: absolute;
+            right: 0px;
+            bottom:0px;
+            width:80px;
+            height:30px;
+            border: 1px solid #f91b4e;
+            background-color: #f91b4e;
+            color: #fff;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="pop_up_box">
+    <button class="close_btn" >X</button>
+    <div class="text">삭제하시겠습니까?</div>
+    <button class="ok">확인</button>
+</div>
+</body>
+</html>

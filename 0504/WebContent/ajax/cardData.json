@@ -1,0 +1,43 @@
+[
+  {
+    "image": "img/풀업1.jpg",
+    "calorie": 214,
+    "level": "초급",
+    "title": "호랑스풀업1",
+    "code": "p12223",
+    "time": "00:02:31",
+    "part": "back"
+  },{
+    "image": "img/풀업2.jpg",
+    "calorie": 245,
+    "level": "중급",
+    "title": "호랑스풀업2",
+    "code": "p12224",
+    "time": "00:03:31",
+    "part": "back"
+  },{
+    "image": "img/풀업3.jpg",
+    "calorie": 312,
+    "level": "고급",
+    "title": "호랑스풀업3",
+    "code": "p12225",
+    "time": "00:03:21",
+    "part": "back"
+  },{
+    "image": "img/풀업4.jpg",
+    "calorie": 323,
+    "level": "초급",
+    "title": "고양스풀업1",
+    "code": "p12325",
+    "time": "00:05:21",
+    "part": "back"
+  },{
+    "image": "img/풀업5.jpg",
+    "calorie": 400,
+    "level": "초급",
+    "title": "멍멍스풀업1",
+    "code": "p125",
+    "time": "00:04:01",
+    "part": "back"
+  }
+]

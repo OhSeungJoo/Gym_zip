@@ -1,0 +1,202 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+#curriculum{
+    width:800px;
+    margin:auto;
+    display: none;
+}
+#exerciseSearchView{
+    width:528px;
+    height: 598px;
+    border:1px solid #424242;
+    /*background-color: lightpink;*/
+}
+#searchTab{
+    width:500px;
+    height: 60px;
+    margin:auto;
+    /*background-color: #F91B4E;*/
+}
+#searchTab div:nth-child(1){
+    margin: 15px;
+    width: 400px;
+    height: 30px;
+}
+#searchTab input{
+    width: 300px;
+    height: 30px;
+    border: 0px;
+    padding: 0px;
+    outline: none;
+    box-shadow: 0px 0px 10px #242424;
+}
+#searchTab button{
+    width: 60px;
+    height: 30px;
+    border: 0px;
+    background-color: #fff;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px #242424;
+    transition: .2s ease;
+}
+#searchTab button:hover{
+    background-color: #999;
+    color:#fff;
+}
+#searchTab select{
+    width: 60px;
+    height: 30px;
+    margin: 15px 0px;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 430px;
+    outline: none;
+}
+#exerciseSearchBar>a{
+    display: block;
+    width: 40%;
+    height: 20px;
+    margin: auto;
+    border: 1px solid #F91B4E;
+    line-height: 20px;
+    text-align: center;
+}
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+#exerciseCardList{
+    width:500px;
+    height: 500px;
+    margin: auto;
+    overflow-y: scroll;
+    /*background-color: blue;*/
+}
+.exercise_card{
+    width: 150px;
+    height: 150px;
+    box-shadow: 1px 1px 1px #eeeeee;
+    position: relative;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5%;
+    overflow: hidden;
+    margin-top: 7px;
+    margin-right: 7px;
+
+}
+.exercise_card>img{
+    padding: 0px;
+    margin: 0px;
+}
+.first_bar{
+    width: 150px;
+    height: 20px;
+    position: relative;
+}
+.first_bar div{
+    width: 50%;
+    height: 20px;
+    line-height: 20px;
+}
+.first_bar div:nth-child(1){
+    background-color: #F91B4E;
+    color:#fff;
+}
+.first_bar div:nth-child(2){
+    color: #F91B4E;
+    background-color:#fff;
+}
+.second_bar{
+    font-size: 14px ;
+    height: 28px;
+    line-height: 30px;
+    background-color: #eeeeee;
+}
+.addBtn{
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    color:#999999;
+    line-height: 150px;
+    font-size: 50px;
+    display: none;
+}
+/*//////////////////////////////////////////////////////////////////////////////////////////*/
+#curriculumSet{
+    width:270px;
+    height: 600px;
+    background-color: #888888;
+}
+#curriculumSetExplain {
+    width: 250px;
+    height: 30px;
+    padding: 10px;
+    line-height: 30px;
+    /*background-color: #4b96e6;*/
+}
+#itemList{
+    width: 250px;
+    height: 500px;
+    margin: auto;
+    background-color: #bbbbbb;
+    overflow-y: scroll;
+}
+.item{
+    border-bottom: 1px solid #424242;
+    text-align: center;
+    position:relative;
+    width: 230px;
+    height: 150px;
+    overflow: hidden;
+}
+.item_info{
+    height: 148px;
+    position: absolute;
+}
+.area{
+    width: 80px;
+    height: 150px;
+    position: absolute;
+    margin-left: 150px;
+}
+.up_down_btn_box{
+    width: 20px;
+    position: absolute;
+    margin-left: 60px;
+}
+
+.up_btn, .down_btn{
+    width: 20px;
+    height: 75px;
+    font-size: 20px;
+    line-height: 75px;
+    text-align: center;
+    cursor: pointer;
+}
+.up_btn:hover, .down_btn:hover{
+    background-color: #888888;
+    color:#ffffff;
+}
+.time{
+    width: 60px;
+    height: 150px;
+    line-height: 150px;
+    font-size: 15px;
+    position: absolute;
+}
+.delete_item_btn{
+    width: 210px;
+    height: 150px;
+    line-height: 150px;
+    background-color: rgba(0,0,0,.5);
+    color:#fff;
+    font-size: 50px;
+    position: absolute;
+    display: none;
+}
+#totalLectureTime{
+    margin: 10px auto;
+    text-align: center;
+    color:white;
+}

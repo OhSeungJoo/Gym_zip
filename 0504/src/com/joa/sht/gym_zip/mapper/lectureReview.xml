@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lectureReview">
+<!-- 강의 상세 페이지의 리뷰들을 나타내는 sql 구문 
+0117/ 오승주 작성  -->
+<select id="selectLectureReviewList" parameterType="PageVO" resultType="LectureReviewContent">
+SELECT  myKcal,regdate,nickname,profileImg,tier,contents,r
+FROM(SELECT myKcal,regdate,nickname,profileImg,tier,contents,rownum r
+FROM(SELECT l.my_kcal myKcal,r.regdate regdate,m.nickname nickname,m.profile_img profileImg,t.name tier, r.contents contents
+FROM lecture_list_std l,lecture_review r, member m, member_tier t
+WHERE l.no= r.no
+AND l.member_no=m.no
+AND m.member_tier_no=t.no
+AND l.lecture_no=#{no}
+ORDER BY r.regdate DESC))
+WHERE r BETWEEN #{start} AND #{end}
+</select>
+<!-- 강의 상세 페이지의 리뷰들  -->
+
+
+<!-- 강의 상세 페이지 평균 평점 0117/ 오승주 작성 -->
+<select id="selectLectureReviewAvg" parameterType="int" resultType="lectureReview">
+SELECT COUNT(*) totalNum,AVG(r.effect)*5 avgEffect,AVG(r.delivery)*5 avgDelivery
+,AVG(r.prepare)*5 avgPrepare,AVG(r.kindness)*5 avgKindness,AVG(r.quality)*5 avgQuality
+FROM lecture_list_std l,lecture_review r
+WHERE l.no=r.no
+AND l.lecture_no=#{no}
+</select>
+<!-- end 강의 상세 페이지 평균 평점  -->
+
+<!-- 강의 리뷰 작성 0119 조용규 -->
+<insert id="insertLectureReview" parameterType="LectureReview">
+	INSERT INTO lecture_Review(no, contents, effect, delivery, prepare, kindness, quality, regdate)
+	VALUES(LECTURE_REVIEW_SEQ.nextval(), #{contents},#{effect},#{delivery},#{prepare},#{kindness},#{quality}',sysdate)
+</insert>
+
+<update id="updateLectureReview" parameterType="LectureReview">
+	UPDATE lecture_review
+	SET contents=#{contents}, effect=#{effect}, delivery=#{delivery}, prepare=#{prepare}, kindness=#{kindness}, quality=#{quality}, regdate=sysdate
+	WHERE no=#{no}
+</update>
+
+
+<!-- 강의 리뷰가 있는지 검색 0120 조용규-->
+<select id="selectLectureReviewExist" parameterType="int" resultType="LectureReview">
+SELECT lr.no, lr.contents
+FROM lecture_review lr, lecture_list_std lls, lecture l, member m
+WHERE m.no = lls.member_no AND lls.lecture_no = l.no AND lls.no = lr.no (+) AND m.no =#{no}
+</select>
+</mapper>

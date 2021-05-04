@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="coaching">
+	
+	<insert id="reserveCoaching" parameterType="Coaching">
+		INSERT INTO coaching(no, member_no, ok_toggle, coaching_date, reject_reason, regdate, coach_no)
+		VALUES (coaching_seq.nextval, #{memberNo}, 'W', #{coachingDate}, null, sysdate, #{coachNo})
+	</insert>
+	
+	<select id="getCoachingEvent" parameterType="Coaching" resultType="Coaching">
+		select c.nickname, ci.coaching_date coachingDate, ci.ok_toggle okToggle, ci.reject_reason rejectReason
+		from coaching ci, coach c
+		where c.no = ci.coach_no AND ci.coach_no=#{coachNo} AND 
+		coaching_date between #{calendarStart} AND #{calendarEnd}
+	</select>
+	
+	<select id="getCoachingEventTo" parameterType="Coaching" resultType="Coaching">
+		select c.nickname, ci.coaching_date coachingDate, ci.ok_toggle okToggle, ci.reject_reason rejectReason
+		from coaching ci, coach c
+		where c.no = ci.coach_no AND ci.member_no=#{memberNo} AND 
+		coaching_date between #{calendarStart} AND #{calendarEnd}
+	</select>
+	
+	<update id="acceptCoaching" parameterType="Coaching">
+		UPDATE coaching
+		SET ok_toggle = 'T'
+		WHERE coach_no=#{coachNo} AND coaching_date = #{coachingDate}
+	</update>
+	
+	<select id="coachingInform" parameterType="Coaching" resultType="Coaching">
+		SELECT c.nickname, ci.coaching_date coachingDate
+		FROM coaching ci, coach c
+		WHERE ci.coach_no = c.no AND ci.coach_no = #{coachNo} AND ci.coaching_date = #{coachingDate}
+	
+	</select>
+	
+	<update id="rejectCoaching" parameterType="Coaching">
+		UPDATE coaching
+		SET ok_toggle = 'F', reject_reason=#{rejectReason}
+		WHERE coach_no=#{coachNo} AND coaching_date = #{coachingDate}
+	</update>
+	
+
+</mapper>

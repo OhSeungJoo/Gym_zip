@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>GYM.zip</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+    <link rel="icon" href="img/logo_coral.ico">
+
+    <style>
+        #popWrapEx{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+        .pop_layout{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            z-index: 1;
+            display: block;
+        }
+        #popContainerEx{
+            width: 800px;
+            height: 900px;
+            background-color: #fff;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -450px;
+            margin-left: -400px;
+        }
+        #popContentEx{
+            margin: 30px;
+            position: relative;
+        }
+
+
+        /* 각 요소들 css*/
+
+        /*중복 사용 모아둔 곳*/
+        .horizon{
+            display: inline-block;
+        }
+        .non_display{
+            display: none;
+        }
+        .subtitle{
+            width: 250px;
+            height: 20px;
+            font-size: 16px;
+            margin: 30px 10px;
+        }
+        .big_input{
+            width: 300px;
+            height: 20px;
+            margin: 0 10px;
+        }
+        .small_input{
+            width: 150px;
+            height: 20px;
+            margin: 5px 10px;
+        }
+        select{
+            width: 130px;
+            height: 25px;
+            margin: 0 10px;
+        }
+
+        /*중복 안되는 css*/
+
+        #motionNameBox{
+            width: 400px;
+            height: 20px;
+            font-size: 16px;
+            margin: 20px 10px;
+        }
+
+        #representExBox{
+            position: absolute;
+            top: -35px;
+            left: 300px;
+        }
+        #genderTargetBox{
+            margin-left: 10px;
+        }
+        #setNumBox{
+            position: absolute;
+            top: 70px;
+            left: 300px;
+        }
+        #usingCheckBox{
+            position: absolute;
+            top: 150px;
+            left: 300px;
+        }
+
+
+        /*라디오 버튼css*/
+
+        input[type=radio]{
+            display:none;
+        }
+
+        input[type=radio] + label {
+            display: inline-block;
+            width: 60px;
+            border: 1px solid #f91b4e;
+            border-radius: 25px;
+            cursor:pointer;
+            user-select:none;
+            text-align: center;
+            line-height: 30px;
+            color: #f91b4e;
+        }
+        input[type=radio]:checked + label {
+            display: inline-block;
+            width: 60px;
+            border: 1px solid #fff;
+            background-color: #f91b4e;
+            border-radius: 25px;
+            cursor:pointer;
+            user-select:none;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+        }
+
+        /*예상 칼로리 소모량 css*/
+        #predictBox{
+            margin: 15px;
+        }
+        #maleKcalBox,#femaleKcalBox{
+            margin: 10px 0;
+        }
+
+        /* 파일 선택 css*/
+
+        #imgFileBox span{
+            margin-right: 14px;
+            margin-left: 10px;
+        }
+        #videoFileBox{
+            margin: 0 10px;
+        }
+
+        .input_box{
+            width: 250px;
+            height: 150px;
+            border: 1px solid #424242;
+            line-height: 150px;
+            text-align: center;
+            font-size: 50px;
+            color: #f91b4e;
+            margin: 10px;
+        }
+        .input_box img{
+            width: 250px;
+            height: 150px;
+            display: none;
+        }
+
+        .input_button{
+            width: 70px;
+            height: 30px;
+            padding: 2px 5px;
+            background-color:#f91b4e;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        #registerButton{
+            position: relative;
+            top: 50px;
+            right: -600px;
+            width: 70px;
+            height: 30px;
+            padding: 2px 5px;
+            background-color:#f91b4e;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            line-height: 30px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- popWrapEx -->
+<!-- 운동등록 클릭시 나타나는 운동등록 뷰-->
+<div id="popWrapEx" class="pop_layout">
+
+    <div id="popContainerEx">
+
+      <div id="popContentEx">
+
+          <form>
+          <div id="exPartBox" class="subtitle">
+            <span>부위</span>
+            <div id="exPart"class="horizon">
+            <select>
+                <option>부위선택</option>
+            </select>
+          </div>
+         </div>
+
+        <div id="representExBox"class="subtitle">
+            <span>대표운동</span>
+            <div id="representEx" class="horizon">
+               <input type="text" id="inputRepresentEx" class="small_input"  placeholder="내용을 입력해주세요.">
+            </div>
+        </div>
+
+          <div id="motionNameBox" class="subtitle">
+              <span>운동명</span>
+              <div id="MotionName" class="horizon">
+                  <input type="text" id="inputMotionName" class="big_input" placeholder="운동명을 입력해주세요.">
+              </div>
+          </div>
+
+        <div id="countNumBox" class="subtitle">
+            <span>횟수</span>
+            <div id="countNum" class="horizon">
+                <input type="text" id="inputCountNum" class="small_input" placeholder="횟수를 입력해주세요.">
+            </div>
+        </div>
+
+        <div id="setNumBox" class="subtitle">
+            <span>세트</span>
+            <div id="setNum" class="horizon">
+                <input type="text" id="inputSetNum" class="small_input" placeholder="세트수를 입력해주세요.">
+            </div>
+        </div>
+
+        <div id="setLevelBox"class="subtitle">
+            <span>난이도</span>
+            <div id="setLevel"class="horizon">
+              <input type="radio" id="beginnerRadio" name="inputLevel">
+                <label for="beginnerRadio">초급</label>
+              <input type="radio" id="middleRadio" name="inputLevel">
+                <label for="middleRadio">중급</label>
+              <input type="radio" id="highRadio" name="inputLevel">
+                <label for="highRadio">고급</label>
+            </div>
+        </div>
+
+        <div id="usingCheckBox" class="subtitle">
+            <span>BM사용</span>
+            <div id="usingCheck" class="horizon">
+                <input type="checkbox" value="1">
+            </div>
+        </div>
+
+        <div id="genderTargetBox">
+            <span>타겟성별</span>
+            <div id="genderTarget" class="horizon">
+               <input type="radio" id="manRadio" value="M" name="targetRadio">
+                <label for="manRadio">남성</label>
+               <input type="radio" id="womanRadio" value="F" name="targetRadio">
+                <label for="womanRadio">여성</label>
+               <input type="radio" id="allRadio" value="A" name="targetRadio">
+                <label for="allRadio">무관?</label>
+            </div>
+        </div>
+
+        <div id="imgFileBox" >
+            <span>썸네일</span>
+            <div id="imgFile" class="horizon input_box">
+                <img id="selectImg" src=""/>
+                <i class="fas fa-plus-circle"></i>
+            </div>
+            <div class="horizon">
+                <label class="input_button" for="inputImgFile">
+                    파일선택
+                </label>
+                <input type="file" id="inputImgFile" class="non_display"/>
+            </div>
+        </div>
+
+        <div id="videoFileBox">
+            <span>운동영상</span>
+            <div id="videoFile" class="horizon input_box"><i class="fas fa-plus-circle"></i></div>
+            <div class="horizon">
+                <label class="input_button" for="inputImgFile">
+                    파일선택
+                </label>
+                <input type="file" id="inputVideoFile" class="non_display"/>
+            </div>
+        </div>
+
+<!--        <div id="averageKcalBox">-->
+<!--            <span>내 칼로리 소모량</span>-->
+<!--            <div id="averageKcal">-->
+<!--                <ul id="averageList">-->
+<!--                    <li>여성</li>-->
+<!--                    <li>163cm</li>-->
+<!--                    <li>50kg</li>-->
+<!--                    <li>123kcal</li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div id="predictBox">
+            <div>예상 칼로리 소모량</div>
+            <div id="femaleKcalBox" class="horizon">
+                <span>여성</span>
+                <input type="text" id="inputFemaleHeight"c class="small_input" placeholder="내용을 입력해주세요">
+                <label>cm</label>
+                <input type="text" id="inputFemaleWeight" class="small_input" placeholder="내용을 입력해주세요">
+                <label>kg</label>
+                <input type="text" id="inputFemaleKcal"   class="small_input" placeholder="내용을 입력해주세요">
+                <label>kcal</label>
+            </div>
+
+            <div id="maleKcalBox" class="horizon">
+                <span>남성</span>
+                <input type="text" id="inputMaleHeight" class="small_input" placeholder="내용을 입력해주세요">
+                <label>cm</label>
+                <input type="text" id="inputMaleWeight" class="small_input" placeholder="내용을 입력해주세요">
+                <label>kg</label>
+                <input type="text" id="inputMaleKcal"  class="small_input"  placeholder="내용을 입력해주세요">
+                <label>kcal</label>
+            </div>
+        </div>
+
+        <div id="registerButton">등 록</div>
+      </div>
+        <!--popcontentEx END-->
+        </form>
+    </div>
+    <!--popContainerEx END-->
+
+</div>
+<!--popWrapEx END-->
+
+<script src="js/jquery.js"></script>
+<script>
+
+    let pickImage;
+
+    $("#inputImgFile").on("change",function (e) {
+
+        pickImgFile(e);
+    });
+
+
+    function pickImgFile(e) {
+
+        let files = e.target.files;
+
+        let filesArr = Array.prototype.slice.call(files);
+
+        filesArr.forEach(function (f) {
+            if(!f.type.match("image.*")){
+                alert("이미지 형식의 파일만 선택해주세요.");
+                return;
+            }
+
+            pickImage = f;
+
+
+            let reader = new FileReader();
+            reader.onload = function (e) {
+
+                $("#selectImg").attr("src",e.target.result);
+
+                $("#imgFile i").css("display","none");
+
+                $("#selectImg").css("display","block");
+
+            }
+            reader.readAsDataURL(f);
+
+        });
+    }
+
+</script>
+
+</body>
+</html>

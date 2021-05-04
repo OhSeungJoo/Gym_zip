@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="coach">
+
+
+<!--코치 리스트 -->
+	<select id="selectList" resultType="Coach" parameterType="CoachListFilter">
+SELECT  no,nickname,cost,adText,regdate,coachTierNo,tier,coachImage,kcalTotal,mondayOnOff, tuesdayOnOff, wednesdayOnOff, thursdayOnOff, fridayOnOff,saturdayOnOff, sundayOnOff,
+	reviewNum, sumCurriculum, sumDelivery,sumTime, sumPrepare,sumKindness, avgScore, subNum, viewCountSum
+FROM(SELECT no,nickname,cost,adText,regdate,coachTierNo,tier,coachImage,kcalTotal,mondayOnOff, tuesdayOnOff, wednesdayOnOff, thursdayOnOff, fridayOnOff,saturdayOnOff, sundayOnOff,
+	reviewNum, sumCurriculum, sumDelivery,sumTime, sumPrepare,sumKindness, avgScore, subNum, viewCountSum, rownum r 
+FROM(
+	
+	SELECT c.no no, c.nickname nickname, c.cost cost, c.ad_text adText, c.regdate regdate,
+	c.coach_tier_no coachTierNo, mt.name tier, m.profile_img coachImage,coachKcal.kcalSum kcalTotal,
+	monday.on_off mondayOnOff, tuesday.on_off tuesdayOnOff, wednesday.on_off
+	wednesdayOnOff, thursday.on_off thursdayOnOff, friday.on_off
+	fridayOnOff,
+	saturday.on_off saturdayOnOff, sunday.on_off sundayOnOff,
+	score.reviewNum reviewNum ,score.sumCurriculum sumCurriculum, score.sumDelivery
+	sumDelivery,
+	score.sumTime sumTime,score.sumPrepare sumPrepare,score.sumKindness
+	sumKindness,score.avgScore avgScore,
+	subscribe.subNum subNum,
+	viewCountSum.sumView viewCountSum 
+
+	FROM (select coach_no
+	FROM(select coach_no,days,times
+	FROM c_available
+
+	<choose>
+		<when  test=" days==null  and times==null">
+			where on_off=1 OR on_off=0
+		</when>
+
+		<otherwise>
+			where on_off=1
+		</otherwise>
+	</choose>
+	<if test="days!=null">
+	 AND days IN
+	<foreach item="day"  collection="days" open="("
+		separator="," close=")">
+		 #{day}
+	</foreach>
+	</if>
+	
+	<if test="times != null">
+	<foreach item="time"  collection="times" open="AND("
+		separator="OR " close=")">
+		 times BETWEEN #{time.start} AND #{time.end}
+	</foreach>
+	</if>
+	) c
+	group by coach_no) cn, coach c,member_tier mt, member m,
+
+	(
+	select count(cr.no) reviewNum,sum(curriculum)
+	sumCurriculum,sum(delivery) sumDelivery,sum(time) sumTime,sum(prepare)
+	sumPrepare,sum(kindness) sumKindness, c.coach_no coachNo
+	,
+	ROUND(((NVL((sum(curriculum)+sum(delivery)+sum(time)+sum(prepare)+sum(kindness)),0)/NVL(count(cr.no),0))))
+	avgScore
+	from coaching c,coaching_review cr
+	where c.ok_toggle = 'T'
+	AND
+	c.no=cr.no
+	group by c.coach_no
+	) score,
+
+	(select coach_no,count(*) subNum
+	from subscribe
+	group by coach_no
+	)
+	subscribe,
+	(
+	select coach_no,sum(kcal) kcalSum
+	from ex_record er ,coaching
+	ci
+	WHERE er.type ='c' AND er.c_l_no=ci.no
+	group by coach_no
+	)coachKcal,
+	
+	(select coach_no,sum(view_count) sumView
+	from exercise
+	group by coach_no
+	) viewCountSum,
+
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=1
+	group by coach_no, days
+	) monday,
+	(
+	select coach_no, days,
+	sum(on_off) on_off
+	from c_available
+	where days=2
+	group by coach_no, days
+	)
+	tuesday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=3
+	group by coach_no, days
+	) wednesday,
+	(
+	select coach_no, days,
+	sum(on_off) on_off
+	from c_available
+	where days=4
+	group by coach_no, days
+	)
+	thursday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=5
+	group by coach_no, days
+	) friday,
+	(
+	select coach_no, days,
+	sum(on_off) on_off
+	from c_available
+	where days=6
+	group by coach_no, days
+	)
+	saturday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=0
+	group by coach_no, days
+	) sunday
+
+	where cn.coach_no = c.no
+	AND
+	mt.no= c.coach_tier_no
+	AND m.no(+) = c.no 
+	AND c.no =
+	monday.coach_no(+)
+	AND c.no = tuesday.coach_no(+)
+	AND c.no =
+	wednesday.coach_no(+)
+	AND c.no = thursday.coach_no(+)
+	AND c.no =
+	friday.coach_no(+)
+	AND c.no = saturday.coach_no(+)
+	AND c.no =
+	sunday.coach_no(+)
+	AND c.no = score.coachNo(+)
+	AND c.no =
+	subscribe.coach_no(+)
+	AND c.no = coachKcal.coach_no(+)
+	AND c.no = viewCountSum.coach_no(+)
+	<if test="sort != null">
+	<choose>
+		<when test="sort == 'kcal'">
+	    	ORDER BY kcalTotal 
+	 	</when>
+	 	<when test="sort == 'register'">
+	    	ORDER BY regdate
+	 	</when>
+	 	<when test="sort == 'score'">
+	    	ORDER BY avgScore DESC nulls last
+	 	</when>
+	 	<when test="sort == 'coachTier'">
+	    	ORDER BY coachTierNo DESC
+	 	</when>
+	 	<when test="sort == 'subscription'">
+	    	ORDER BY subNum DESC nulls last
+	 	</when>
+	</choose>
+	</if>
+))
+WHERE r BETWEEN #{pageStart} AND #{pageEnd}
+		
+	</select>
+	
+	
+	
+	<!--0123 박해원 코치 수  SELECT -->
+	<select id="selectCoachTotal" resultType="int" parameterType="CoachListFilter">
+	SELECT count(*)
+	FROM(
+	select c.no, c.nickname, c.cost, c.ad_text adText, c.regdate regdate,
+	c.coach_tier_no coachTierNo, mt.name tier, m.profile_img coachImage,coachKcal.kcalSum kcalTotal,
+	monday.on_off mondayOnOff,
+	tuesday.on_off tuesdayOnOff, wednesday.on_off
+	wednesdayOnOff,
+	thursday.on_off thursdayOnOff, friday.on_off
+	fridayOnOff,
+	saturday.on_off saturdayOnOff, sunday.on_off sundayOnOff,
+	score.reviewNum reviewNum ,score.sumCurriculum
+	sumCurriculum,score.sumDelivery
+	sumDelivery,
+	score.sumTime
+	sumTime,score.sumPrepare sumPrepare,score.sumKindness
+	sumKindness,score.avgScore avgScore,
+	subscribe.subNum subNum,
+	viewCountSum.sumView viewCountSum
+
+	from (select coach_no
+	from(select coach_no,days,times
+	from c_available
+
+	<choose>
+		<when test=" days==null  and times==null">
+			where on_off=1 OR on_off=0
+		</when>
+
+		<otherwise>
+			where on_off=1
+		</otherwise>
+	</choose>
+	<if test="days!=null">
+		AND days IN
+		<foreach item="day" collection="days" open="(" separator=","
+			close=")">
+			#{day}
+		</foreach>
+	</if>
+
+	<if test="times != null">
+		<foreach item="time" collection="times" open="AND("
+			separator="OR " close=")">
+			times BETWEEN #{time.start} AND #{time.end}
+		</foreach>
+	</if>
+	) c
+	group by coach_no) cn, coach c,member_tier mt, 
+	member m,
+
+	(
+	select count(cr.no) reviewNum,sum(curriculum)
+	sumCurriculum,sum(delivery) sumDelivery,sum(time) sumTime,sum(prepare)
+	sumPrepare,sum(kindness) sumKindness, c.coach_no coachNo
+	,
+	ROUND(((NVL((sum(curriculum)+sum(delivery)+sum(time)+sum(prepare)+sum(kindness)),0)/NVL(count(cr.no),0))))
+	avgScore
+	from coaching c,coaching_review cr
+	where c.ok_toggle = 'T'
+	AND
+	c.no=cr.no
+	group by c.coach_no
+	) score,
+
+	(select coach_no,count(*) subNum
+	from subscribe
+	group by coach_no
+	)
+	subscribe,
+	(
+	select coach_no,sum(kcal)
+	kcalSum
+	from ex_record er ,coaching
+	ci
+	WHERE er.type ='c' AND
+	er.c_l_no=ci.no
+	group by coach_no
+	)coachKcal,
+
+	(select coach_no,sum(view_count) sumView
+	from exercise
+	group by coach_no
+	)
+	viewCountSum,
+
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=1
+	group by coach_no, days
+	) monday,
+	(
+	select coach_no, days,
+	sum(on_off) on_off
+	from c_available
+	where days=2
+	group by coach_no, days
+	)
+	tuesday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=3
+	group by coach_no, days
+	) wednesday,
+	(
+	select coach_no, days,
+	sum(on_off) on_off
+	from c_available
+	where days=4
+	group by coach_no, days
+	)
+	thursday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=5
+	group by coach_no, days
+	) friday,
+	(
+	select coach_no, days,
+	sum(on_off) on_off
+	from c_available
+	where days=6
+	group by coach_no, days
+	)
+	saturday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=0
+	group by coach_no, days
+	) sunday
+
+	where cn.coach_no = c.no
+	AND
+	mt.no= c.coach_tier_no
+	 AND m.no(+) = c.no
+	AND c.no =
+	monday.coach_no(+)
+	AND c.no = tuesday.coach_no(+)
+	AND c.no =
+	wednesday.coach_no(+)
+	AND c.no = thursday.coach_no(+)
+	AND c.no =
+	friday.coach_no(+)
+	AND c.no = saturday.coach_no(+)
+	AND c.no =
+	sunday.coach_no(+)
+	AND c.no = score.coachNo(+)
+	AND c.no =
+	subscribe.coach_no(+)
+	AND c.no = coachKcal.coach_no(+)
+	AND c.no =
+	viewCountSum.coach_no(+)
+	<if test="sort != null">
+		<choose>
+			<when test="sort == 'kcal'">
+				ORDER BY kcalTotal
+			</when>
+			<when test="sort == 'register'">
+				ORDER BY regdate
+			</when>
+			<when test="sort == 'score'">
+				ORDER BY avgScore DESC nulls last
+			</when>
+			<when test="sort == 'coachTier'">
+				ORDER BY coachTierNo DESC
+			</when>
+			<when test="sort == 'subscription'">
+				ORDER BY subNum DESC nulls last
+			</when>
+		</choose>
+	</if>
+	)
+	</select>
+
+
+
+<!--  0116 / 오승주 메인 페이지 코치 추천 리스트 ================================================= -->
+	<select id="coachMainSelect" resultType="CoachMain">
+		SELECT coach_no no,coach.nickname nickname,member.profile_img profile
+		FROM(SELECT c,coach_no,rownum r
+			FROM(SELECT count(*) c,coach_no
+				FROM coaching
+				GROUP BY coach_no
+				ORDER BY 1 DESC)),coach,member 
+		WHERE r BETWEEN 1 AND 4
+		AND coach_no=coach.no
+		AND coach.no=member.no
+	
+	</select>
+	
+<!--end 메인 페이지 코치 추천 리스트 ================================================= -->
+
+
+
+
+<!-- 0129 박해원 코치 마이페이지에 필요한 데이터 Select -->
+
+	<select id="selectCoachMyPage" resultType="Coach"  parameterType="int">
+		
+		
+		SELECT c.no no, c.nickname nickname, c.cost cost ,c.ad_text adText ,c.coach_tier_no coachTierNo,c.regdate regdate, mt.name tier , m.gender gender,m.profile_img coachImage
+		FROM  coach c ,member_tier mt,member m 
+		WHERE c.no = #{coachNo} AND c.coach_tier_no = mt.no AND m.no = c.no 
+		
+
+	</select>
+	
+	<!-- 0130 코치 검색 백경현 -->
+<select id="selectbyKeyword" parameterType="Keyword" resultType="CoachSearch">
+	SELECT no, nickname, coach_tier_no coachTierNo
+	FROM coach
+	WHERE no=-1
+	<if test="keywords != null">
+	OR
+	<foreach item="keyword"  collection="keywords" open="("
+		separator="OR" close=")">
+		nickname like #{keyword}
+	</foreach>
+	</if>
+</select>
+	
+	
+	<!-- 0130 박해원 코치 마이페이지에 코치의 베스트 운동기록  데이터를 Select -->
+
+	<select id="selectBestExrecord" resultType="ExRecord"  parameterType="int">
+		
+	SELECT  NVL(sum(calcTime.second),0) sumSecond,NVL(max(mtw.totalWeight),0) totalWeight
+
+	FROM (SELECT endTime-startTime AS interval
+     , EXTRACT(DAY    FROM endTime-startTime) *24*60*60
+     + EXTRACT(HOUR   FROM endTime-startTime) *60*60
+     + EXTRACT(MINUTE FROM endTime-startTime) *60
+     + EXTRACT(SECOND FROM endTime-startTime) AS second
+  	FROM (SELECT start_time startTime,end_time endTime
+		FROM ex_record 
+		where member_no=#{no})) calcTime,(select max(total_weight) totalWeight from ex_record where member_no=#{no}) mtw
+	
+	</select>
+	
+	
+	<!-- 0130 박해원 코치 마이페이지에 코치 최신 운동기록  데이터를 Select -->
+
+	<select id="selectLastExrecord" resultType="ExRecord"  parameterType="int">
+	
+		SELECT lastEx.bmi bmiAfter,lastEx.mb muscleBone,lastEx.bmm bmm
+		FROM(
+		SELECT nvl(bmi_after,0) bmi,nvl(muscle_bone,0) mb,nvl(bmm,0) bmm
+		FROM ex_record  RIGHT OUTER JOIN DUAL
+		ON  member_no=#{coachNo}
+    	ORDER BY ROWNUM DESC) lastEx
+		WHERE ROWNUM = 1
+
+	</select>
+	
+	<!-- 0131 박해원 코치 마이페이지에 코치 사진들을  Select -->
+
+	<select id="selectCoachImage" resultType="Coach"  parameterType="int">
+	
+			SELECT no,image coachAdImage
+			FROM(SELECT no,image, ROWNUM r
+			FROM(SELECT no,image
+			FROM coach_photo
+			WHERE coach_no=#{coachNo}
+			ORDER BY 1 DESC)
+			)
+			
+	</select>
+	
+
+<!-- 	<select id="selectCoachingAvailable" resultType="Coach"  parameterType="int">
+		SELECT no, days, times, coach_no,on_off
+		FROM c_available
+		WHERE COACH_NO =#{coach_no} AND DAYS IN (#{no})
+	</select> -->
+	
+	<!-- 0207 박해원 코치마이페치지에서 가능한 요일을 표시하는 select -->
+	
+	<select id="selectCoachingAvailable" resultType="Coach" parameterType="int">
+	SELECT c.no no,
+	monday.on_off mondayOnOff, tuesday.on_off tuesdayOnOff,
+	wednesday.on_off wednesdayOnOff, thursday.on_off thursdayOnOff,
+	friday.on_off fridayOnOff, saturday.on_off saturdayOnOff, sunday.on_off	sundayOnOff
+	from coach c,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=1
+	group by coach_no, days
+	) monday,
+	(
+	select coach_no, days,
+	sum(on_off)
+	on_off
+	from c_available
+	where days=2
+	group by coach_no, days
+	)
+	tuesday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=3
+	group by coach_no, days
+	) wednesday,
+	(
+	select coach_no, days,
+	sum(on_off)
+	on_off
+	from c_available
+	where days=4
+	group by coach_no, days
+	)
+	thursday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=5
+	group by coach_no, days
+	) friday,
+	(
+	select coach_no, days,
+	sum(on_off)
+	on_off
+	from c_available
+	where days=6
+	group by coach_no, days
+	)
+	saturday,
+	(
+	select coach_no, days, sum(on_off) on_off
+	from c_available
+	where days=0
+	group by coach_no, days
+	) sunday
+	
+	where c.no=#{no}
+	AND c.no = monday.coach_no(+)
+	AND c.no = tuesday.coach_no(+)
+	AND c.no =
+	wednesday.coach_no(+)
+	AND c.no = thursday.coach_no(+)
+	AND c.no =
+	friday.coach_no(+)
+	AND c.no = saturday.coach_no(+)
+	AND c.no =
+	sunday.coach_no(+)
+	</select>
+
+</mapper>

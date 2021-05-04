@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lectureAdImage">
+	<!--0126 백경현 -->
+	<insert id='insertLectureAdImage' parameterType="LectureAdImage">
+		INSERT INTO LECTURE_AD_IMAGE(no, url, lecture_no, regdate)
+		VALUES(lecture_ad_image_seq.nextval,#{url},#{lectureNo},sysdate)
+	</insert>
+	
+	<!-- 0130 강의 홍보이미지  -->
+	<select id="selectLectureAdImageList" parameterType="int" resultType="LectureAdImage">
+	SELECT url,no
+	FROM lecture_ad_image
+	WHERE lecture_no=#{no}
+	</select>
+</mapper>

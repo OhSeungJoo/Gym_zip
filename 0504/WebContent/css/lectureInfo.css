@@ -1,0 +1,85 @@
+#lectureInfo{
+    width:800px;
+    margin: auto;
+    display: none;
+    font-weight: bold;
+}
+#lectureInfo>div{
+    margin: 10px;
+
+}
+.inputTitle{
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    /*margin-right: 100px;*/
+    /*border:1px solid #424242;*/
+}
+#lectureNameInput{
+    width: 250px;
+    height: 20px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    outline: none;
+}
+.name_bar{
+}
+.value_check{
+    margin-top: 5px;
+    margin-left: 230px;
+    font-size: 10px;
+    color:#F91B4E;
+}
+.value_check_msg{
+    height: 10px;
+    font-size: 10px;
+    line-height: 10px;
+    color:#F91B4E;
+    margin-top: 5px;
+    text-align: left;
+    visibility: hidden;
+}
+#lectureInfo
+input[type=radio]{
+    display: none;
+}
+input[type=radio] + label {
+    width: 80px;
+    height: 40px;
+    display:inline-block;
+    /*padding: 8px 12px;*/
+    border: 1px solid black;
+    border-radius: 25px;
+    cursor:pointer;
+    user-select:none;
+    margin:5px 0;
+    text-align: center;
+    line-height: 40px;
+}
+
+input[type=radio] + label:hover{
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+}
+input[type=radio]:checked + label{
+    color: rgb(249,27,78);
+    border-color: rgb(249,27,78);
+}
+
+.inputSubTitle{
+    margin: 10px;
+    color: deepskyblue;
+    font-size: 12px;
+}
+.input_text_box textarea{
+    width: 600px;
+    height: 100px;
+    margin-top: 5px;
+    outline: none;
+}
+.input_text_box{
+    width: 610px;
+    margin-left: 10px;
+    text-align: right;
+}

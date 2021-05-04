@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="representExercise">
+
+
+	<select id="selectFilter" resultType="RepresentExercise" parameterType="ReExerciseFilter">
+	SELECT no, viewCount,title,kcal, regdate, partNo, levels,thumbnail, partName
+		FROM (	SELECT no, viewCount,title,kcal, regdate, partNo, levels,thumbnail, partName,rownum r
+				FROM(
+	
+	
+	SELECT r.no no, r.view_count viewCount, r.title title, r.kcal kcal, r.regdate regdate, r.part_no partNo, e.levels levels, e.thumbnail thumbnail, p.part_name partName
+	FROM exercise e,represent_exercise r,part p
+	WHERE  r.no=e.exercise_no 
+	AND p.no=r.part_no
+	AND e.no in(
+			select max(no) KEEP(DENSE_RANK FIRST ORDER BY (view_count) DESC) OVER(PARTITION BY exercise_no) as no FROM exercise
+	)
+	<if test="bottom != true">
+    AND r.part_no != 1
+ 	</if>
+ 	<if test="chest != true">
+    AND r.part_no != 2
+ 	</if>
+ 	<if test="back != true">
+    AND r.part_no != 3
+ 	</if>
+ 	<if test="sholder != true">
+    AND r.part_no != 4
+ 	</if>
+ 	<if test="arms != true">
+    AND r.part_no != 5
+ 	</if>
+ 	<if test="stomach != true">
+    AND r.part_no != 6
+ 	</if>
+ 	<if test="body != true">
+    AND r.part_no != 7
+ 	</if>
+ 	<if test="level == 'low'">
+    AND e.levels = '초급' 
+ 	</if>
+ 	<if test="level == 'middle'">
+    AND e.levels = '중급' 
+ 	</if>
+ 	<if test="level == 'high'">
+    AND e.levels = '고급' 
+ 	</if>
+	<choose>
+		<when test="sort == 'view'">
+	    	ORDER BY r.view_count DESC
+	 	</when>
+	 	<when test="sort == 'kcal'">
+	    	ORDER BY r.kcal DESC
+	 	</when>
+	 	<when test="sort == 'regdate'">
+	    	ORDER BY r.regdate 
+	 	</when>
+	 	<when test="sort == 'name'">
+	    	ORDER BY r.title
+	 	</when>
+	</choose>
+	))
+		WHERE r between #{pageStart} AND #{pageEnd}
+	</select>
+	<select id="selectOne" parameterType="int" resultType="RepresentExercise">
+		SELECT no, view_count viewCount, title, kcal, regdate, part_no partNo
+		FROM represent_exercise
+		WHERE no=#{no}
+	</select>
+	<select id="selectFilterCount" resultType="Count" parameterType="ReExerciseFilter">
+	SELECT COUNT(e.no) countResult
+	FROM exercise e,represent_exercise r,part p
+	WHERE  r.no=e.exercise_no 
+	AND p.no=r.part_no
+	AND e.no in(
+			select max(no) KEEP(DENSE_RANK FIRST ORDER BY (view_count) DESC) OVER(PARTITION BY exercise_no) as no FROM exercise
+	)
+	<if test="bottom != true">
+    AND r.part_no != 1
+ 	</if>
+ 	<if test="chest != true">
+    AND r.part_no != 2
+ 	</if>
+ 	<if test="back != true">
+    AND r.part_no != 3
+ 	</if>
+ 	<if test="sholder != true">
+    AND r.part_no != 4
+ 	</if>
+ 	<if test="arms != true">
+    AND r.part_no != 5
+ 	</if>
+ 	<if test="stomach != true">
+    AND r.part_no != 6
+ 	</if>
+ 	<if test="body != true">
+    AND r.part_no != 7
+ 	</if>
+ 	<if test="level == 'low'">
+    AND e.levels = '초급' 
+ 	</if>
+ 	<if test="level == 'middle'">
+    AND e.levels = '중급' 
+ 	</if>
+ 	<if test="level == 'high'">
+    AND e.levels = '고급' 
+ 	</if>
+	<choose>
+		<when test="sort == 'view'">
+	    	ORDER BY r.view_count DESC
+	 	</when>
+	 	<when test="sort == 'kcal'">
+	    	ORDER BY r.kcal DESC
+	 	</when>
+	 	<when test="sort == 'regdate'">
+	    	ORDER BY r.regdate 
+	 	</when>
+	 	<when test="sort == 'name'">
+	    	ORDER BY r.title
+	 	</when>
+	</choose>
+	
+	</select>
+		
+	<!-- 코치가 운동등록 시  대표운동 중복체크를 위한 SELECT -->
+	<select id="selectDuplicateCheck" resultType="RepresentExercise" parameterType="RepresentExercise">
+		SELECT no,view_count viewCount,title,kcal,regdate,part_no partNo
+		FROM represent_exercise 
+		WHERE title= #{title} AND part_no=#{partNo}
+	
+	</select>
+	
+	<!-- 코치가 운동등록 시  대표운동이 등록 -->
+	<insert id="insertReEx" parameterType="RepresentExercise">
+	<!-- NO	VIEW_COUNT	TITLE	KCAL	REGDATE	PART_NO	 -->
+		INSERT INTO(no,view_count,title,kcal,regdate,part_no) 
+		VALUES (represent_exercise_seq.nextval,0,#{title},#{kcal},sysdate,#{partNo})
+	</insert>
+</mapper>

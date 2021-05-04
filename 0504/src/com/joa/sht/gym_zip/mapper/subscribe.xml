@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subscribe">
+	<!-- 조용규 0118 -->
+	<select id="selectCoachList" resultType="Subscribe" parameterType="int">
+		SELECT s.no, m.profile_img profileImg, c.nickname, c.no coachNo
+		FROM member m, coach c, subscribe s
+		WHERE m.no=s.member_no AND s.coach_no=c.no AND m.no=#{no}
+	</select>
+
+	<select id="subscribeList" resultType="Subscribe" parameterType="int">
+		SELECT m.profile_img, c.nickname, e.name, e.thumbnail
+		FROM member m , coach c, exercise e, subscribe s
+		WHERE m.no=s.member_no AND c.no=s.coach_no AND c.no=e.coach_no AND m.no=#{no}
+	</select>
+	
+	<select id="selectSubscribeEx" resultType="Exercise" parameterType="int">
+		SELECT e.name, e.thumbnail
+		FROM exercise e, coach c
+		WHERE e.coach_no = c.no AND e.coach_no=#{no}
+	</select>
+
+	<delete id="deleteSubscribeCoach" parameterType="int">
+		DELETE subscribe
+		WHERE no = #{no}
+	</delete>
+	
+	<!-- 백경현 0119 -->
+	<select id="selectSubscribeCount" resultType="Count" parameterType="int">
+		SELECT count(*) countResult
+		FROM subscribe s,exercise e
+		where e.no = #{no}
+		AND e.coach_no = s.coach_no(+)
+	</select>
+	
+	<!-- 백경현 0129 -->
+	<select id="selectSubscribeCheck" resultType="Count"  parameterType="Subscribe">
+		SELECT count(*) countResult
+		FROM subscribe
+		WHERE coach_no=#{coachNo} AND member_no = #{memberNo}
+	</select>
+	<insert id="insertSubscribe" parameterType="Subscribe">
+		insert into subscribe(no, coach_no, member_no, renew_date, regdate)
+		values(subscribe_seq.nextval, #{coachNo},#{memberNo},sysdate+30,sysdate)
+	</insert>
+	<select id="selectSubscribeNo"  resultType="Subscribe"  parameterType="Subscribe">
+		SELECT no
+		FROM subscribe
+		WHERE coach_no=#{coachNo} AND member_no = #{memberNo}
+	</select>
+
+</mapper>

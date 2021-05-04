@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>코칭의 장점을 선택해주세요</title>
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+    <link rel="stylesheet" href="css/review_check.css">
+
+    <style>
+
+        .review_text_container{
+            width:800px;
+            height:600px;
+            border: 1px solid #f91b4e;
+            position: fixed;
+            top:50%;
+            left:50%;
+            margin:-301px 0 0 -401px;
+            background-color: #fff;
+            display: none;
+        }
+        /*  end 리뷰 텍스트 컨테이너*/
+
+
+
+
+
+        /*    리뷰 상단 문구*/
+        .review_text_container .title_text{
+            width:800px;
+            height:100px;
+            background-color: #f91b4e;
+            text-align: center;
+            font-size: 25px;
+            font-weight: 500;
+            line-height: 100px;
+            position: fixed;
+            color: #fff;
+        }
+        /*    end 리뷰 상단 문구*/
+
+
+
+        /*    확인 버튼과 닫기 버튼 박스*/
+        .button_box {
+            width:800px;
+            height:600px;
+        }
+
+        /*    end 확인 버튼과 닫기 버튼 박스*/
+
+        /*    확인 버튼, 닫기 버튼*/
+        .button_box button{
+            border: none;
+            color: #fff;
+            background-color: #f91b4e;
+            position:absolute;
+        }
+        /*    end 확인 버튼, 닫기 버튼*/
+
+        /*    작성완료 버튼*/
+        .button_box .ok_btn{
+            width:100px;
+            height:40px;
+            right:0px;
+            bottom:0px;
+            font-family:"Noto Sans KR", sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        /*    end 작성완료버튼*/
+
+        /*    취소 버튼*/
+        .button_box .close_btn{
+            width:40px;
+            height:40px;
+            right:0px;
+            font-size: 20px;
+
+        }
+        /*    end 취소 버튼*/
+
+
+        /*    리뷰 텍스트 상자*/
+        .review_text_box{
+            position: absolute;
+
+            width:600px;
+            height:350px;
+            top:180px;
+            left:100px;
+        }
+        /*    end 리뷰 텍스트 상자*/
+
+        /*    리뷰 작성*/
+        .review_text_box .write_review{
+            width:150px;
+            height:50px;
+            line-height: 50px;
+            font-weight: 500;
+            font-size: 20px;
+            margin-bottom: 30px;
+
+        }
+        /*    end 리뷰 작성*/
+
+        /*    리뷰 작성 textarea*/
+        .review_text_box .review_text{
+            width:598px;
+            border: 1px solid #e0e0e0;
+            height:200px;
+            font-family: "Noto Sans KR", sans-serif;
+
+
+        }
+        /*    end 리뷰 작성 textarea*/
+    </style>
+</head>
+<body>
+<div class="review_container">
+<!--리뷰 체크 박스 형식 컨테이너-->
+<div class="review_check_container">
+    <div class="title_text">코칭의 장점을 선택해주세요<p>중복 선택 가능 합니다.</p></div>
+<!--    리뷰 체크 박스들-->
+    <div class="review_check_box">
+        <label class="review_check"><input type="checkbox" name="reviewCheck" value="커리큘럼"><span>커리큘럼</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="전달력"><span>전달력</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="시간준수"><span>시간준수</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="준비성"><span>준비성</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="친절도"><span>친절도</span></label>
+
+    </div>
+<!-- end    리뷰 체크 박스들-->
+
+
+<!--    버튼들-->
+    <div class="button_box">
+        <button class="close_btn"><i class="fas fa-times"></i></button>
+        <button class="ok_btn">확인</button>
+    </div>
+<!--    end 버튼 들-->
+</div>
+<!--end 리뷰 체크 박스 형식 컨테이너-->
+
+<!--리뷰 텍스트 컨테이너-->
+<div class="review_text_container">
+    <div class="title_text">코칭 내용에 대해서 평가를 해주세요</div>
+    <!--    리뷰 텍스트 박스-->
+    <div class="review_text_box">
+        <div class="write_review">리뷰 작성</div>
+        <div><textarea class="review_text" placeholder="내용을 입력해주세요" name="reviewText"></textarea></div>
+    </div>
+    <!-- end 리뷰 텍스트 박스-->
+
+
+    <!--    버튼들-->
+    <div class="button_box">
+        <button class="close_btn"><i class="fas fa-times"></i></button>
+        <button class="ok_btn">작성완료</button>
+    </div>
+    <!--    end 버튼 들-->
+</div>
+<!--end 리뷰 텍스트 컨테이너-->
+</div>
+<script src="js/jquery.js"></script>
+<script>
+
+    $(".review_check_container .ok_btn").on("click",function () {
+        $(".review_text_container").css("display","block");
+    });
+
+
+    $(".review_container .close_btn").on("click",function () {
+       $(".review_container").css("display","none");
+
+    });
+
+    $(".review_text_container .ok_btn").on("click",function () {
+        $(".review_container").css("display","none");
+
+    });
+
+
+</script>
+</body>
+</html>

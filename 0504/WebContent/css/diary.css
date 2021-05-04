@@ -1,0 +1,529 @@
+
+  body {
+    font-family: "Noto Sans KR",sans-serif;
+  }
+
+  #calendar {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .fc-col-header-cell{
+      font-size: 15px;
+      height: 50px;
+      cursor: pointer;
+      line-height: 50px;
+  }
+  #timeSelectArea{
+      position: fixed;
+      width: 100%;
+      height: 800px;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      background-color: rgba(0,0,0,.75);
+      display: none;
+  }
+    .time_select{
+        position: absolute;
+        background-color: #fff;
+        left: 50%;
+        top: 50%;
+        margin-left: -175px;
+        margin-top: -175px;
+        width: 350px;
+        height: 350px;
+        /*border: 1px solid #F91B4E;*/
+        /*display: none;*/
+        overflow: hidden;
+    }
+    .click_day{
+        width: 350px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 25px;
+        margin: 10px;
+    }
+    .dl_area{
+        position: absolute;
+        left: 50%;
+        margin-left: -125px;
+        width: 250px;
+        float: left;
+    }
+    .time_select dd{
+        width: 50px;
+        height: 25px;
+        float: left;
+        margin: 5px;
+        border: 1px solid #F91B4E;
+        text-align: center;
+        line-height: 20px;
+    }
+    .time_select dd input{
+        display: none;
+        cursor: pointer;
+    }
+    .time_select dd input:checked+label{
+        background-color: #F91B4E;
+        color: #fff;
+    }
+    .time_select label{
+        display: block;
+        width: 50px;
+        height: 25px;
+    }
+    .time_select dt{
+        width: 230px;
+        margin: 10px;
+        font-weight: 700;
+        clear: both;
+    }
+    .btn_area{
+        position: absolute;
+        /*background-color: #43A047;*/
+        width: 350px;
+        top: 100%;
+        margin-top: -25px;
+        text-align: right;
+    }
+    .btn_area button{
+        border: 1px solid #F91B4E;
+        background-color: #fff;
+        font-weight: 700;
+        color: #F91B4E;
+        cursor: pointer;
+    }
+    .btn_area button:hover{
+        background-color: #F91B4E;
+        color: #fff;
+    }
+  #recordBoxArea{
+      position: fixed;
+      width: 100%;
+      height: 1000px;
+      z-index: 9999;
+      background-color: rgba(0,0,0,.75);
+      top: 0;
+      left: 0;
+      display: none;
+  }
+
+  #recordBox{
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      left: 50%;
+      top: 50%;
+      margin-left: -225px;
+      margin-top: -350px;
+      z-index: 1;
+      background-color: #fff;
+      /*display: none;*/
+  }
+
+  #closeBtn{
+      text-align: right;
+      font-size: 20px;
+      background-color: #F91B4E;
+  }
+  #closeBtn .close{
+      width: 25px;
+      height: 25px;
+      font-size: 25px;
+  }
+  .lectureInform{
+      margin: 10px;
+  }
+  .lectureInform>div{
+      height: 100px;
+      line-height: 100px;
+      float: left;
+  }
+  .lectureInform img{
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+  }
+  .exercise_list_tab{
+      width: 450px;
+      position: relative;
+      margin: auto;
+  }
+  .active_tab li {
+      width: 112.5px;
+      float: left;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 5px solid #424242;
+  }
+  .active_tab .on{
+      color: #f91b4e;
+      border-bottom: 5px solid #f91b4e;
+  }
+  .tab{
+      display: none;
+  }
+  .tab.on{
+      display: block;
+  }
+  .record_table{
+      height: 220px;
+      overflow: auto;
+  }
+  .record_table table{
+      border-collapse: collapse;
+  }
+  .record_table td, .record_table th{
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+      width: 175px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+  }
+  .record_table td:nth-child(1),.record_table td:nth-child(3),.record_table th{
+      font-weight: 700;
+  }
+
+  .btn{
+      cursor: pointer;
+      border: none;
+      background-color: #F91B4E;
+      color: #fff;
+  }
+  #recordInform{
+      width: 450px;
+      height: 50px;
+  }
+  #recordInform>div{
+      width: 225px;
+      float: left;
+      text-align: center;
+  }
+  .record_table{
+      clear: both;
+  }
+  .record_table dt{
+      margin-top: 10px;
+      width: 450px;
+      height: 30px;
+      font-weight: 700;
+  }
+
+  .record_table dt, .record_table dd{
+      float: left;
+  }
+  #btnArea{
+      margin: 10px;
+      text-align: right;
+      width: 430px;
+  }
+  #recordInform{
+      line-height: 20px;
+  }
+  #creditAlertArea{
+      position: fixed;
+      width: 100%;
+      height: 1000px;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      background-color: rgba(0,0,0,.75);
+      display: none;
+  }
+  #creditAlert{
+      background-color: #fff;
+      border: 1px solid #F91B4E;
+      width: 470px;
+      height: 375px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -235px;
+      margin-top: -300px;
+  }
+  .area{
+      padding: 10px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+  }
+  .alert_box{
+      border-bottom: 1px solid #F91B4E;
+      /*width: 470px;*/
+  }
+  .coach{
+      /*height: 30px;*/
+      /*background-color: #00bcd4;*/
+  }
+  .coach img{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+  }
+  .coach div{
+      float: left;
+      line-height: 50px;
+      font-size: 30px;
+  }
+  .date{
+      font-size: 30px;
+      font-weight: 700;
+      color: #F91B4E;
+  }
+  .date>div{
+      float: left;
+  }
+  .time{
+      border: none;
+  }
+  .time>div{
+      float: left;
+  }
+  .start,.end{
+      width: 100px;
+  }
+  .start_time,.end_time{
+      color: #F91B4E;
+      font-weight: 700;
+      width: 125px;
+      font-size: 25px;
+  }
+  .energy{
+      /*background-color: #43A047;*/
+  }
+  .energy>div{
+      float: left;
+      text-align: center;
+      line-height: 50px;
+  }
+  .energy_name{
+      width: 100px;
+  }
+  .energy_volume{
+      width: 125px;
+      font-size: 25px;
+      font-weight: 700;
+  }
+  .my_energy{
+      height: 20px;
+      line-height: 25px;
+  }
+  #creditAlert .btn{
+      width: 235px;
+      height: 50px;
+      background-color: #fff;
+      border: 1px solid #F91B4E;
+      float: left;
+      color: #F91B4E;
+  }
+  #creditAlert .btn:hover{
+      background-color: #F91B4E;
+      color: #fff;
+  }
+  #reserveAlertArea{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1000px;
+      z-index: 9999;
+      display: none;
+      background-color: rgba(0,0,0,.75);
+  }
+  #reserveAlert{
+      border: 1px solid #F91B4E;
+      background-color: #fff;
+      width: 470px;
+      height: 315px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -235px;
+      margin-top: -335px;
+  }
+
+  .confirm{
+      width: 470px;
+      height: 50px;
+      line-height: 50px;
+      background-color: #F91B4E;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+      font-size: 30px;
+  }
+  #reserveAlert .btn{
+      width: 235px;
+      height: 50px;
+      background-color: #fff;
+      border: 1px solid #F91B4E;
+      float: left;
+      color: #F91B4E;
+      font-weight: 700;
+      font-size: 30px;
+      cursor: pointer;
+  }
+  #rejectReason{
+      border: 1px solid #F91B4E;
+      background-color: #fff;
+      width: 470px;
+      height: 315px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -235px;
+      margin-top: -335px;
+      display: none;
+  }
+  #rejectReasonHead{
+      width: 470px;
+      height: 50px;
+      background-color: #F91B4E;
+      text-align: center;
+      line-height: 50px;
+      color: #fff;
+  }
+  #rejectReasonContent{
+      width: 470px;
+      height: 265px;
+      text-align: right;
+  }
+  #reason{
+      margin: 20px 35px 10px 35px;
+      width: 400px;
+      height: 195px;
+  }
+  .rejection_accept_btn{
+      margin: 0 10px;
+      width: 80px;
+      height: 30px;
+      background-color: transparent;
+      border: 1px solid #F91B4E;
+      color: #F91B4E;
+  }
+  #rejectReasonConfirmArea{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1000px;
+      z-index: 9999;
+      display: none;
+      background-color: rgba(0,0,0,.75);
+  }
+  #rejectReasonConfirm{
+      border: 1px solid #F91B4E;
+      background-color: #fff;
+      width: 470px;
+      height: 315px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -235px;
+      margin-top: -335px;
+  }
+  #rejectReasonConfirm .time{
+      width: 213px;
+      /*border: 1px solid #F91B4E;*/
+      height: 121px;
+  }
+  #rejectReasonConfirm .date{
+      font-size: 20px;
+      height: 30px;
+      width: 213px;
+      line-height: 30px;
+      border: 1px solid #F91B4E;
+  }
+  #rejectReasonConfirm .fact{
+      position: absolute;
+      border: 1px solid #F91B4E;
+      right: -1px;
+      top: 122px;
+      width: 215px;
+      height: 30px;
+      line-height: 30px;
+  }
+  #rejectReasonView{
+      position: absolute;
+      border: 1px solid #F91B4E;
+      right: -1px;
+      top: 173px;
+      width: 205px;
+      height: 111px;
+      padding: 15px;
+
+  }
+  #rejectReasonConfirm .start, #rejectReasonConfirm .end{
+      width: 88px;
+  }
+  #calendar .fc-non-business{
+      pointer-events: none;
+  }
+  #rejectReasonCloseBtn{
+      font-size: 25px;
+      color: #F91B4E;
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      background-color: transparent;
+      border: 1px solid #F91B4E;
+  }
+  .fc-event-time{
+      /*color: #000;*/
+      font-weight: 700;
+  }
+  .fc-event-title{
+      /*color: #000;*/
+  }
+  .fc-event-main{
+      position: absolute;
+      width: 595px;
+      /*top: -20px;*/
+      left: 25px;
+  }
+  .fc-event-time{
+      height: 20px;
+      line-height: 20px;
+  }
+  .fc-event-title-container{
+      height: 25px;
+      line-height: 25px;
+  }
+  .C {
+      background-color: #A9E1ED;
+  }
+  /*.C::before {*/
+  /*    content: "";*/
+  /*    background-image: url(img/곤욕몬.png);*/
+  /*    display: block;*/
+  /*    width:20px;*/
+  /*    height:20px;*/
+  /*    background-position: center;*/
+  /*    background-size: 100% 100%;*/
+  /*}*/
+  .E{
+      background-color: #BAE7AF;
+  }
+  /*.E::before{*/
+  /*    content: "";*/
+  /*    background-image: url(img/곤욕몬.png);*/
+  /*    display: block;*/
+  /*    width:20px;*/
+  /*    height:20px;*/
+  /*    background-position: center;*/
+  /*    background-size: 100% 100%;*/
+  /*}*/
+  .R{
+      background-color: #e0e0e0;
+      border: none;
+  }
+  .R .fc-event-title, .R .fc-event-time{
+      color: red;
+      text-decoration: line-through;
+      /*color: #e0e0e0;*/
+  }
+  .W{
+      color: #e0e0e0;
+      background-color: #e4ac4a;
+  }

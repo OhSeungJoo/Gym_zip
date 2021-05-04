@@ -1,0 +1,456 @@
+
+.tab{
+	width: 800px;
+	background-color: red;
+	height: 800px;
+	
+}
+        #exList{
+           width: 800px;
+           position: relative;
+        }
+        #exList li{
+            width: 800px;
+            height: 180px;
+            border-bottom: 2px solid #bebebe;
+        }
+
+        #exList img{
+            margin: 20px;
+        }
+
+        #exList div{
+            position: relative;
+        }
+
+        #coachExerciseName{
+            width: 250px;
+            top: -150px;
+            left: 300px;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        #kcalInform{
+            width: 180px;
+            top: -70px;
+            left: 300px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        #kcalInform span{
+            font-size: 16px;
+            color: #fff;
+            background-color: #f91b4e;
+            padding: 0 5px;
+        }
+        #exerciseNumInform{
+            width: 120px;
+            top: -88px;
+            left: 500px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /*    공개 여부*/
+        #exList .open_toggle{
+            width:90px;
+            height:40px;
+            bottom:130px;
+            right:-650px;
+        }
+        /*    end 공개 여부*/
+
+        /*    공개 여부 내부 체크 박스*/
+        .toggle span{
+            display: inline-block;
+            width:100px;
+            height:40px;
+            /*height크기의 절반 이상이면 됨*/
+            border-radius: 40px;
+            background-color: #bbb;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+
+        /*input을 숨김*/
+        .toggle input[type=checkbox]{
+            display: none;
+        }
+
+        .toggle input:checked+span{
+            background-color: rgb(249,27,78);
+        }
+
+        .toggle span::before{
+            content: "";
+            display: inline-block;
+            width:28px;
+            height: 28px;
+            background-color: #fff;
+            border-radius: 28px;
+            margin: 5px;
+            transition: .2s ease;
+        }
+
+        .toggle span::after{
+            content: "비공개";
+
+            display: inline-block;
+            width:50px;
+            height: 40px;
+            line-height: 40px;
+
+            position:absolute;
+            transition: .2s ease;
+        }
+
+        .toggle input:checked+span::before{
+            transform: translateX(60px);
+        }
+
+        .toggle input:checked+span::after{
+            content: "공개";
+            transform: translateX(-30px);
+        }
+        /*    end 공개 여부 내부 체크 박스*/
+
+
+        /* 검색바 정렬 드롭박스*/
+        #searchAndSort{
+            width: 800px;
+            height: 50px;
+            position: relative;
+            /*margin: 40px 0;*/
+        }
+        #exerciseSearch{
+            position: absolute;
+            left:20px;
+            top: 10px;
+        }
+        #exerciseSearch:hover{
+            background-color: rgba(66,66,66,0);
+            border-radius:50px 50px 50px 50px;
+            box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+        }
+        .search_text{
+            width: 300px;
+            height: 30px;
+            border-color: rgb(204, 204, 204);
+            border-radius:50px;
+            outline: none;
+        }
+        .search_btn {
+
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            margin-left: -30px;
+            border-radius: 45%;
+            cursor: pointer;
+        }
+
+        /*강의 정렬*/
+        #exerciseSort{
+            width: 100px;
+            height: 40px;
+            position: absolute;
+            right: 50px;
+            top: 10px;
+        }
+        #exerciseSort select{
+            width: 100px;
+            height: 40px;
+        }
+        /*페이지 버튼*/
+        
+        /*paginate css*/
+#pagination {
+	position: relative;
+	bottom: 0px;
+	width: 820px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	margin-top: 10px;
+}
+
+.paginate a{
+	width:50px;
+	height:50px;
+	display: inline-block;
+	font-size: 18px;
+}
+.paginate span{
+	width:50px;
+	height:50px;
+	display: inline-block;
+	font-size: 18px;
+}
+.paginate strong{
+	width:50px;
+	height:50px;
+	display: inline-block;
+	font-size: 22px;
+	color: #f91b41;
+}
+.paginate i{
+	width:50px;
+	height:50px;
+	display: inline-block;
+	font-size: 18px;
+}
+
+        /*운동 등록*/
+        #registerMyEx{
+            width: 100px;
+            height: 40px;
+            position: absolute;
+            right: 200px;
+            top: 10px;
+        }
+        #registerMyEx button{
+            width: 100px;
+            height: 40px;
+            border:1px solid #f91b4e;
+            border-radius: 35px;
+            background-color: #fff;
+            font-size: 18px;
+            color: #f91b4e;
+            font-family: "Noto Sans KR", sans-serif;
+            font-weight: 400;
+            outline: none;
+            cursor: pointer;
+            transition: .2s linear;
+        }
+
+        #registerMyEx button:active{
+            width: 90px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        /*운동등록 버튼 클릭시*/
+        #popWrapEx{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+        .pop_layout{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            z-index: 1;
+            display: none;
+        }
+        
+          #popContainerEx{
+            width: 750px;
+            height: 850px;
+            background-color: #fff;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -430px;
+            margin-left: -400px;
+            overflow:auto;
+        }
+        #popContentEx{
+            margin: 30px;
+            position: relative;
+            
+        }
+        /* 각 요소들 css*/
+
+        /*중복 사용 모아둔 곳*/
+        .horizon{
+            display: inline-block;
+        }
+        .non_display{
+            display: none;
+        }
+        .subtitle{
+            width: 250px;
+            height: 20px;
+            font-size: 16px;
+            margin: 30px 10px;
+        }
+        .big_input{
+            width: 300px;
+            height: 20px;
+            margin: 0 10px;
+        }
+        .small_input{
+            width: 140px;
+            height: 20px;
+            margin: 5px 10px;
+        }
+        select{
+            width: 130px;
+            height: 25px;
+            margin: 0 10px;
+        }
+
+        /*중복 안되는 css*/
+
+        #motionNameBox{
+            width: 400px;
+            height: 20px;
+            font-size: 16px;
+            margin: 20px 10px;
+        }
+
+        #representExBox{
+            position: absolute;
+            top: -35px;
+            left: 300px;
+        }
+        #genderTargetBox{
+            margin-left: 10px;
+        }
+        #setNumBox{
+            position: absolute;
+            top: 70px;
+            left: 300px;
+        }
+        #usingCheckBox{
+            position: absolute;
+            top: 150px;
+            left: 300px;
+            width: 100px;
+        }
+
+         #payCheckBox{
+            position: absolute;
+            top: 150px;
+            left: 420px;
+            width: 120px;
+        }
+
+
+        /*라디오 버튼css*/
+
+        #setLevel input[type=radio]{
+            display:none;
+        }
+
+       #setLevel input[type=radio] + label {
+            display: inline-block;
+            width: 60px;
+            border: 1px solid #f91b4e;
+            border-radius: 25px;
+            cursor:pointer;
+            user-select:none;
+            text-align: center;
+            line-height: 30px;
+            color: #f91b4e;
+        }
+       #setLevel input[type=radio]:checked + label {
+            display: inline-block;
+            width: 60px;
+            border: 1px solid #fff;
+            background-color: #f91b4e;
+            border-radius: 25px;
+            cursor:pointer;
+            user-select:none;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+        }
+        
+         #genderTargetBox input[type=radio]{
+            display:none;
+        }
+
+       #genderTargetBox input[type=radio] + label {
+            display: inline-block;
+            width: 60px;
+            border: 1px solid #f91b4e;
+            border-radius: 25px;
+            cursor:pointer;
+            user-select:none;
+            text-align: center;
+            line-height: 30px;
+            color: #f91b4e;
+        }
+       #genderTargetBox input[type=radio]:checked + label {
+            display: inline-block;
+            width: 60px;
+            border: 1px solid #fff;
+            background-color: #f91b4e;
+            border-radius: 25px;
+            cursor:pointer;
+            user-select:none;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+        }
+
+        /*예상 칼로리 소모량 css*/
+        #predictBox{
+            margin: 15px;
+        }
+        #maleKcalBox,#femaleKcalBox{
+            margin: 10px 0;
+        }
+
+        /* 파일 선택 css*/
+        
+        #imgFileBox span{
+            margin-right: 14px;
+            margin-left: 10px;
+          
+        }
+        #videoFileBox{
+            margin: 0 10px;
+        }
+        
+        #videoFileBox Strong{
+        	border: 1px solid #424242;
+        	margin: 20px 10px;
+        	padding: 0 10px;
+        	width: 250px;
+        	height: 50px;
+        	font-size: 18px;
+        }       
+        .input_box{
+            width: 250px;
+            height: 150px;
+            border: 1px solid #424242;
+            margin: 10px;
+            font-size: 50px;
+            color: #f91b4e;
+            line-height: 150px;
+            text-align: center;
+        }
+        #imgFile i:hover{
+           display: block;
+            line-height: 150px;
+           font-size: 60px;
+        }
+
+        .input_button{
+            width: 70px;
+            height: 30px;
+            padding: 2px 5px;
+            background-color:#f91b4e;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        #registerButton{
+            position: relative;
+            top: 50px;
+            right: -600px;
+            width: 70px;
+            height: 30px;
+            padding: 2px 5px;
+            background-color:#f91b4e;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            line-height: 30px;
+            text-align: center;
+            font-size: 22px;
+            outline: none;
+        }

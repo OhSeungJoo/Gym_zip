@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="energyHistory">
+	
+<!-- 0122 강의 결제 시 에너지 히스토리 생성(수강생) -->
+	<insert id="insertMemberLecturePayment" parameterType="LecturePayment">
+	
+	INSERT INTO energy_history
+	(no, memenr_no,energy,regdate,type,type_no)
+	VALUES
+	(energy_history_seq.nextval,#{memberNo},-#{cost},sysdate,'l',#{lectureStdNo})
+	</insert>
+<!-- end 강의 결제 시 에너지 히스토리 생성 (수강생) -->
+
+<!-- 0122 강의 결제 시 에너지 히스토리 생성(코치) -->
+	<insert id="insertCoachLecturePayment" parameterType="LecturePayment">
+	
+	INSERT INTO energy_history
+	(no, memenr_no,energy,regdate,type,type_no)
+	VALUES
+	(energy_history_seq.nextval,#{coachNo},#{cost},sysdate,'l',#{lectureStdNo})
+	</insert>
+<!-- end 강의 결제 시 에너지 히스토리 생성 (수강생) -->
+
+<!-- 코치마이페이지 코치예약시 히스토리 검색 -->
+	<select id="getEnergyHistory" parameterType="int" resultType="EnergyHistory">
+		SELECT m.nickname, energy
+		FROM member m,
+		(SELECT memenr_no memberNo, sum(energy) energy
+		FROM energy_history eh
+		group by memenr_no)
+		WHERE m.no = memberNo AND m.no=#{memberNo}
+	</select>
+
+<!-- 0129 구독 결제 시 에너지 히스토리 생성 -->
+	<insert id="insertSubscribe" parameterType="EnergyHistory">
+		INSERT INTO energy_history
+		(no, memenr_no,energy,regdate,type,type_no)
+		VALUES(energy_history_seq.nextval,#{memenrNo},#{energy},sysdate,#{type},#{typeNo})
+	</insert>
+
+</mapper>

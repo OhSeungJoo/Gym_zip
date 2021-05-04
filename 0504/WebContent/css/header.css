@@ -1,0 +1,266 @@
+body{
+    font-family: "Noto Sans KR",sans-serif;
+    padding:0px;
+}
+#header{
+	position:relative;
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    z-index: 100;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+#header.header_fixed{
+    position: fixed;
+    top:0;
+}
+.aux {
+    width:1100px;
+    margin:auto;
+    position: relative;
+}
+
+.logo{
+    /*margin-top: 20px;*/
+}
+.logo a{
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: #f91b4e;
+}
+.logo img{
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+
+}
+
+.logo strong{
+    vertical-align: middle;
+
+}
+.search_box{
+    position: absolute;
+    left:200px;
+    top: 10px;
+}
+.search_box:hover{
+    background-color: rgba(66,66,66,0);
+    border-radius:50px 50px 50px 50px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+}
+.search_text{
+    height: 30px;
+    border-color: rgb(204, 204, 204);
+    border-radius:50px 50px 50px 50px;
+}
+.search_btn {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    margin-left: -30px;
+    border-radius: 45%;
+    cursor: pointer;
+}
+.header_nav{
+    position: absolute;
+    left:500px;
+    top:0px;
+}
+.header_nav li{
+    float: left;
+}
+.header_nav li a{
+    width: 100px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    line-height: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #f91b4e;
+}
+.global_profile{
+    position: absolute;
+    right: 20px;
+    top: 0px;
+}
+.profile_btn{
+    width: 100px;
+    height: 50px;
+    background-color: white;
+    border-radius: 25px 25px;
+    cursor: pointer;
+}
+.fa-user{
+    width: 40px;
+    height:40px;
+    line-height: 40px;
+    font-size: 25px;
+    margin-right: 20px;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+}
+
+.hidden{
+    display: none;
+}
+.drop_box{
+    position: absolute;
+
+    background-color: #fff;
+    width: 100px;
+    z-index: 99999;
+    top: 50px;
+    left: 0;
+    text-align: center;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    display: none;
+}
+
+.drop_box li{
+    width:100px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    transition: .2s ease;
+}
+.drop_box li:hover{
+    background-color: #f91b4e;
+    color: #fff;
+}
+.drop_box a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+.drop_box a:hover{
+    color: #ffffff;
+}
+
+
+
+
+
+#headerSearchBackgroundBox{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,.75);
+    display:none;
+    z-index:3000;
+}
+#headerSearchBox{
+    position: fixed;
+    width: 1000px;
+    height: 600px;
+    top:50%;
+    left:50%;
+    margin:-300px 0 0 -500px;
+    background-color: #eeeeee;
+}
+#headerSearchTop{
+    width: 98%;
+    height:40px;
+    line-height: 40px;
+    font-size: 40px;
+    margin: 5px auto;
+    color:#fff;
+    text-align: right;
+}
+#headerSearchTop i:hover{
+    color:#dddddd;
+}
+#headerSearchInputBox{
+    width:90%;
+    height:40px;
+    margin: 5px auto;
+}
+#headerSearchInput{
+    border:none;
+    border-bottom: 2px solid #000000;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+#headerSearchMain{
+    width: 98%;
+    height: 500px;
+    margin: auto;
+    vertical-align: middle;
+    /*background-color: #dddddd;*/
+}
+#exerciseSearchArea{
+    width: 59%;
+    height:500px;
+    /*background-color: #4b96e6;*/
+    border-right: 2px solid #dddddd;
+    display: inline-block;
+    position: relative;
+}
+#lectureAndCoachSearchArea{
+    width: 40%;
+    height:500px;
+    /*background-color: #F91B4E;*/
+    display: inline-block;
+}
+#lectureSearchArea{
+    width: 98%;
+    height:249px;
+    margin:auto;
+    /*background-color: #F91B4E;*/
+    border-bottom: 1px solid #dddddd;
+    position: relative;
+}
+#coachSearchArea{
+    width: 98%;
+    height:250px;
+    margin:auto;
+    /*background-color: #90ee90;*/
+    position: relative;
+}
+#headerExerciseSearchList{
+    position:absolute;
+    width: 560px;
+    height:460px;
+    top:50%;
+    left:50%;
+    margin: -230px 0 0 -280px;
+    /*background: blue;*/
+    overflow-y: auto;
+}
+.exercise_search_item{
+    width: 540px;
+    height:40px;
+}
+#headerLectureSearchList{
+    position:absolute;
+    width: 380px;
+    height:200px;
+    top:50%;
+    left:50%;
+    margin: -100px 0 0 -190px;
+    /*background: red;*/
+    overflow-y: auto;
+}
+.lecture_search_item,.coach_search_item{
+    width: 360px;
+    height:40px;
+}
+#headerCoachSearchList{
+    position:absolute;
+    width: 380px;
+    height:200px;
+    top:50%;
+    left:50%;
+    margin: -100px 0 0 -190px;
+    /*background: green;*/
+    overflow-y: auto;
+}

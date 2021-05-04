@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exRecord">
+
+	<select id="getExRecord" parameterType="ExRecord" resultType="ExRecord">
+		SELECT distinct  er.no ,m.no, e.name, er.start_time startTime, er.type
+		FROM member m, ex_record er, exercise e
+		WHERE er.member_no = m.no AND m.no=#{memberNo} AND e.no = er.ex_no AND er.start_time 
+		BETWEEN #{calendarStart} AND #{calendarEnd}
+	</select>
+	
+	<select id="getClickRecord" resultType="ExRecord" parameterType="ExRecord">
+		SELECT exNo, kcal, bmiBefore, bmiAfter, startTime, endTime, avgBpm, highBpm, totalWeight, heaviest, memberNo, ber.weight, muscleBone, bmm, fatMass, fatRate, e.name, ber.noPrev
+		FROM member m, exercise e, 
+		(SELECT no, kcal, ex_no exNo, bmi_before bmiBefore, bmi_after bmiAfter, start_time startTime, end_time endTime, avg_bpm avgBpm, high_bpm highBpm, total_weight totalWeight, heaviest, member_no memberNo, weight, muscle_bone muscleBone, bmm, fat_mass fatMass, fat_rate fatRate, LAG(er.start_time) OVER(ORDER BY er.start_time)  AS noPrev
+		FROM ex_record er) ber
+		WHERE m.no = memberNo AND e.no = exNo AND startTime=#{startTime} AND memberNo=#{memberNo}
+	</select>
+
+</mapper>

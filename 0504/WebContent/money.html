@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/tui-date-picker.min.css" />
+    <link rel="stylesheet" href="css/header.css"/>
+    <style>
+        #container{
+            width: 1100px;
+            margin:10px auto;
+            /*background-color: azure;*/
+        }
+        #selectDue{
+            color: #F91B4E;
+            width:450px;
+            margin: auto;
+            text-align: center;
+            line-height: 30px;
+            font-size: 20px;
+        }
+        #selectDue td{
+            width: 88px;
+            height: 28px;
+            border: 1px solid #F91B4E;
+            transition: .2ms ease;
+        }
+        #selectDue .pick{
+            color:white;
+            background-color: #F91B4E;
+        }
+        #selectDue td:hover{
+            color: white;
+            background-color: #F91B4E;
+        }
+        #moneyChart{
+            width: 700px;
+            /*height: 400px;*/
+            /*background-color: lightpink;*/
+            margin: auto;
+        }
+        #moneyChart strong{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            margin: 10px 5px;
+            line-height: 40px;
+            background-color: #F91B4E;
+            color:white;
+        }
+        #moneyChart img{
+            vertical-align: middle;
+        }
+        #moneyExcel{
+            width: 598px;
+            margin: auto;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            overflow: hidden;
+            border-right: 1px solid #F91B4E;
+            border-left: 1px solid #F91B4E;
+        }
+        #moneyExcel th{
+            width: 200px;
+            height: 55px;
+            line-height: 55px;
+            color: white;
+            background-color: #F91B4E;
+        }
+        #moneyExcel td{
+            width: 199px;
+            height: 118px;
+            border-right: 1px solid #F91B4E;
+            border-bottom: 1px solid #F91B4E;
+            line-height: 120px;
+            color: #F91B4E;
+        }
+        #moneyExcel td img{
+            vertical-align: middle;
+        }
+        #showMoney{
+            width: 600px;
+            height: 100px;
+            line-height: 100px;
+            background-color: #F91B4E;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            margin: 30px auto;
+        }
+        #showMoney strong{
+            color: orange;
+            font-size: 25px;
+            /*font-weight: bold;*/
+        }
+        #paybackBtn{
+            width: 598px;
+            height: 98px;
+            border: 1px solid #F91B4E;
+            line-height: 100px;
+            color: #F91B4E;
+            font-size: 20px;
+            text-align: center;
+            margin: auto;
+        }
+        .pop_when_box{
+            width: 628px;
+            position:absolute;
+            height:324px;
+            border:2px solid transparent;
+            border-radius: 4px;
+            background-color: #fafafa;
+            display:none;
+            margin-left: 500px;
+        }
+        .pop_when_box.on{
+            display:block
+        }
+        .pop_close_button{
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            line-height: 30px;
+            color: #dddddd;
+            transition: .2s ease;
+            /*margin-left: 540px;*/
+            position: absolute;
+            right: 0px;
+        }
+        .pop_close_button:hover{
+            color: #333333;
+        }
+        .pop_when{
+            width: 560px;
+            margin: auto;
+        }
+        #startpicker-input, #endpicker-input{
+            display: none;
+            border: none;
+        }
+        .tui-datetime-input{
+            /*display: none;*/
+            border: none;
+        }
+
+        #startpicker-container .tui-calendar-header-info,
+        #endpicker-container .tui-calendar-header-info{
+            /*월 밑에 있는 오늘 날짜 요소 지우기*/
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div id="header">
+    <div class="aux">
+        <h1 class="logo">
+            <a href="" ><img src="img/logo_coral.png"><strong> GYM.zip</strong></a>
+        </h1>
+
+        <div class="search_box">
+            <div>
+                <input class="search_text" />
+                <button class="search_btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+        <div class="header_nav">
+            <ul>
+                <li><a href="" >운동</a></li>
+                <li><a href="" >강의</a></li>
+                <li><a href="" >코칭</a></li>
+                <li> <a href="" >BM</a></li>
+            </ul>
+        </div>
+
+        <div class="global_profile">
+            <button class="profile_btn"><i class="fas fa-user"></i><span>▼</span></button>
+        </div>
+    </div>
+</div> <!--header END-->
+<div id="container">
+    <table id="selectDue">
+        <tr>
+            <td class="pick">전체</td>
+            <td>1개월</td>
+            <td>3개월</td>
+            <td>6개월</td>
+            <td>상세</td>
+        </tr>
+    </table>
+    <div class="pop_when_box"><!--pop_when_box start-->
+        <div class="pop_when_header"><!--pop_when_container start-->
+            <div class="pop_close_button"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="pop_when">
+<!--            <button name="close_btn" type="button" class="pop_close_button"><i class="fas fa-times"></i></button>-->
+            <div class="tui-datepicker-input tui-datetime-input tui-has-focus"  style="margin: 0 50px;">
+                <input id="startpicker-input" type="text" aria-label="Date">
+                <span class="tui-ico-date"></span>
+                <div id="startpicker-container"  style="margin-left: -50px;"></div>
+            </div>
+            <div class="tui-datepicker-input tui-datetime-input tui-has-focus" style="margin: 0 50px;">
+                <input id="endpicker-input" type="text" aria-label="Date">
+                <span class="tui-ico-date"></span>
+                <div id="endpicker-container"  style="margin-left: -50px;"></div>
+            </div>
+        </div>
+        <div class="pop_when_container"><!--pop_when_container start-->
+<!--            <div class="tui-datepicker-input tui-datetime-input tui-has-focus">-->
+<!--                <input id="startpicker-input" type="text" aria-label="Date">-->
+<!--                <span class="tui-ico-date"></span>-->
+<!--            </div>-->
+<!--            <div id="startpicker-container" ></div>-->
+<!--            <div class="tui-datepicker-input tui-datetime-input tui-has-focus">-->
+<!--                <input id="endpicker-input" type="text" aria-label="Date">-->
+<!--                <span class="tui-ico-date"></span>-->
+<!--            </div>-->
+<!--            <div id="endpicker-container" ></div>-->
+        </div><!--//pop_when_container end -->
+    </div><!--//pop_when_box end -->
+    <div id="moneyChart">
+        <div id="chartDecoration"> <strong>12월</strong><img src="img/energy.png"width="60"></div>
+        <div id="moneyChartMain">
+            <canvas id="myChart" width="650" height=300"></canvas>
+        </div>
+    </div>
+    <table id="moneyExcel">
+        <thead>
+            <tr>
+                <th>
+                    구독 수
+                </th>
+                <th>
+                    코칭한 회원 수
+                </th>
+                <th>
+                    강의 구매 횟수
+                </th>
+                <th>
+                    총 수익
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>3200</td>
+                <td>433</td>
+                <td>4300</td>
+                <td><strong>43224242</strong><img src="img/energy.png" width="20px"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="showMoney">
+        수익이 가장 많았던 날짜는 <strong>7월</strong>입니다.
+    </div>
+    <div id="paybackBtn">
+        내 계좌로 환급하기
+    </div>
+</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/tui-date-picker.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    // 차트 라벨 (X축 값)
+    var labels = ['1', '2', '3', '4', '5', '6'];
+    //차트 데이터
+    var data =  [10, 3, 30, 23, 10, 5];
+    var url='';
+    var ajaxData;
+    let chartData= {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                borderColor: "rgba(249, 27, 78, 1)",//선 색
+                backgroundColor: "rgba(249, 27, 78, .5)",//선 밑 공간색
+                fill: true,//밑에 채우기
+                lineTension: 0
+            }]
+        },
+        options: {
+            responsive: false,//크기 조정하려면 false
+            title: false,
+            legend: { display: false },//차트제목 범례 지우기
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            }
+        }
+    };
+    //차트 그리는 부분
+    var myChart = new Chart(ctx,chartData);
+    function ajaxf() {
+        $.ajax({
+            url:url,
+            data : ajaxData,//multipart/form-data
+            type : 'POST',//multipart/form-data
+            dataType : "json",
+            error : function(xhr, error, code) {
+                alert("에러:" + code);
+            },
+            success:function(json) {
+                console.log(json);
+                $('#chartDecoration strong').text(json.date);
+                chartData.data.labels = json.label;
+                chartData.data.datasets[0].data =  json.data;
+                // myChart = new Chart(ctx,chartData);
+                myChart.update();
+                $('#moneyExcel td:nth-child(1)').text(json.subscribeNumber);
+                $('#moneyExcel td:nth-child(2)').text(json.studentNumber);
+                $('#moneyExcel td:nth-child(3)').text(json.sellLecture);
+                $('#moneyExcel td:nth-child(4) strong').text(json.sumData);
+                $('#showMoney strong').text(json.maxDate);
+            }
+        });
+    }
+   $('#selectDue td').on('click',function (){
+       $(".pick").removeClass();
+       $(this).addClass("pick");
+       let due=$(this).index();
+       console.log(due);
+       if(due!=4){
+           url = 'ajax/money1.json';
+           let endDate= today;
+           ajaxData={
+               type:due,
+               startDate: null,
+               endDate: endDate,
+           }
+           ajaxf();
+       }
+
+   })
+    // $('#startpicker-input').on('click',function () {
+    //
+    // })
+
+    var today = new Date();
+    var picker = tui.DatePicker.createRangePicker({
+        language: 'ko',
+        startpicker: {
+            date: today,
+            input: '#startpicker-input',
+            container: '#startpicker-container'
+        },
+        endpicker: {
+            date: today,
+            input: '#endpicker-input',
+            container: '#endpicker-container'
+        },
+        // selectableRanges: [
+        //     [today, new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())]
+        // ]
+    });
+
+    let startpicker = picker.getStartpicker(); //이 함수가 따로 있음
+    let endpicker = picker.getEndpicker();
+    // //언제 버튼 누르면 팝업창 뜰 수 있도록 함
+    $("#selectDue td:nth-child(5)").click(function (e) {
+        $(".pop_when_box").addClass("on");
+        $("#selectDue td").css('pointer-events','none');
+        startpicker.open();
+        endpicker.open();
+        $("html").addClass("on");
+    });
+    // //엑스버튼 누르면 꺼지고 차트 갱신
+    $(".pop_close_button").on("click",function () {
+        $(".pop_when_box").removeClass("on");
+        url = 'ajax/money1.json';
+        $startpickerInput=$('#startpicker-input').val();
+        $endpickerInput=$('#endpicker-input').val();
+        ajaxData={
+            type:5,
+            startDate: $startpickerInput,
+            endDate: $endpickerInput,
+        }
+        ajaxf();
+        $("#selectDue td").css('pointer-events','auto');
+    });
+    //날짜 선택해도 데이트픽커 사라지지 않게함
+    const $rangePicker_container = $('.tui-rangepicker');
+    $rangePicker_container.removeClass('tui-hidden');
+    $rangePicker_container.on("click",function () {
+        if($rangePicker_container.hasClass('tui-hidden')){
+            $rangePicker_container.removeClass('tui-hidden');
+        }else{
+        }
+    });
+
+    //스크롤 기준 고정 탭
+    $( document ).ready( function() {
+
+        var headerOffset = $('#header').offset();
+        $(window).scroll( function() {
+            if($( document ).scrollTop() > headerOffset.top){
+                $('#header').addClass('header_fixed');
+            }else{
+                $('#header').removeClass('header_fixed');
+            }
+        });
+    } );
+
+</script>
+</body>
+</html>

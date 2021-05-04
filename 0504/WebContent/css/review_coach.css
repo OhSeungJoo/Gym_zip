@@ -1,0 +1,168 @@
+
+        /*단 CSS*/
+        .bar {
+            overflow: hidden;
+        }
+        .review_total{
+            width: 800px;
+            height: 200px;
+            margin: 20px auto;
+            background-color: antiquewhite;
+        }
+        /*단 수평블록 설정*/
+        .bar_contents{
+            float:left;
+        }
+        #tabTitle{
+            width: 300px;
+            height: 200px;
+            text-align: center;
+            line-height: 100px;
+        }
+        #starPoint{
+            width: 300px;
+            height: 200px;
+            text-align: center;
+        }
+        #starIcon{
+            width: 200px;
+            height: 150px;
+            font-size:80px;
+            line-height: 150px;
+            color: yellow;
+        }
+        #starData{
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        #tabTitle{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #reviewList{
+            width: 600px;
+            height: 800px;
+            margin:auto;
+            /*background-color: lightpink;*/
+        }
+        .review_card{
+            width: 600px;
+            box-shadow: 1px 1px 10px #424242;
+            margin-bottom: 5px;
+            /*height: 200px;*/
+        }
+        .photo{
+            width: 80px;
+            height: 200px;
+            /*border-right: 1px solid #424242;*/
+        }
+        .photo div{
+            background-color: #424242;
+            margin: 10px auto;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+        }
+        .more{
+            width: 520px;
+            height: 20px;
+            text-align: center;
+            margin: auto;
+            /*background-color: azure;*/
+        }
+        .little{
+            width:520px;
+            height: 20px;
+            margin: auto;
+            text-align: center;
+        }
+        .off{
+            display:none;
+        }
+        .review_contents{
+            width: 520px;
+            min-height:120px;
+            /*background-color: skyblue;*/
+            white-space: pre-line;
+        }
+        .review_contents.on{
+            height: 120px;
+            overflow: hidden;
+        }
+        .writer_explain{
+            font-weight: bold;
+        }
+        .writer_explain1{
+            width:520px;
+            height:30px;
+            /*background-color: orangered;*/
+        }
+        .writer_tier{
+            width:80px;
+            height:30px;
+            line-height: 30px;
+            text-align:center;
+        }
+        .writer_name{
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: left;
+            /*background-color: violet;*/
+        }
+        .writer_kcal{
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .report{
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+        }
+        .writer_explain2{
+            width:520px;
+            height:30px;
+            /*background-color: aquamarine;*/
+        }
+        .writer_date{
+            width:180px;
+            height: 30px;
+            line-height: 30px;
+            /*background-color: burlywood;*/
+        }
+        .writer_lecture_name{
+            width: 340px;
+            height:30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .hidden{
+            display: none;
+        }
+        .review_init{
+            width: 800px;
+            height: 800px;
+            margin: auto;
+            padding-top: 100px;
+            background-color: #dddddd;
+        }
+        .review_init_box{
+            width: 600px;
+            height: 600px;
+            margin:auto;
+
+            background-color: #888888;
+        }
+        .review_init_text{
+            font-size: 40px;
+            text-align: center;
+            line-height: 600px;
+            color:#eeeeee;
+        }

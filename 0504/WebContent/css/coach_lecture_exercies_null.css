@@ -1,0 +1,35 @@
+body{
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+
+.content{
+    width:800px;
+    margin:40px;
+    margin: auto;
+
+}
+/*end #content*/
+
+/* 강의나 운동 리스트를 담는 박스*/
+.content .updatedBox{
+    text-align: center;
+    width:600px;
+    height:200px;
+    background-color: #e0e0e0;
+    margin: auto;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 100px;
+}
+/*end #content .updatedBox*/
+
+/* 강의나 운동을 추가하는 버튼*/
+.content .add_btn{
+    font-family: "Noto Sans KR", sans-serif;
+    width:150px;
+    height:50px;
+    background-color: #fff;
+    border: none;
+}
+/*end #content .add_btn*/

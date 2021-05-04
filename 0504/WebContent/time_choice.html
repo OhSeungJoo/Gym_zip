@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>시간 선택 창</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+
+    <style>
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+    /*    시간 선택 창*/
+        #time_choice_container{
+            width:600px;
+            height:600px;
+            border: 1px solid #F91B4E;
+            position:fixed;
+            top:50%;
+            left:50%;
+            margin : -301px 0 0 -301px;
+        }
+    /*    end 시간 선택 창*/
+
+    /*    요일들*/
+        .days{
+            height:60px;
+
+            margin-top: 20px;
+        }
+    /*    end 요일들*/
+
+    /*    시간들*/
+        .times{
+            height:450px;
+
+            margin-top:20px;
+        }
+    /*    end 시간들*/
+
+        /*요일들 ul*/
+        .days>ul{
+            width:400px;
+            height:40px;
+            margin:auto;
+
+        }
+        /*end 요일들 ul*/
+
+        /*일월화수목금토*/
+        .days>ul>li{
+            display: inline-block;
+            width:38px;
+            height:38px;
+            border: 1px solid #F91B4E;
+            margin-right: 15px;
+            font-size: 18px;
+            font-weight:500;
+            line-height: 40px;
+            text-align: center;
+            background-color: #fff;
+        }
+        /*end 일월화수목금토*/
+        /*일요일*/
+        .days>ul>li.sunday{
+            margin-left:15px;
+        }
+        /*end 일요일*/
+
+        /*선택된 요일*/
+        .days>ul>li.day_on{
+            background-color: #F91B4E;
+            color: #fff;
+        }
+        /*end 선택된 요일*/
+
+
+        /*시간들*/
+        .times>ul{
+            width:450px;
+            height:450px;
+
+            margin:auto;
+        }
+        /*end 시간들*/
+
+        /*시간들 li*/
+        .times>ul>li{
+
+            width:450px;
+            height:450px;
+            display: none;
+            position:absolute;
+
+        }
+        /*end 시간들*/
+
+        /*선택된 요일의 시간들*/
+        #time_choice_container .times ul .days.time_on{
+            display: block;
+        }
+        /*end 선택된 요일의 시간들*/
+
+        /*    확인 버튼, 닫기 버튼*/
+        .button_box button{
+            border: none;
+
+            position:absolute;
+        }
+        /*    end 확인 버튼, 닫기 버튼*/
+
+        /*    확인 버튼*/
+        .ok_btn{
+            width:100px;
+            height:40px;
+            right:0px;
+            bottom:0px;
+            font-family:"Noto Sans KR", sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #f91b4e;
+
+        }
+        /*    end 확인버튼*/
+
+        /*    취소 버튼*/
+        .close_btn{
+            width:30px;
+            height:30px;
+            right:0px;
+            top:0px;
+            font-size: 20px;
+
+            color: #F91B4E;
+            background-color: #fff;
+        }
+        /*    end 취소 버튼*/
+
+
+    /*=============================================시간들*/
+
+        .time_area{
+            width: 250px;
+            height:400px;
+            margin:40px auto;
+            padding-left:5px;
+        }
+
+        /*    시간 한개 li*/
+        .time_area>ul>li{
+            width:50px;
+            height:25px;
+            display: inline-block;
+            margin:5px;
+        }
+        /*    end 시간 한개 li*/
+
+        /*    시간 체크 박스 숨기기*/
+        .time_area input[type=checkbox]{
+            display: none;
+        }
+        /*   end 시간 체크 박스 숨기기 */
+
+    /*    시간 문구(체크 전)*/
+        .time_area span{
+            width:50px;
+            height:25px;
+            border: 1px solid #e0e0e0;
+            color: #e0e0e0;
+            margin:5px;
+        }
+    /*    end 시간 문구 (체크 전)*/
+
+    /*    시간 문구(체크 후)*/
+        .time_area input:checked+span{
+            border: 1px solid #F91B4E;
+            color: #000;
+        }
+    /*    end 시간 문구(체크 후)*/
+
+    /*    오전 오후*/
+        .time_area>ul>div{
+            margin-top:20px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+    /*    end 오전 오후*/
+
+
+    /*end 시간들 =========================================*/
+
+    /*    코칭 시간대 안내문구*/
+        .sub_text{
+            margin:auto;
+            font-size: 12px;
+            font-weight: 400;
+            color: #F91B4E;
+
+            text-align: center;
+        }
+    /*    end 코칭 시간대 안내 문구*/
+
+    </style>
+</head>
+<body>
+<!--시간 선택 창-->
+<div id="time_choice_container">
+<!--    요일들 -->
+    <div class="days">
+        <ul>
+            <li class="sunday">일</li><!--
+            --><li class="monday day_on">월</li><!--
+            --><li class="tuesday">화</li><!--
+            --><li class="wednesday">수</li><!--
+            --><li class="thursday">목</li><!--
+            --><li class="friday">금</li><!--
+            --><li class="saturday">토</li>
+        </ul>
+    </div>
+<!--end 요일 들-->
+
+<!--    시간들-->
+    <div class="times">
+        <div class="sub_text">코칭을 원하지 않는 시간대가 있다면 선택해주세요.</div>
+        <ul>
+            <li class="sunday days"></li><!--
+            --><li class="monday time_on days"></li><!--
+            --><li class="tuesday days"></li><!--
+            --><li class="wednesday days"></li><!--
+            --><li class="thursday days"></li><!--
+            --><li class="friday days"></li><!--
+            --><li class="saturday days"></li>
+        </ul>
+    </div>
+<!--    end 시간들-->
+
+
+    <!--    버튼들-->
+    <div class="button_box">
+        <button class="close_btn"><i class="fas fa-times"></i></button>
+        <button class="ok_btn">확인</button>
+    </div>
+    <!--    end 버튼 들-->
+</div>
+<!--end 시간 선택 창-->
+
+<!--시간들 템플릿-->
+<script type="text/template" id="timeTmpl">
+    <!-- 시간들-->
+    <div class="time_area">
+        <!-- 오전 -->
+        <ul class="am"> <div>오전</div>
+            <li><label><input type="checkbox" name="workingTime" class="hour0 time" checked="true"><span>00:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour1 time" checked="true"><span>01:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour2 time" checked="true"><span>02:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour3 time" checked="true"><span>03:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour4 time" checked="true"><span>04:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour5 time" checked="true"><span>05:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour6 time" checked="true"><span>06:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour7 time" checked="true"><span>07:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour8 time" checked="true"><span>08:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour9 time" checked="true"><span>09:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour10 time" checked="true"><span>10:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour11 time" checked="true"><span>11:00</span></label></li>
+        </ul>
+        <!--오후-->
+        <ul class="pm"> <div>오후</div>
+            <li><label><input type="checkbox" name="workingTime" class="hour12 time" checked="true"><span>12:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour13 time" checked="true"><span>13:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour14 time" checked="true"><span>14:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour15 time" checked="true"><span>15:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour16 time" checked="true"><span>16:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour17 time" checked="true"><span>17:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour18 time" checked="true"><span>18:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour19 time" checked="true"><span>19:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour20 time" checked="true"><span>20:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour21 time" checked="true"><span>21:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour22 time" checked="true"><span>22:00</span></label></li><!--
+                        --><li><label><input type="checkbox" name="workingTime" class="hour23 time" checked="true"><span>23:00</span></label></li>
+        </ul>
+        <!--end 오후-->
+    </div>
+    <!-- end 시간들 -->
+</script>
+<!--end 시간들 템플릿-->
+<!--제이쿼리 임포트-->
+<script src="js/jquery.js"></script>
+<script src="js/underscore-min.js"></script>
+<script>
+
+    let dayIndex;  // 요일 인덱스 값
+
+    let coachingDays=[]; // 코칭 요일들의 코칭 여부
+    coachingDays.length=7;
+    let coachingIndex=0;
+
+    // 요일을 클릭할 경우
+    $(".days>ul>li").on("click",function () {
+        // day_on 클래스 지우기
+        $(".day_on").removeClass("day_on");
+
+        //그리고 누른거에 붙여주기
+        $(this).addClass("day_on");
+
+        // 인덱스 값 구하기
+        dayIndex=$(this).index();
+
+
+        // 요일에 해당하는 시간 창 띄우기
+        $(".time_on").removeClass("time_on");
+        $(".times>ul>.days").eq(dayIndex).addClass("time_on");
+
+    });
+    // end 요일을 클릭할 경우
+
+    // 언더 스코어 템플릿 활용하여 월화수목금토일에 시간들 붙여주기
+    const timeTmpl=_.template($("#timeTmpl").html());
+
+
+
+    for(let i=0;i<7;i++){
+        $(".times>ul>.days").eq(i).append(timeTmpl());
+    }
+
+
+    // end 언더스코어 활용 시간들 붙이기
+
+
+    // 취소 버튼
+    $("#time_choice_container .cancel_btn").on("click",function () {
+
+    });
+    // end 취소 버튼
+
+
+    // 확인 버튼
+    $("#time_choice_container .ok_btn").on("click",function () {
+
+
+        let checkbox=document.getElementsByName('workingTime');
+        let chk=0;
+
+
+        for(let i=0;i<checkbox.length;i++){
+            if(checkbox[i].checked){
+                chk=1;
+            }
+
+
+            if(i%24==23){
+
+                coachingDays[coachingIndex]=chk;
+                coachingIndex++;
+            }
+        }
+        // for end
+
+        // 일월화수목금토 coachingDays[i]의 값이 1이면 코칭이 가능한 날이다.
+        for(let i=0;i<7;i++){
+            alert(coachingDays[i]+"  "+i);
+        }
+
+    });
+</script>
+</body>
+</html>

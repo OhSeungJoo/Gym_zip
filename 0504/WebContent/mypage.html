@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>GYM.zip</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+    <link rel="icon" href="img/logo_coral.ico">
+
+    <style>
+        html{
+            overflow-y: scroll;
+        }
+        #wrap{
+            font-family: "Noto Sans KR",sans-serif;
+        }
+        #container{
+            width: 100%;
+            /*background-color: aquamarine;*/
+        }
+        #topBox{
+            width:1100px;
+            margin: auto;
+            position: relative;
+        }
+        .mypage_bar{
+            height: 100px;
+            background-color: #eeeeee;
+        }
+        .mypage_bar span{
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 100px;
+            margin: 20px;
+            user-select: none;
+        }
+        .profile_box{
+            background-color: white;
+            border:1px solid #424242;
+        }
+        .profile_image{
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            margin: 20px 20px;
+            cursor: pointer;
+        }
+        .update_image{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            margin: 20px 20px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 200px;
+            font-size: 40px;
+            color: transparent;
+        }
+        .update_image:hover{
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #424242;
+        }
+        #fileUpload{
+            display: none;
+        }
+        .user_tier{
+            width: 100px;
+            position: absolute;
+            font-weight: 500;
+            font-size: 25px;
+            color: rgb(241, 196, 15);
+            left: 280px;
+            top: 180px;
+            text-align: center;
+        }
+        .user_nickname{
+            width: 400px;
+            position: absolute;
+            font-weight: 600;
+            font-size: 30px;
+            color: #424242;
+            left: 400px;
+            top: 180px;
+
+        }
+        .user_nickname strong{
+            cursor: pointer;
+        }
+        .user_nickname>span{
+            font-weight: 200;
+            font-size: 20px;
+            color: #424242;
+            margin-left: 20px;
+        }
+        .energy{
+            position: absolute;
+            left: 420px;
+            top: 280px;
+        }
+        .energy img{
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+        }
+        .energy strong{
+            font-size: 20px;
+            vertical-align: middle;
+        }
+        .btn_energy{
+            width: 100px;
+            height: 40px;
+            background-color: white;
+            border: 1px solid #f91b4e;
+            border-radius: 35px;
+            font-weight: bold;
+            color: #f91b4e;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .user_badge{
+            position: absolute;
+            right: 30px;
+            top: 150px;
+        }
+        .user_badge img{
+            width: 150px;
+            height: 150px;
+        }
+        .mypage_tab{
+            width: 800px;
+            height: 100px;
+            position: relative;
+            left: 50%;
+            top: 50px;
+            margin-left: -400px;
+            font-weight: bold;
+        }
+        .active_tab li {
+            width: 200px;
+            height: 20px;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 5px solid #424242;
+        }
+        .active_tab .on{
+            color: #f91b4e;
+            border-bottom: 5px solid #f91b4e;
+        }
+
+        /*==================== 나의 배지 부분 css=======================*/
+        /*==========================================================*/
+
+        /*나의 배지목록*/
+        #badgeList{
+            position: relative;
+            width: 900px;
+            left: 50%;
+            margin-left: -450px;
+            margin-top: 20px;
+           padding-bottom: 20px;
+        }
+        .tab{
+            display: none;
+        }
+        .tab.on{
+            display: block;
+        }
+        /*대표 배지 설정 버튼*/
+        #badgeSetButton{
+            width: 150px;
+            height: 40px;
+            border-radius: 35px;
+            color: #f91b4e;
+            border: 1px solid #f91b4e;
+            background-color: white;
+            position: relative;
+            right: -700px;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        /*티어 배지 목록*/
+        #tierPart{
+            width: 900px;
+            height: 150px;
+            margin-top: 35px;
+            /*background-color: cyan;*/
+        }
+        #tierPart li{
+            width: 100px;
+            height: 100px;
+            margin: 25px 25px;
+            float: left;
+            /*background-color: yellow;*/
+        }
+
+        /*출석,중량,칼로리 배지 목록*/
+        #attendancePart, #amountPart, #kcalPart{
+            width: 850px;
+            height: 340px;
+            margin: 50px 25px;
+        }
+        #attendancePart li, #amountPart li, #kcalPart li{
+            width: 100px;
+            height: 100px;
+            margin: 30px;
+            border: 5px solid transparent;
+            float: left;
+        }
+
+        #attendancePart .attend .show,#amountPart .amount .show, #kcalPart .kcal .show{
+            border: 5px solid #90ee90;
+        }
+        /*==========================================================*/
+        /*==========================================================*/
+
+
+        /*==================나의 BM 관리 뷰=====================*/
+        /*==========================================================*/
+
+        #popWrapBm.pop_layout{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            z-index: 30000;
+            display: none;
+        }
+        #bmCodeConfirm{
+            width: 620px;
+            height: 320px;
+            background-color: white;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -310px;
+            margin-top: -160px;
+        }
+        #bmCodeConfirm>h2{
+            margin-top: 50px;
+            margin-left: 50px;
+            font-size: 20px;
+            font-weight: 300;
+        }
+        #bmCodeConfirm>div{
+            margin-left: 50px;
+            margin-top: 30px;
+        }
+        #bmCodeConfirm>div input{
+            width:150px;
+            height: 30px;
+
+        }
+        .popWrapHeader span{
+           font-size: 25px;
+        }
+        #bmCodeConfirm p{
+            margin-left: 50px;
+            margin-top: 10px;
+            color: #f91b4e;
+            font-size: 15px;
+        }
+
+        #codeCancel{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 310px;
+            height: 50px;
+            background-color: transparent;
+            border: none;
+            font-size: 18px;
+            color: #bebebe;
+            border-top: 1px solid #bebebe;
+        }
+        #codeComplete{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 310px;
+            height: 50px;
+            background-color: transparent;
+            border: none;
+            font-size: 18px;
+            color: #bebebe;
+            border-top: 1px solid #bebebe;
+        }
+
+        #codeCancel:hover,#codeComplete:hover{
+            color: rgb(74, 190, 202);
+        }
+        #register{
+            width: 600px;
+            height: 300px;
+            position: relative;
+
+            left: 50%;
+            margin-left: -300px;
+        }
+        #register h2{
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 300px;
+            text-align: center;
+        }
+        #bmRegisterButton{
+            width: 100px;
+            height: 40px;
+            margin-left:250px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        /*==========================================================*/
+        /*==========================================================*/
+
+        /*====================에너지 충전 뷰====================*/
+        /*==========================================================*/
+        #popWrapEnergy.pop_layout{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            z-index: 30000;
+            display: none;
+        }
+
+        #energyCharge{
+            width: 1000px;
+            height: 700px;
+            background-color: white;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -500px;
+            margin-top: -350px;
+        }
+        .pop_wrap_header h2{
+            font-size: 30px;
+            font-weight: bold;
+            margin: 30px;
+        }
+        .pop_wrap_header h3{
+            font-size: 20px;
+            font-weight: 400;
+            margin: 10px 30px;
+        }
+        #priceBox{
+            margin: 30px 100px;
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .price_list li{
+            margin-bottom: 30px;
+        }
+        .price_list li label{
+            margin-right: 120px;
+            vertical-align: middle;
+        }
+        .price_list li img{
+            vertical-align: middle;
+            margin-right: 20px;
+        }
+
+        #beforeEnergy{
+            float: left;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 80px;
+        }
+
+        #afterEnergy{
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        #beforeEnergy img,#afterEnergy img{
+            margin-left: 50px;
+            vertical-align: middle;
+        }
+
+        #payEnergy{
+            clear: both;
+            font-size: 30px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-left: 600px;
+        }
+        #payEnergy strong{
+            margin-right: 30px;
+        }
+        #payEnergy label{
+            font-size: 45px;
+        }
+        #energyConfirm{
+            position: absolute;
+            right: 30px;
+            top:620px
+        }
+        #energyConfirm button{
+            width: 200px;
+            height: 60px;
+            background-color: #fff;
+            border: 1px solid #f91b4e;
+            border-radius: 20px;
+            font-size: 25px;
+            font-weight: bold;
+            color: #f91b4e;
+        }
+        /*==========================================================*/
+        /*==========================================================*/
+
+        /*====================에너지 충전 뷰====================*/
+        /*==========================================================*/
+        #energyHistory{
+            width: 900px;
+            position: absolute;
+            left: 50%;
+            margin-left: -450px;
+            margin-top: 20px;
+            /*background-color: darkorchid;*/
+        }
+        #energyFilter dl dt{
+            float: left;
+            border: 1px solid #e0e0e0;
+            background-color: lightgreen;
+
+        }
+
+        #energyFilter dl dd{
+            float: left;
+            background-color: orange;
+        }
+        #selectBox{
+            margin-top: 40px;
+            margin-bottom: 20px;
+            margin-left: 700px;
+        }
+        table{
+            width: 900px;
+
+        }
+        table thead tr{
+            height: 50px;
+            background-color: #e0e0e0;
+            text-align: center;
+            line-height: 50px;
+            border-top: 1px solid #cccccc;
+            border-bottom: 1px solid #cccccc;
+        }
+        table tbody tr{
+            text-align: center;
+            line-height: 50px;
+        }
+        tbody tr td{
+            height: 50px;
+            border-bottom: 1px solid #cccccc;
+        }
+        /*==========================================================*/
+        /*==========================================================*/
+        #energyFilter table{
+            border-collapse: collapse;
+        }
+        #energyFilter td{
+            background-color: #ffffff;
+        }
+        #dealDate{
+            width: 400px;
+            height: 20px;
+            vertical-align: middle;
+            margin-left: 20px;
+
+        }
+        #dealDate li{
+            float: left;
+            width: 78px;
+            height: 18px;
+            border: 1px solid #bebebe;
+            text-align: center;
+            font-size: 14px;
+            line-height: 20px;
+        }
+        #setDate{
+            width: 300px;
+            position: absolute;
+            top: 0;
+            right: -20px;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--popWrapBM-->
+<div id="popWrapBm" class="pop_layout">
+    <div id="bmCodeConfirm">
+        <div class="pop_wrap_header">
+          <span>제품코드</span>
+        </div>
+        <div class="inputBox">
+            <input type="text" id="inputCode1">
+            <span>-</span>
+            <input type="text" id="inputCode2">
+            <span>-</span>
+            <input type="text" id="inputCode3">
+        </div>
+        <p>제품의 코드가 올바르지 않습니다.</p>
+        <div id="codeButton">
+            <button id="codeCancel">취소</button>
+            <button id="codeComplete">완료</button>
+        </div>
+    </div>
+</div>
+<!--popWrapBM END-->
+
+<!--popWrapEnergy-->
+<div id="popWrapEnergy" class="pop_layout">
+
+    <div id="energyCharge">
+        <div class="pop_wrap_header">
+            <h2>에너지 충전</h2>
+            <h3>- 코치 구독, 1:1 코칭 신청, 강의를 수강할 때 필요한 에너지를 충전합니다. </h3>
+        </div>
+
+        <div id="priceBox">
+          <ul class="price_list">
+            <li>
+                <input type="radio" id="energyRadio1" name="energyPick">
+                <label for="energyRadio1"><img src="img/energy_icon.png" width="50" height="50">100+10</label>
+                <i class="fas fa-won-sign"></i><span>10000</span>
+            </li>
+
+            <li>
+                <input type="radio" id="energyRadio2" name="energyPick">
+                <label for="energyRadio2"><img src="img/energy_icon.png" width="50" height="50">500+50</label>
+                <i class="fas fa-won-sign"></i><span>50000</span>
+            </li>
+
+            <li>
+                <input type="radio" id="energyRadio3" name="energyPick">
+                <label for="energyRadio3"><img src="img/energy_icon.png" width="50" height="50">1100+100</label>
+                <i class="fas fa-won-sign"></i><span>100000</span>
+            </li>
+            <li>
+                <input type="radio" id="energyRadio4" name="energyPick">
+                <label for="energyRadio4"><img src="img/energy_icon.png" width="50" height="50">5000+500</label>
+                <i class="fas fa-won-sign"></i><span>500000</span>
+            </li>
+         </ul>
+
+       </div>
+
+        <div id="ownEnergy">
+            <div id="beforeEnergy">
+                <strong>현재에너지</strong>
+                <img src="img/energy_icon.png" width="30"height="30">
+                <label>99999</label>
+            </div>
+
+            <div id="afterEnergy">
+                <strong>충전 후 에너지</strong>
+                <img src="img/energy_icon.png" width="30"height="30">
+                <label>99999</label>
+            </div>
+
+
+            <div id="payEnergy">
+                <strong>결제 금액</strong>
+                <i class="fas fa-won-sign"></i><label>10000</label>
+            </div>
+        </div>
+
+        <div id="energyConfirm">
+            <button id="chargeCancel">취소하기</button>
+            <button id="chargeComplete">충전하기</button>
+        </div>
+    </div>
+
+</div>
+<!--popWrapEnergy END-->
+
+<!--wrap-->
+<div id="wrap">
+    <!--container-->
+    <div id="container">
+        <!--topBox -->
+        <div id="topBox">
+            <!--mypage_bar-->
+            <div class="mypage_bar">
+                <span>MyPage</span>
+            </div>
+            <!--mypage_bar END-->
+
+
+            <!--profile_box -->
+            <div class="profile_box">
+                <!--프로필 사진-->
+                <label  class="update_image" for="fileUpload"><i class="fas fa-plus"></i></label>
+                <input type="file" id="fileUpload">
+                <img class="profile_image" src="img/mypage_profile.PNG">
+                <!--회원 티어-->
+                <div class="user_tier">골드</div>
+                <!--회원 닉네임-->
+                <div class="user_nickname">
+                    <strong>욱지창욱지창욱지창욱</strong>
+                    <span>회원님</span>
+                </div>
+                <!--회원 에너지-->
+                <div class="energy">
+                    <img src="img/energy_icon.png">
+                    <strong>99999</strong>
+                    <button class="btn_energy">충전하기</button>
+                </div>
+                <!--회원 대표배지-->
+                <div class="user_badge">
+                    <img src="badge/attendance_1.JPG">
+                </div>
+            </div>
+            <!--profile_box END-->
+
+            <div class="mypage_tab">
+                <ul class="active_tab">
+                    <li class="on">내 배지목록</li>
+                    <li>내 리뷰</li>
+                    <li>내 에너지사용내역</li>
+                    <li>내 BM관리</li>
+                </ul>
+            </div>
+        </div>
+        <!--topBox END-->
+
+        <!--content-->
+        <div id="content">
+
+        <!--badgeList-->
+         <div id="badgeList" class="tab on">
+
+             <button id="badgeSetButton">대표 배지 설정</button>
+
+             <!--tierPart-->
+            <div id="tierPart">
+                <ul>
+                    <li><img src="badge/tier_iron.JPG" width="100" height="100"></li>
+                    <li><img src="badge/tier_bronze.JPG" width="100" height="100"></li>
+                    <li><img src="badge/tier_silver.JPG" width="100" height="100"></li>
+                    <li><img src="badge/tier_gold.JPG" width="100" height="100"></li>
+                    <li><img src="badge/tier_platinum.JPG" width="100" height="100"></li>
+                    <li><img src="badge/tier_dia.JPG" width="100" height="100"></li>
+                </ul>
+            </div>
+             <!--tierPart END-->
+
+             <!--attendancePart-->
+             <div id="attendancePart">
+                  <ul class="attend">
+                     <li><img src="badge/attendance_1.JPG" width="100" height="100" data-no="1"></li>
+                     <li><img src="badge/attendance_2.JPG" width="100" height="100" data-no="2"></li>
+                     <li><img src="badge/attendance_3.JPG" width="100" height="100" data-no="3"></li>
+                     <li><img src="badge/attendance_400.JPG" width="100" height="100"></li>
+                     <li><img src="badge/attendance_500.JPG" width="100" height="100"></li>
+                     <li><img src="badge/attendance_600.JPG" width="100" height="100"></li>
+                     <li><img src="badge/attendance_700.JPG" width="100" height="100"></li>
+                     <li><img src="badge/attendance_800.JPG" width="100" height="100"></li>
+                     <li><img src="badge/attendance_900.JPG" width="100" height="100"></li>
+                     <li><img src="badge/attendance_1000.JPG" width="100" height="100"></li>
+                 </ul>
+             </div>
+             <!--attendancePart End-->
+
+             <!--amountPart-->
+             <div id="amountPart">
+                 <ul class="amount">
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                     <li><img src="badge/amount_100kg.JPG" width="100" height="100"></li>
+                 </ul>
+             </div>
+             <!--amountPart End-->
+
+             <!--kcalPart-->
+             <div id="kcalPart">
+                 <ul class="kcal">
+                     <li><img src="badge/kcal_500.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_1000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_3000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_5000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_7000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_10000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_30000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_50000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_70000.JPG" width="100" height="100"></li>
+                     <li><img src="badge/kcal_100000.JPG" width="100" height="100"></li>
+                 </ul>
+             </div>
+             <!--kcalPart End-->
+
+        </div>
+        <!--badgeList END-->
+
+        <div class="tab">내리뷰</div>
+
+        <!--에너지 사용내역-->
+        <div id="energyHistory" class="tab">
+            <!--energyFilter-->
+           <div id="energyFilter">
+               <table>
+                   <thead>
+                        <tr>
+                          <th>거래일자</th>
+                          <td colspan="4">
+                              <ul id="dealDate">
+                                  <li>오늘</li>
+                                  <li>1주일</li>
+                                  <li>1개월</li>
+                                  <li>2개월</li>
+                                  <li>3개월</li>
+                              </ul>
+                              <div id="setDate">
+                              <select>
+                                  <option>2020-12-01</option>
+                              </select> ~
+                              <select>
+                                  <option>2020-12-31</option>
+                              </select>
+                              </div>
+                          </td>
+                        </tr>
+                        <tr>
+                            <th>구분</th>
+                            <td colspan="4">
+                                <input type="checkbox" id="total">
+                                <label for="total">전체</label>
+                                <input type="checkbox" id="charge">
+                                <label for="charge">충전</label>
+                                <input type="checkbox" id="buy">
+                                <label for="buy">구매</label>
+                                <input type="checkbox" id="etc">
+                                <label for="etc">기타</label>
+
+                            </td>
+                        </tr>
+                   </thead>
+
+               </table>
+           </div>
+            <!--energyFilter END-->
+
+            <!--usageHistory-->
+            <div id="usageHistory">
+                <div id="selectBox">
+                    <select >
+                        <option>최근거래순</option>
+                    </select>
+                    <select >
+                        <option>10개씩</option>
+                    </select>
+                </div>
+                <!-- 사용내역 테이블-->
+                <table>
+                    <thead>
+                       <tr>
+                           <th>구분</th>
+                           <th>거래일시</th>
+                           <th>내역</th>
+                           <th>충전 에너지</th>
+                           <th>사용 에너지</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>구매</td>
+                            <td>2020-12-16 11:33:16</td>
+                            <td>코칭예약</td>
+                            <td>0</td>
+                            <td>300</td>
+                        </tr>
+                        <tr>
+                            <td>구매</td>
+                            <td>2020-12-16 11:33:16</td>
+                            <td>코칭예약</td>
+                            <td>0</td>
+                            <td>300</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 사용내역 테이블 END-->
+            </div>
+            <!--usageHistory END-->
+        </div>
+        <!--에너지 사용내역 END-->
+
+
+        <!--bm 등록 및 관리 -->
+        <div id="myBM" class="tab">
+            <!--등록 안됐을때-->
+            <div id="register">
+              <h2>"등록된 기기가 없습니다."</h2>
+              <button id="bmRegisterButton">등 록</button>
+            </div>
+            <!--등록이 됐을 때-->
+        </div>
+        <!--bm 등록 및 관리 END-->
+
+        </div>
+    <!--content END-->
+
+    </div>
+    <!--container END-->
+
+</div>
+<!--wrap END-->
+
+
+<!--script-->
+<script src="js/jquery.js"></script>
+<script>
+    $(".active_tab li").on("click",function (e) {
+
+       //1) 기존의 on 클래스를 제거
+        $(".on").removeClass("on");
+
+        // 2) 클릭한 그 li요소에 on 클래스를 더한다.
+        $(this).addClass("on");
+
+        // 4) 우리가 클릭한 그 요소의 index를 얻어옴
+        const idx =$(this).index();
+        // console.log(idx);
+
+        // 5) .tab 요소들 중 해당 index에 있는 요소에
+        //     on 클래스를 더한다.
+        $(".tab").eq(idx).addClass("on");
+
+    }); //.active_tab li click() end
+
+    $("#attendancePart .attend li,#amountPart .amount li,#kcalPart .kcal li").on("click",function (e) {
+
+
+        //1) 기존의 on 클래스를 제거
+        $(".show").removeClass("show");
+
+        // 2) 클릭한 그 li요소에 on 클래스를 더한다.
+        $(this).addClass("show");
+
+
+    }); //#attendancePart .attend li,#amountPart .amount li,#kcalPart .kcal li click() end
+
+
+
+    // 대표배지 설정버튼
+    $("#attendancePart .attend li img").on("click",function (e){
+
+        const no = this.dataset.no;
+        // console.log(no);
+
+        $("#badgeSetButton").on("click",function (e){
+            $(".user_badge img").attr("src","badge/attendance_"+no+".jpg");
+        });
+
+    });//"#attendancePart .attend li img" click END()
+
+
+
+    $("#bmRegisterButton").on("click",function (e){
+        $("#popWrapBm.pop_layout").css("display","block")
+    });
+
+    $("#codeCancel,#codeComplete").on("click",function (e){
+        $("#popWrapBm.pop_layout").css("display","none")
+        $(".inputBox input").val("")
+
+    });
+
+    $(".btn_energy").on("click",function (e){
+        $("#popWrapEnergy.pop_layout").css("display","block")
+    });
+
+    $("#energyConfirm").on("click",function (e){
+        $("#popWrapEnergy.pop_layout").css("display","none")
+    });
+
+</script>
+<!--script END-->
+</body>
+</html>

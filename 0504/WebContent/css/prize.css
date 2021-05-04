@@ -1,0 +1,247 @@
+  /*모든 h4요소*/
+        h4{
+            font-size: 25px;
+            font-weight: 600;
+
+            float: left;
+            width:50px;
+            height:50px;
+            margin-left: 75px;
+
+            line-height: 50px;
+
+            color: #f91b4e;
+        }
+        /* h4 end*/
+
+        /* 수상, 경력, 자격 뒤에 있는 선*/
+        .line{
+            width : 600px;
+            height:4px;
+
+            background-color: #f91b4e;
+
+            float: left;
+            margin-top: 23px;
+        }
+        /* .line end*/
+
+        .line_div{
+            height:50px;
+            /*background-color: green;*/
+        }
+
+        /*모든 추가하기 버튼*/
+        .plus_area>button{
+            background-color: #fff;
+            /*position: relative;*/
+            left:50%;
+
+            width:90px;
+            height:30px;
+
+            margin-left : 355px;
+            margin-top:10px;
+
+            border: 1px solid #f91b4e;
+            color: #f91b4e;
+
+            border-radius: 35px;
+
+            font-family: "Noto Sans KR",sans-serif;
+            font-weight: 400;
+
+        }
+        /*#content>div>button (모든 추가하기 버튼) end*/
+
+        /*모든 추가하기 버튼 hover와 클릭했을 때 */
+        #content .plus_area>button:hover, #content .plus_area>button:active{
+            color:#fff;
+            background-color: #f91b4e;
+        }
+
+
+        /*테스트 !!!!!!!!!!!!!!*/
+
+
+        /*============================================================================*/
+        /*추가 입력 스타일*/
+
+        /*수상과 자격을 추가하는 입력 폼*/
+        /* #content */ #prize #plusPrize, /* #content */ #qualification #plusQualification{
+            width:600px;
+            height:60px;
+            background-color: #fff;
+
+            /*bottom:0px;*/
+            margin-left: 100px;
+
+
+            /*일단은 안보이게*/
+            display: none;
+
+        }
+        /*#content #prize #plusPrize, #content #qualification #plusQualification (수상과 자격을 추가하는 입력폼) end*/
+
+        /*경력을 추가하는 입력폼*/
+       /*  #content */ #career .plus_area #plusCareer{
+            width:258px;
+            height:218px;
+            background-color: #fff;
+
+            position: absolute;
+
+
+            left:50%;
+
+            margin-top:-140px;
+            margin-left: -150px;
+
+            border: 1px solid #f91b4e;
+
+            padding: 20px;
+            /*일단은 안보이게*/
+            display: none;
+        }
+         /*경력 추가 입력폼 end*/
+         /*===============================================================================*/
+
+         /* 경력과 자격에 대해 위 마진 값*/
+        #career,#qualification{
+            margin-top: 10px;
+        }
+        /*#career, #qualification (경력, 자격 div) end*/
+
+
+        /*수상과 자격의 추가하는 부분에 관한 스타일 */
+        #prize .plus_area, #qualification .plus_area{
+            height:100px;
+
+
+        }
+        /* #prize .plus_area, #qualification .plus_area end (수상과자격 추가부분)*/
+
+
+        /*수상과 자격의 input 요소에 관한 스타일*/
+        #prize .plus_area input, #qualification .plus_area input{
+            width: 500px;
+            border: none;
+            border-bottom: 3px solid #f91b4e;
+            margin-left: 20px;
+            margin-top:20px;
+        }
+        /* #prize .plus_area input, #qualification .plus_area input end (수상과 자격의 input 요소)*/
+
+
+        /*수상과 자격 등록 버튼*/
+        #prize .plus_area form button, #qualification .plus_area  form button{
+            width:48px;
+            height:30px;
+            border: 1px solid #f91b4e;
+            background-color: #fff;
+            color:#f91b4e;
+            margin-left: 10px;
+            margin-top:20px;
+        }
+        /*end #prize .plus area form button, #qualification .plus_area form button (수상과 자격 등록 버튼)*/
+
+
+        /*리스트 스타일 정의*/
+       /*  ul{
+            padding-left: 100px;
+        }
+        li{
+            margin-top:5px;
+        } */
+        /* end ul, li  리스트 스타일 정의 */
+
+
+        /*경력 추가 팝업 닫힘 */
+        .plus_area #plusCareer i{
+            position:absolute;
+            right:0px;
+            font-size: 25px;
+            color: #f91b4e;
+            margin-top: -20px;
+        }
+        /*end .plus_area #plusCareer i (경력 추가 팝업 닫힘)*/
+
+
+        /*경력 추가 팝업 업체명*/
+        .plus_area #plusCareer #companyName{
+            width:250px;
+            margin:15px 0 20px 0;
+            border: none;
+            border-bottom: 3px solid #f91b4e;
+
+        }
+        /*end .plus_area #plusCareer #companyName (경력 추가 팝업 업체명)*/
+
+
+        /*경력 시작일과 종료일 날짜 입력*/
+        #firstDate select, #lastDate select{
+
+            width:50px;
+            border:1px solid #f91b4e;
+        }
+        /*end #firstDate input, #lastDate input(경력 시작일과 종료일 날짜 입력)*/
+
+        /*부터, 까지 문구*/
+        #firstDate p, #lastDate p{
+            float: right;
+            font-weight: 500;
+            color: #f91b4e;
+        }
+        /*end #firstDate , #lastDate p (부터, 까지 문구)*/
+
+
+        /*경력 시작일 div*/
+        #firstDate{
+            margin-top: 5px;
+        }
+       /*end #firstDate (경력 시작일 div)*/
+
+       /* 경력 종료일 div*/
+       #lastDate{
+            margin-top: 30px;
+        }
+        /*end #lastDate (경력 종료일 div)*/
+
+
+
+        /*!*경력 시작일과 종료일 유효성 검사 문구*!*/
+        /*#firstDate .caution,#lastDate .caution{*/
+        /*    font-size: 10px;*/
+        /*    float:left;*/
+        /*    color: #f00;*/
+        /*}*/
+        /*!*end #firstDate .caution, #lastDate .caution (경력 시작일과 종료일 유효성 검사문구)*!*/
+
+
+        /*경력 "등록 완료!" 버튼*/
+        #career #careerInputBtn{
+            clear: both;
+            width:298px;
+            height:30px;
+            background-color: #f91b4e;
+            color: #fff;
+            border: 1px solid #f91b4e;
+            font-family: "Noto Sans KR";
+            font-weight: 400;
+            left: 0px;
+            bottom:0px;
+            position: absolute;
+
+        }
+        /*end #career #careerInputBtn (경력 "등록 완료!" 버튼)*/
+
+
+    /*    자격증 자동 완성 */
+        #autocompleteArea{
+            width:480px;
+
+
+            margin-left: 20px;
+            display: none;
+        }
+    /*    end 자격증 자동완성*/

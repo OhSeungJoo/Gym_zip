@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+    <link rel="stylesheet" href="css/review_check.css">
+    <link rel="stylesheet" href="css/review_text.css">
+</head>
+<body>
+<div class="review_container">
+<!--리뷰 체크 박스 형식 컨테이너-->
+<div class="review_check_container">
+    <div class="title_text">강의의 장점을 선택해주세요<p>중복 선택 가능 합니다.</p></div>
+    <!--    리뷰 체크 박스들-->
+    <div class="review_check_box">
+        <label class="review_check"><input type="checkbox" name="reviewCheck" value="강의내용"><span>강의내용</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="전달력"><span>전달력</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="운동효과"><span>운동효과</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="준비성"><span>준비성</span></label><!--
+        --><label class="review_check"><input type="checkbox" name="reviewCheck" value="친절도"><span>친절도</span></label>
+
+    </div>
+    <!-- end    리뷰 체크 박스들-->
+
+
+    <!--    버튼들-->
+    <div class="button_box">
+        <button class="close_btn"><i class="fas fa-times"></i></button>
+        <button class="ok_btn">확인</button>
+    </div>
+    <!--    end 버튼 들-->
+</div>
+<!--end 리뷰 체크 박스 형식 컨테이너-->
+<!--리뷰 텍스트 컨테이너-->
+<div class="review_text_container">
+    <div class="title_text">강의 내용에 대해서 평가를 해주세요</div>
+    <!--    리뷰 텍스트 박스-->
+    <div class="review_text_box">
+        <div class="write_review">리뷰 작성</div>
+        <div><textarea class="review_text" placeholder="내용을 입력해주세요" name="reviewText"></textarea></div>
+    </div>
+    <!-- end 리뷰 텍스트 박스-->
+
+
+    <!--    버튼들-->
+    <div class="button_box">
+        <button class="close_btn"><i class="fas fa-times"></i></button>
+        <button class="ok_btn">작성완료</button>
+    </div>
+    <!--    end 버튼 들-->
+</div>
+<!--end 리뷰 텍스트 컨테이너-->
+</div>
+<script src="js/jquery.js"></script>
+<SCRIPT>
+    $(".review_check_container .ok_btn").on("click",function () {
+        $(".review_text_container").css("display","block");
+    });
+
+
+    $(".review_container .close_btn").on("click",function () {
+        $(".review_container").css("display","none");
+
+    });
+
+    $(".review_text_container .ok_btn").on("click",function () {
+        $(".review_container").css("display","none");
+
+    });
+
+</SCRIPT>
+</body>
+</html>

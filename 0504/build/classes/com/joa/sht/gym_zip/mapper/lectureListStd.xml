@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lectureListStd">
+
+	<update id="updateLecutreStartDate" parameterType="LectureListStd">
+		UPDATE lecture_list_std
+		SET start_date=#{startDate}, end_date=#{startDate}+period
+		WHERE member_no=#{memberNo} AND no=#{no}
+	</update>
+	
+	<select id="selectList" parameterType="LectureListStd" resultType="LectureListStd">
+		SELECT end_date endDate, start_date startDate 
+		FROM lecture_list_std
+		WHERE no=#{no} AND member_no=#{memberNo}
+	</select>
+
+	<!-- 오승주 -->
+	<!-- 0122 수강생 강의 결제시 lecture_list_std 레코드 추가  -->
+	<insert id="insertLectureList" parameterType="LecturePayment">
+	INSERT INTO lecture_list_std
+	(no,lecture_no,member_no,period,my_kcal,regdate,view_count)
+	VALUES
+	(lecture_list_std_seq.nextval,#{lectureNo},#{memberNo},#{period},0,sysdate,0)
+	</insert>
+	<!-- end 0122 수강생 강의 결제시 lecture_list_std 레코드 추가 -->
+	
+	<!-- 0122 lecture_list_std no 구하기 -->
+	<select id="selectLectureListStdNo" resultType="int" parameterType="LecturePayment">
+	SELECT no
+	FROM(SELECT no, rownum r
+	FROM(SELECT no
+	FROM lecture_list_std
+	WHERE lecture_no=#{lectureNo} AND member_no=#{memberNo}
+	ORDER BY regdate DESC))
+	WHERE r=1
+	</select>
+	<!-- end lecture_list_std no 구하기 -->
+	
+	<!-- 0122 이미 수강한 강의 인지 확인  -->
+	<select id="selectTakeLecture" resultType="int" parameterType="LectureListStd">
+	SELECT COUNT(*)
+	FROM lecture_list_std
+	WHERE lecture_no=#{lectureNo} AND member_no=#{memberNo}
+	</select>
+	<!-- end 0122 이미 수강한 강의 인지 확인  -->
+	
+</mapper>

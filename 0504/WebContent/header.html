@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>GYM.zip</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/notosanskr.css">
+    <link rel="icon" href="img/logo_coral.ico">
+
+    <style>
+        body{
+            font-family: "Noto Sans KR",sans-serif;
+
+        }
+        #header{
+            width: 100%;
+            height: 80px;
+            background-color: #fff;
+            box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+        }
+
+        .aux {
+            width:1100px;
+            margin:auto;
+            position: relative;
+        }
+
+        .logo{
+            margin-top: 20px;
+        }
+        .logo a{
+            width: 50px;
+            height: 50px;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: bold;
+            color: #f91b4e;
+        }
+        .logo img{
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+
+        }
+
+        .logo strong{
+            vertical-align: middle;
+
+        }
+        .search_box{
+            position: absolute;
+            left:200px;
+            top: 10px;
+        }
+        .search_box:hover{
+            background-color: rgba(66,66,66,0);
+            border-radius:50px 50px 50px 50px;
+            box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+        }
+        .search_text{
+            height: 30px;
+            border-color: rgb(204, 204, 204);
+            border-radius:50px 50px 50px 50px;
+        }
+        .search_btn {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            margin-left: -30px;
+            border-radius: 45%;
+            cursor: pointer;
+        }
+        .header_nav{
+            position: absolute;
+            left:500px;
+            top:0px;
+        }
+        .header_nav li{
+            float: left;
+        }
+        .header_nav li a{
+            width: 100px;
+            height: 50px;
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            line-height: 50px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #f91b4e;
+        }
+        .global_profile{
+            position: absolute;
+            right: 20px;
+            top: 0px;
+        }
+        .profile_btn{
+            width: 100px;
+            height: 50px;
+            background-color: white;
+            border-radius: 25px 25px;
+            cursor: pointer;
+        }
+        .fa-user{
+            width: 40px;
+            height:40px;
+            line-height: 40px;
+            font-size: 25px;
+            margin-right: 20px;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="header">
+    <div class="aux">
+    <h1 class="logo">
+        <a href="" ><img src="img/logo_coral.png"><strong> GYM.zip</strong></a>
+    </h1>
+
+    <div class="search_box">
+        <div>
+            <input class="search_text" />
+            <button class="search_btn"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <div class="header_nav">
+        <ul>
+            <li><a href="" >운동</a></li>
+            <li><a href="" >강의</a></li>
+            <li><a href="" >코칭</a></li>
+            <li> <a href="" >BM</a></li>
+        </ul>
+    </div>
+
+    <div class="global_profile">
+        <button class="profile_btn"><i class="fas fa-user"></i><span>▼</span></button>
+    </div>
+    </div>
+</div> <!--header END-->
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+ 	#coachLectureTab .lecture_box{
+            width:800px;
+            margin:auto;
+        }
+        /*end lectureBox*/
+
+        .lecture_box>ul{
+            width:800px;
+           /*  height:180px; */
+
+        }
+        /*end lectureList*/
+        
+         /*강의 등록*/
+        #registerMyLecture{
+            width: 100px;
+            height: 40px;
+            position: absolute;
+            right: 30px;
+            top: -30px;
+        }
+        
+   
+        #registerMyLecture button{
+            width: 100px;
+            height: 40px;
+            border:1px solid #f91b4e;
+            border-radius: 35px;
+            background-color: #fff;
+            font-size: 18px;
+            color: #f91b4e;
+            font-family: "Noto Sans KR", sans-serif;
+            font-weight: 400;
+            outline: none;
+            cursor: pointer;
+            transition: .2s linear;
+        }
+
+        #registerMyLecture button:active{
+            width: 90px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        .lecture_box ul .lecture_list{
+            height:220px;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+           
+        }
+        /*end 강의 목록 리스트*/
+
+        .lecture_box ul .lecture_list>div{
+            position: absolute;
+        }
+
+        /*강의 이미지*/
+        #coachLectureTab .lecture_box .lecture_img{
+            width: 300px;
+            height:200px;
+            background-color: black;
+            top:0px;
+            left:0px;
+            position:relative;
+            margin:10px 0;
+        }
+        /* end 강의 이미지   */
+
+
+
+
+        /*강의 이름*/
+        .lecture_name{
+            top:50px;
+            left:320px;
+            font-size: 25px;
+            font-weight: 600;
+        }
+        /*end 강의 이름*/
+
+
+
+        .coach_inform>div{
+            display: inline-block;
+
+        }
+        
+        /*    공개 여부*/
+        .lecture_box .l_open_toggle{
+            width:90px;
+            height:40px;
+
+            bottom:40px;
+            right:30px;
+        }
+    /*    end 공개 여부*/
+
+    /*    공개 여부 내부 체크 박스*/
+        .l_toggle span{
+            display: inline-block;
+            width:100px;
+            height:40px;
+            /*height크기의 절반 이상이면 됨*/
+            border-radius: 40px;
+            background-color: #bbb;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+
+        /*input을 숨김*/
+        .l_toggle input[type=checkbox]{
+            display: none;
+        }
+
+        .l_toggle input:checked+span{
+            background-color: rgb(249,27,78);
+        }
+
+        .l_toggle span::before{
+            content: "";
+            display: inline-block;
+            width:28px;
+            height: 28px;
+            background-color: #fff;
+            border-radius: 28px;
+            margin: 5px;
+            transition: .2s ease;
+        }
+
+        .l_toggle span::after{
+            content: "비공개";
+
+            display: inline-block;
+            width:50px;
+            height: 40px;
+            line-height: 40px;
+
+      position:absolute;
+            transition: .2s ease;
+        }
+
+        .l_toggle input:checked+span::before{
+            transform: translateX(60px);
+        }
+
+        .l_toggle input:checked+span::after{
+            content: "공개";
+            transform: translateX(-30px);
+        }
+    /*    end 공개 여부 내부 체크 박스*/

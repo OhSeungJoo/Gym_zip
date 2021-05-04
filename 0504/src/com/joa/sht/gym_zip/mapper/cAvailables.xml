@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cAvailables">
+
+<!--0207 박해원  코칭 가능요일 insert하기전 전부 delete-->
+<delete id="deleteAvailable" parameterType="int">
+
+	DELETE FROM c_available 
+	WHERE coach_no=#{no}
+	
+</delete>
+
+<!--0207 박해원  코칭 가능요일 insert-->
+<insert id="insertAvailable" parameterType="CAvailable">
+	insert into (no,day,times,coach_no,on_off)
+	values (C_AVAILABLE_SEQ.nextval,#{days},#{times},#{coachNo},0)
+
+</insert>
+
+
+<!--0207 박해원  코칭 가능요일 update-->
+<update id="updateAvailable" parameterType="CAvailable">
+	UPDATE c_available
+	SET on_off=1
+	WHERE coach_no=#{coachNo} AND days=#{days} AND times=#{times}
+</update>
+
+<!--0207 박해원  코칭 가능요일 update-->
+<update id="updateAvailableZero" parameterType="int">
+	UPDATE c_available
+	SET on_off=0
+	WHERE coach_no=#{coachNo}
+</update>
+
+
+</mapper>
